@@ -13,10 +13,10 @@ export default function Layout() {
     const [focusInterval, setFocusInterval] = useState("")
     const [breakInterval, setBreakInterval] = useState("")
     useEffect (() => {
-        setBreakInterval(() => timer.getBreakInterval())
-        setFocusInterval (() => timer.getFocusInterval())
+        setBreakInterval(() => timer.getBreak())
+        setFocusInterval (() => timer.getFocus())
         if (timer.getSetTimer() && session === null) {
-             setSession (() => timer.getStoredSession())      
+             setSession (() => timer.getSession())      
         } else {
              setSession (() => session);
         }
@@ -44,13 +44,13 @@ export default function Layout() {
                     setSession = {setSession}   
                 />
             </div>
-            <header className = "navigation col-3"                
+            <header className = "navigation col-2"                
                 >
                     <Nav />
             </header>
             <div className ="container-fluid row m-0 p-0"
                 >
-                <div className ="col-3"></div>
+                <div className ="col-2"></div>
                 <main className = "col"> 
                     <MainLayout 
                         ntBkSelected = {ntBkSelected}

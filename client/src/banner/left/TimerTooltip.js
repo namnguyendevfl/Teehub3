@@ -13,8 +13,8 @@ export default function TimerToolTip (props) {
     const handleFocus = ({target}) => setFocusInterval(() => target.value)
     const handleBreak = ({target}) => setBreakInterval(() => target.value)    
     const handleClick = () => {
-        timer.saveFocusInterval(focusInterval);
-        timer.saveBreakInterval(breakInterval);
+        timer.saveFocus(focusInterval);
+        timer.saveBreak(breakInterval);
         //Switch the "pause" state variable when the playPause button is clicked 
         setIsTimerRunning((prevState) => {
           timer.saveSetTimer(true)
@@ -29,7 +29,7 @@ export default function TimerToolTip (props) {
                   process:0,
                   numSession: 1
                 };
-                timer.saveStoredSession(initialSession)
+                timer.saveSession(initialSession)
                 return initialSession
               }
               return prevStateSession;

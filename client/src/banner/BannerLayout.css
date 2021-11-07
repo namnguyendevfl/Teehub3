@@ -52,6 +52,7 @@
     .toolTip {
         position: relative;
         border-radius: 8px;
+        z-index: 10
     }
     .tooltiptext, .toolTipBar {
         font-size: smaller;

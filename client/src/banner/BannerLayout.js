@@ -1,5 +1,5 @@
 import React from "react";
-import "./Banner.css";
+import "./BannerLayout.css";
 import LeftBanner from "./left/LeftBanner";
 import ProgressBar from "./progressBar/ProgressBar";
 import RightBanner from "./right/RightBanner";

@@ -26,6 +26,7 @@ export default function NonTiming (props) {
         if ((targetId !== "timer" && targetId !== "timerToolTip") && (toolTipDisplay))
         return setToolTipDisplay(() => false)
     })  
+    
     return <ul className = "nav ">
         <li className = "nav-item me-3">  
             <button className = "button "> logo

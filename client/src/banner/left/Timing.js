@@ -41,7 +41,7 @@ export default function Timing(props) {
         timeElapsed,
         timeElapsedPercent
     }
-    timer.saveStoredSession(session)
+    timer.saveSession(session)
     return session
   }  
   
@@ -80,9 +80,9 @@ export default function Timing(props) {
         event.preventDefault();
         setIsTimerRunning(() => false);
         setSession(()=>null);
-        timer.dltStoredSession();
-        timer.dltBreakInterval();
-        timer.dltFocusInterval();
+        timer.dltSession();
+        timer.dltBreak();
+        timer.dltFocus();
         timer.saveSetTimer(false) 
     }
         
