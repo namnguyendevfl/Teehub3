@@ -1,7 +1,13 @@
+.container-fluid {
+    height: 100vh;
+}  
+
 .banner {
     height: 60px;
     width: 100%;
     position: fixed;
+    background: white;
+    z-index: 2;
   }
   
 .bannerMain {
@@ -17,6 +23,7 @@
     padding-right: 8px;
     overflow-y:scroll;
     overflow-x:hidden;
+    z-index: 1;
 }
 .navigation::-webkit-scrollbar {
     width: 8px;   
@@ -35,6 +42,11 @@
     transition-delay: 1s;   
 }  
 
+.main {
+    position: relative;
+    top: 80px;
+}
+
 .complementary {
     top: 80px;
     right: 0px;
@@ -43,7 +55,6 @@
     overflow-y:scroll;
     overflow-x:hidden;
     padding-right: 8px; 
-    z-index:-1
   }
 .complementary::-webkit-scrollbar {
     width: 8px;   
@@ -62,19 +73,9 @@
     transition-delay: 1s;   
 }  
 
-.container-fluid {
-  position: relative;
-  top: 80px;
-  z-index:-1
-}  
+
 
 /* set z-index -1 so it will stay under other elements */
-.main {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 80px !important;
-    height: 100vh;
-}
   
 .footer {
     position: fixed;

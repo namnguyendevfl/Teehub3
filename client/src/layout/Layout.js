@@ -31,7 +31,7 @@ export default function Layout() {
     const [ displayCom, setDisplayCom ] = useState(true)
     return(
         <>
-        <div className = "background">
+        <div className = "container-fluid">
             <div className = "banner">
                 <BannerLayout 
                     isTimerRunning = {isTimerRunning} 
@@ -46,9 +46,18 @@ export default function Layout() {
             </div>
             <header className = "navigation col-2"                
                 >
-                    <Nav />
+                    <Nav 
+                        ntBkSelected = {ntBkSelected}
+                        setNtBkSelected = {setNtBkSelected}
+                        chapSelected = {chapSelected}
+                        setChapSelected = {setChapSelected}
+                        displayNav = {displayNav}
+                        setDisplayNav = {setDisplayNav}
+                        displayCom = {displayCom}
+                        setDisplayCom = {setDisplayCom}             
+                    />
             </header>
-            <div className ="container-fluid row m-0 p-0"
+            <div className ="main row m-0 p-0"
                 >
                 <div className ="col-2"></div>
                 <main className = "col"> 

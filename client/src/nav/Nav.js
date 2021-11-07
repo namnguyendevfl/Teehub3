@@ -1,7 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-export default function Nav({setNtBkSelected, setChapSelected}) {
+export default function Nav(props) {
+    const {
+        ntBkSelected,
+        setNtBkSelected, 
+        chapSelected, 
+        setChapSelected, 
+        displayNav, 
+        setDisplayNav, 
+        displayCom, 
+        setDisplayCom, 
+    } = props    
     const options = ['Notebooks', 'Flashcards', 'Practice', 'Practice', 'Practice','Practice','Practice','Practice','Practice','Practice', 'Practice', 'Practice','Practice','Practice', 'Practice', 'Practice']
     const navigate = useNavigate();
     const menuList = options.map((option, idx) => {
@@ -11,13 +21,13 @@ export default function Nav({setNtBkSelected, setChapSelected}) {
             // window.localStorage.setItem('notebooks', JSON.stringify([]))
             // when click on the left menu, it's gonna push to the url bellow
             switch (option) {
-                case "Notebooks":  navigate.push("/notebooks") 
+                case "Notebooks":  navigate("/notebooks") 
                     break;
-                case "Flashcards":  navigate.push("/flashcards")
+                case "Flashcards":  navigate("/flashcards")
                     break;
-                case "Practice":  navigate.push("/practice")
+                case "Practice":  navigate("/practice")
                     break;  
-                default: navigate.push("/home")
+                default: navigate("/home")
                     break;
             }
         }

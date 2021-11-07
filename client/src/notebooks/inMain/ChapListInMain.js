@@ -41,7 +41,6 @@ export default function ChapterList(props) {
     ))
     return (
         <>
-        <div> This is the chapter list</div>
         <h3 className = "m-0 text-center py-2 "> {ntBkToDisplay.title} </h3>
         <hr className ="m-0 p-0"/>
         <ul className = "list-group">
