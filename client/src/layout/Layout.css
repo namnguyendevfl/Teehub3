@@ -1,0 +1,85 @@
+.banner {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+  }
+  
+.bannerMain {
+    height: 80px;
+}
+/* using navigation instead of nav to not to mess up with bootstrap nav  */
+.navigation {
+    top: 80px;
+    bottom:0;
+    position:fixed;
+    /* overflow-y:scroll;
+    overflow-x:hidden; */
+    padding-right: 8px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.navigation::-webkit-scrollbar {
+    width: 8px;   
+} 
+.navigation:hover::-webkit-scrollbar-track {
+    background-color: #e9ecef; 
+    transition-delay: 3s; 
+    transition-property: background-color;   
+}
+/* .navigation::-webkit-scrollbar-track {
+  background: none;     
+} */
+.navigation:hover::-webkit-scrollbar-thumb {
+    transition-delay: 3s; 
+    transition-property: background-color; 
+    background-color: #aaa;    
+    border-radius: 20px; 
+    transition-delay: 1s;   
+}  
+
+.complementary {
+    top: 80px;
+    right: 0px;
+    bottom: 0;
+    position:fixed;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding-right: 8px;  
+  }
+.container-fluid {
+  position: relative;
+  top: 80px;
+}  
+.main {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px !important;
+    height: 100vh
+}
+  
+  .footer {
+    position: fixed;
+    bottom: 80px;
+  }
+  .complementaryBar {
+    position: fixed;
+    top:80px;
+  }
+  
+  .popup {
+    position: fixed;
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px; /* Negative half of height. */
+    margin-left: -250px;
+    /* width: 300px;
+    height: 200px; */
+    /* transform: translateY(100%) translateY(-7rem); */
+    background-color: blue;
+  }
+  
+  
+ 

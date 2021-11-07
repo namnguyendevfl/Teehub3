@@ -1,0 +1,139 @@
+.notebooks {
+    position: fixed;
+    right: 0px;
+    top: 80px;
+    background-color: white;
+    z-index: 2;
+}
+
+/* Option Bar */
+.optionBar {
+    background: none ;
+}
+.ntbkBtn {
+    border: none;
+    outline: none;
+    background: none !important;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ntbkBtn:hover {
+    background: lightgray !important;
+    border-radius: 50%;
+} 
+.ntbkDropdown:hover {
+    background: #636a70 !important;
+    border-radius: 8px;
+
+}
+.ntbkBar:hover {
+    background: none !important;
+}
+
+.dropdownListBox {
+    position: absolute;
+    border-radius: 8px;
+    z-index: 15;
+    background-color: black;
+    left: 26px;
+    right: 12px;
+}
+
+.optionBox {
+    width : 450px;
+    height: 300px;
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    z-index: 10 !important;
+    opacity: 1 !important;
+    box-shadow: 0px 2px 15px 5px lightgrey;
+    border-radius: 8px;
+}
+
+
+.boxList {
+    height: 180px;
+    overflow-x: hidden ;
+    overflow-y: auto;
+    
+}
+
+
+.save {
+    background: #0d6efd;
+    color:white !important;  
+    border-radius: 8px !important;
+    z-index: 12; 
+}
+
+.save:hover {
+    opacity: 0.9;
+    background: #0d6efd !important;
+}
+.list-group-item {
+    outline: none;
+    border: none;
+
+}
+
+
+.addList {
+    width: 450px;
+
+}
+.orderList {
+    list-style-type: none;
+    width: 32px;
+    height: 50px !important;
+    overflow: auto;
+    text-align: center;
+    z-index: 11;
+
+}
+/* .dlt:hover  */
+/* remove input hover from .list-group-item */
+.createInput:hover, .dlt:hover, .ntbkInRightMenu:hover, .addList:hover {
+    background-color: white !important;
+}
+
+.number {
+    width:25px;
+    /* padding-left: 5px; */
+}
+
+.number::placeholder{
+    color: #90979c;
+    padding-left: 3px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+  }
+/* Style the dropdown */
+.dropdown {
+    /* background-color: white !important; */
+    background-color: none !important;
+    color: black !important;
+    outline: none;
+    border:none;
+    box-shadow: none !important
+}
+
+.dropdown:hover {
+    /* background-color: lightgray !important; */
+    background-color: none !important;
+    color: black;
+}
+
+.dropdown:focus {
+    outline: none !important;
+    border: none !important;
+    /* background-color: lightgray !important; */
+    background-color: none !important;
+    box-shadow: none;
+}
