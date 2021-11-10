@@ -1,51 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ntbks, chaps } from "../../utils/data/notebooks";
-import { useParams, useLocation } from "react-router-dom"
+import { ntbks, chaps } from "../../utils/localStorage/notebooks";
+import { chapSelectedUrl } from "../../utils/localStorage/urls";
+import DnD from "../../utils/dnd/DnD";
 
 export default function ChapterList(props) {
     const {
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
-        displayLeftMain, 
-        setDisplayLeftMain, 
-        displayRightMain, 
-        setDisplayRightMain, 
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
+        displayNav, 
+        setDisplayNav, 
+        displayCom, 
+        setDisplayCom, 
     } = props
-    // console.log("chaps in main")
-    const chapters = chaps.getChapList()
-    const ntBkSelectedLcalStorg = ntbks.getNtBkSelected()
-    const ntBkToDisplay = (ntBkSelected) ? ntBkSelected : ntBkSelectedLcalStorg
-    //In case when we refresh, the ntBkSelected is still available 
-    const chapsSelected = chapters.filter((chapter, idx) => chapter.bookId === ntBkToDisplay.id);
-    const url = useLocation().pathname;
-    const chapterList = chapsSelected.map((chapter,idx) => (
-        <li className = "list-group-item m-0 p-0 w-100">
+    const [ chapters, setChapters ] = useState(chaps.getChaps())
+    useEffect(() => { setChapters(() => chaps.getChaps()) }, [chapAlteredCount])
+    const chapsSelected = chapters.filter((chapter, idx) => chapter.bookId === ntbkSelected.id);
+    const chapterList = chapsSelected.map((chapter,idx) => {
+        return(<li className = "list-group-item m-0 p-0 w-100">
             <Link   className = "link"
-                    to = {`${url}/${chapter.title.replaceAll(" ","-")}`} 
+                    to = {`${chapter.title.replaceAll(" ","-")}`} 
+                    // to = {`${url}/${chapter.title.replaceAll(" ","-")}`} 
                     >
                 <button className = "list-group-item w-100 m-0 text-start"
                     onClick = {(e) => {
                         // e.preventDefault();. Cant use it overhere b/c Link will not work
                         setChapSelected (() => chapter);
                         chaps.saveChapSelected(chapter);
-                        // To make Link work over here, you have to use Route over here. To store selectedBook after refesh, we need to use localStorage
                     }}
             > 
                 {chapter.title}
             </button>
             </Link>
         </li>
-    ))
+    )})
     return (
         <>
-        <h3 className = "m-0 text-center py-2 "> {ntBkToDisplay.title} </h3>
+        <div className = "bg-white">
+        <div    className = "w-100 d-flex justify-content-center align-items-center "
+            style = {{height:"40px"}}
+            >
+        <h3 className = "m-0 text-center "> {ntbkSelected.title} </h3>
+        </div>
         <hr className ="m-0 p-0"/>
         <ul className = "list-group">
             {chapterList}
         </ul>
+        </div>
+        {/* <DnD chapters = {chapsSelected} /> */}
         </>
     )
 }

@@ -6,10 +6,16 @@ import TopicList from "../notebooks/inMain/TopicListInMain";
 
 export default function NotebookRoute(props) {
     const {
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
         displayNav, 
         setDisplayNav, 
         displayCom, 
@@ -21,28 +27,57 @@ export default function NotebookRoute(props) {
             <Route  path = "/" 
                     element = {
                         <NtbkList  
-                            ntBkSelected = {ntBkSelected}
-                            setNtBkSelected = {setNtBkSelected}
+                            ntbkSelected = {ntbkSelected}
+                            setNtbkSelected = {setNtbkSelected}
+                            ntbkAlteredCount = {ntbkAlteredCount} 
+                            setNtbkAlteredCount = {setNtbkAlteredCount}  
                             chapSelected = {chapSelected}
                             setChapSelected = {setChapSelected}
+                            chapAlteredCount = {chapAlteredCount}
+                            setChapAlteredCount = {setChapAlteredCount}
+                            topicAlteredCount = {topicAlteredCount}
+                            setTopicAlteredCount = {setTopicAlteredCount}
                             displayNav = {displayNav}
                             setDisplayNav = {setDisplayNav}
                             displayCom = {displayCom}
-                            setDisplayCom = {setDisplayCom}         
+                            setDisplayCom = {setDisplayCom}                
                         />} />
             <Route path = ":bookId" 
                     element = {
                         <ChapterList 
-                            ntBkSelected = {ntBkSelected}
-                            setNtBkSelected = {setNtBkSelected}
+                            ntbkSelected = {ntbkSelected}
+                            setNtbkSelected = {setNtbkSelected}
+                            ntbkAlteredCount = {ntbkAlteredCount} 
+                            setNtbkAlteredCount = {setNtbkAlteredCount}  
                             chapSelected = {chapSelected}
                             setChapSelected = {setChapSelected}
+                            chapAlteredCount = {chapAlteredCount}
+                            setChapAlteredCount = {setChapAlteredCount}
+                            topicAlteredCount = {topicAlteredCount}
+                            setTopicAlteredCount = {setTopicAlteredCount}
                             displayNav = {displayNav}
                             setDisplayNav = {setDisplayNav}
                             displayCom = {displayCom}
-                            setDisplayCom = {setDisplayCom}                      
+                            setDisplayCom = {setDisplayCom}                             
                         />}/>
-            <Route path =":bookId/:chapterId" element = {<TopicList />} />
+            <Route path =":bookId/:chapterId" 
+                    element = {
+                    <TopicList 
+                        ntbkSelected = {ntbkSelected}
+                        setNtbkSelected = {setNtbkSelected}
+                        ntbkAlteredCount = {ntbkAlteredCount} 
+                        setNtbkAlteredCount = {setNtbkAlteredCount}  
+                        chapSelected = {chapSelected}
+                        setChapSelected = {setChapSelected}
+                        chapAlteredCount = {chapAlteredCount}
+                        setChapAlteredCount = {setChapAlteredCount}
+                        topicAlteredCount = {topicAlteredCount}
+                        setTopicAlteredCount = {setTopicAlteredCount}
+                        displayNav = {displayNav}
+                        setDisplayNav = {setDisplayNav}
+                        displayCom = {displayCom}
+                        setDisplayCom = {setDisplayCom}                          
+                        />} />
         </Routes>
     )
 }

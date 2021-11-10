@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { duration } from "../../utils/duration/duration";
 import { leftBanner } from "../../utils/icons/banner/leftBanner";
-import { timer } from "../../utils/data/timer";
+import { timer } from "../../utils/localStorage/timer";
 
 export default function Timing(props) {
     const { 

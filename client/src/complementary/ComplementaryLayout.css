@@ -1,49 +1,60 @@
 .notebooks {
     position: fixed;
+    width: inherit;
     right: 0px;
     top: 80px;
-    background-color: white;
-    z-index: 2;
+    border-radius:8px;
+    background-color: #e9ecef;
+    /* z-index: 2; */
 }
-
+.offsetNtbk {
+    height: 112px;
+}
 /* Option Bar */
 .optionBar {
     background: none ;
 }
-.ntbkBtn {
+
+.optionBarExpand {
+    background: none;
+}
+
+.ntbkBtn, .offsetNtbkBtn {
     border: none;
     outline: none;
     background: none !important;
+    /* background: blue !important; */
     border-radius: 50%;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
+
 
 .ntbkBtn:hover {
     background: lightgray !important;
     border-radius: 50%;
 } 
+
 .ntbkDropdown:hover {
     background: #636a70 !important;
     border-radius: 8px;
-
 }
 .ntbkBar:hover {
     background: none !important;
 }
-
 .dropdownListBox {
     position: absolute;
+    max-height: 50vh;
     border-radius: 8px;
     z-index: 15;
     background-color: black;
-    left: 26px;
+    left: -12px;
     right: 12px;
 }
-
 .optionBox {
     width : 450px;
     height: 300px;
@@ -55,23 +66,17 @@
     box-shadow: 0px 2px 15px 5px lightgrey;
     border-radius: 8px;
 }
-
-
 .boxList {
     height: 180px;
     overflow-x: hidden ;
-    overflow-y: auto;
-    
+    overflow-y: auto; 
 }
-
-
 .save {
     background: #0d6efd;
     color:white !important;  
     border-radius: 8px !important;
     z-index: 12; 
 }
-
 .save:hover {
     opacity: 0.9;
     background: #0d6efd !important;
@@ -79,13 +84,9 @@
 .list-group-item {
     outline: none;
     border: none;
-
 }
-
-
 .addList {
     width: 450px;
-
 }
 .orderList {
     list-style-type: none;
@@ -94,19 +95,20 @@
     overflow: auto;
     text-align: center;
     z-index: 11;
-
 }
 /* .dlt:hover  */
 /* remove input hover from .list-group-item */
+.createInput{
+    border:none;
+    outline:none
+}
 .createInput:hover, .dlt:hover, .ntbkInRightMenu:hover, .addList:hover {
     background-color: white !important;
 }
-
 .number {
     width:25px;
     /* padding-left: 5px; */
 }
-
 .number::placeholder{
     color: #90979c;
     padding-left: 3px;
@@ -123,17 +125,63 @@
     border:none;
     box-shadow: none !important
 }
-
 .dropdown:hover {
     /* background-color: lightgray !important; */
     background-color: none !important;
     color: black;
 }
-
 .dropdown:focus {
     outline: none !important;
     border: none !important;
     /* background-color: lightgray !important; */
     background-color: none !important;
     box-shadow: none;
+}
+
+/* notebook expand */
+.ntbkExpandToRight, .ntbkBtnExpandToRight, .ntbkBtnExpandToRightBg {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    background: none;
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    width: 32px;
+    height: 32px;
+}
+
+.ntbkExpandToRight {
+    position: absolute;
+    left: -64px;
+    top: -24px;
+    width: 80px !important;
+    height: 80px !important; 
+}
+.ntbkBtnExpandToRight {
+    background: black!important;
+    color:white !important;
+    /* background: white!important; */
+    box-shadow: 0px 1px 4px 1px lightgrey;  
+    z-index: 2!important;
+}
+
+.ntbkBtnExpandToRight:hover {
+    opacity: 0.8 !important;;
+}
+
+.ntbkEscapeFromExpand {
+    position: absolute;
+    top: -24px;
+    width: 80px !important;
+    height: 80px !important; 
+    z-index: 1;
+    /* border: 1px solid red     */
+}
+
+.ntbkBtnExpand {
+    color:white !important
 }

@@ -1,35 +1,49 @@
 import React from "react";
 import { Routes,Route } from "react-router-dom";
-
 import Home from "../home/Home";
+import { ntbks, chaps } from "../utils/localStorage/notebooks";
 import NotebookRoute from "./NotebookRoute";
 
 export default function MainLayout(props) {
     const {
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
         displayNav, 
         setDisplayNav, 
         displayCom, 
         setDisplayCom, 
     } = props
+    const ntbkToDisplay = ntbkSelected ? ntbkSelected : ntbks.getNtbkSelected()
+    const chapToDisplay = chapSelected ? chapSelected : chaps.getChapSelected()
     return (
         <>
-        {/* <BrowserRouter > */}
         <Routes>
             <Route path = "/" element = {<Home />}/>
             <Route  path = "notebooks/*" 
                     element = {<NotebookRoute 
-                        ntBkSelected = {ntBkSelected}
-                        setNtBkSelected = {setNtBkSelected}
-                        chapSelected = {chapSelected}
+                        ntbkSelected = {ntbkToDisplay}
+                        setNtbkSelected = {setNtbkSelected}
+                        ntbkAlteredCount = {ntbkAlteredCount} 
+                        setNtbkAlteredCount = {setNtbkAlteredCount}  
+                        chapSelected = {chapToDisplay}
                         setChapSelected = {setChapSelected}
+                        chapAlteredCount = {chapAlteredCount}
+                        setChapAlteredCount = {setChapAlteredCount}
+                        topicAlteredCount = {topicAlteredCount}
+                        setTopicAlteredCount = {setTopicAlteredCount}
                         displayNav = {displayNav}
                         setDisplayNav = {setDisplayNav}
                         displayCom = {displayCom}
-                        setDisplayCom = {setDisplayCom} 
+                        setDisplayCom = {setDisplayCom}                
+   
                     />}
             />
                 {/* <div className = "bg-white"> */}
@@ -45,7 +59,6 @@ export default function MainLayout(props) {
                 /> */}
                 {/* </div> */}
         </Routes>
-        {/* </BrowserRouter> */}
         </>
     )
 }

@@ -1,88 +1,101 @@
 import React from "react";
+import { ntbks, chaps } from "../../../../utils/localStorage/notebooks";
+import DltChapter from "../../chap/DltChap";
+import DltNtBk from "../../notebook/DltNtbk";
+import DltTopic from "../../topic/DltTopic";
 
 export default function Dlt(props){
     const {
-        option,
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
-        displayLeftMain, 
-        setDisplayLeftMain, 
-        displayRightMain, 
-        setDisplayRightMain, 
-        optionBarUrl,
-        setOptionBarUrl, 
-        dropdown, 
-        setDropdown
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
+        displayNav, 
+        setDisplayNav, 
+        displayCom, 
+        setDisplayCom, 
+        option,
+        dropdown,
+        setDropdown,
     } = props
-  
+    if (!ntbkSelected) {
+        return (
+            <>
+                < DltNtBk
+                    option = {option} 
+                    ntbkSelected = {ntbkSelected}
+                    setNtbkSelected = {setNtbkSelected}
+                    ntbkAlteredCount = {ntbkAlteredCount} 
+                    setNtbkAlteredCount = {setNtbkAlteredCount}  
+                    chapSelected = {chapSelected}
+                    setChapSelected = {setChapSelected}
+                    chapAlteredCount = {chapAlteredCount}
+                    setChapAlteredCount = {setChapAlteredCount}
+                    topicAlteredCount = {topicAlteredCount}
+                    setTopicAlteredCount = {setTopicAlteredCount}
+                    displayNav = {displayNav}
+                    setDisplayNav = {setDisplayNav}
+                    displayCom = {displayCom}
+                    setDisplayCom = {setDisplayCom} 
+                    dropdown = {dropdown}
+                    setDropdown = { setDropdown }   
+                />
+            </>
+        )
+    }
+
+    if (!chapSelected) {
+        return (
+            <>
+                <DltChapter  
+                      option = {option} 
+                      ntbkSelected = {ntbkSelected}
+                      setNtbkSelected = {setNtbkSelected}
+                      ntbkAlteredCount = {ntbkAlteredCount} 
+                      setNtbkAlteredCount = {setNtbkAlteredCount}  
+                      chapSelected = {chapSelected}
+                      setChapSelected = {setChapSelected}
+                      chapAlteredCount = {chapAlteredCount}
+                      setChapAlteredCount = {setChapAlteredCount}
+                      topicAlteredCount = {topicAlteredCount}
+                      setTopicAlteredCount = {setTopicAlteredCount}
+                      displayNav = {displayNav}
+                      setDisplayNav = {setDisplayNav}
+                      displayCom = {displayCom}
+                      setDisplayCom = {setDisplayCom} 
+                      dropdown = {dropdown}
+                      setDropdown = { setDropdown }    
+                />           
+            </>
+        )
+    }
     return (
         <>
-        This is deleted
+            <DltTopic 
+                  option = {option} 
+                  ntbkSelected = {ntbkSelected}
+                  setNtbkSelected = {setNtbkSelected}
+                  ntbkAlteredCount = {ntbkAlteredCount} 
+                  setNtbkAlteredCount = {setNtbkAlteredCount}  
+                  chapSelected = {chapSelected}
+                  setChapSelected = {setChapSelected}
+                  chapAlteredCount = {chapAlteredCount}
+                  setChapAlteredCount = {setChapAlteredCount}
+                  topicAlteredCount = {topicAlteredCount}
+                  setTopicAlteredCount = {setTopicAlteredCount}
+                  displayNav = {displayNav}
+                  setDisplayNav = {setDisplayNav}
+                  displayCom = {displayCom}
+                  setDisplayCom = {setDisplayCom} 
+                  dropdown = {dropdown}
+                  setDropdown = { setDropdown }     
+                /> 
         </>
     )
-
-    // if (!ntBkSelected) {
-    //     return (
-    //         <>
-    //             < DltNtBk
-    //                 option = {option} 
-    //                 ntBkSelected = {ntBkSelected}
-    //                 setNtBkSelected = {setNtBkSelected}
-    //                 chapSelected = {chapSelected}
-    //                 setChapSelected = {setChapSelected}
-    //                 displayLeftMain = {displayLeftMain}
-    //                 setDisplayLeftMain = {setDisplayLeftMain}
-    //                 displayRightMain = {displayRightMain}
-    //                 setDisplayRightMain = {setDisplayRightMain} 
-    //                 optionBarUrl = {optionBarUrl}
-    //                 setOptionBarUrl = {setOptionBarUrl}  
-    //                 dropdown = {dropdown}
-    //                 setDropdown = { setDropdown }   
-    //             />
-    //         </>
-    //     )
-    // }
-
-    // if (!chapSelected) {
-    //     return (
-    //         <>
-    //             <DltChapter  
-    //                 option = {option} 
-    //                 ntBkSelected = {ntBkSelected}
-    //                 setNtBkSelected = {setNtBkSelected}
-    //                 chapSelected = {chapSelected}
-    //                 setChapSelected = {setChapSelected}
-    //                 displayLeftMain = {displayLeftMain}
-    //                 setDisplayLeftMain = {setDisplayLeftMain}
-    //                 displayRightMain = {displayRightMain}
-    //                 setDisplayRightMain = {setDisplayRightMain} 
-    //                 optionBarUrl = {optionBarUrl}
-    //                 setOptionBarUrl = {setOptionBarUrl}  
-    //                 dropdown = {dropdown}
-    //                 setDropdown = { setDropdown }   
-    //             />           
-    //         </>
-    //     )
-    // }
-    // return (
-    //     <>
-    //         <DltTopic 
-    //                 option = {option} 
-    //                 ntBkSelected = {ntBkSelected}
-    //                 setNtBkSelected = {setNtBkSelected}
-    //                 chapSelected = {chapSelected}
-    //                 setChapSelected = {setChapSelected}
-    //                 displayLeftMain = {displayLeftMain}
-    //                 setDisplayLeftMain = {setDisplayLeftMain}
-    //                 displayRightMain = {displayRightMain}
-    //                 setDisplayRightMain = {setDisplayRightMain} 
-    //                 optionBarUrl = {optionBarUrl}
-    //                 setOptionBarUrl = {setOptionBarUrl}  
-    //                 dropdown = {dropdown}
-    //                 setDropdown = { setDropdown }   
-    //             /> 
-    //     </>
-    // )
 }

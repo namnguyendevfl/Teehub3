@@ -1,41 +1,51 @@
 import React from "react";
+import { ntbks, chaps } from "../../../../utils/localStorage/notebooks";
 import AddChapter from "../../chap/AddChap";
 import AddNtbk from "../../notebook/AddNtbk";
+import AddTopic from "../../topic/addTopic";
 
 export default function Add(props){
     const {
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
         displayNav, 
         setDisplayNav, 
         displayCom, 
         setDisplayCom, 
-        optionBarUrl,
-        setOptionBarUrl, 
         option,
-        dropdown, 
-        setDropdown
+        dropdown,
+        setDropdown,
     } = props
 
-    if (!ntBkSelected) {
+    if (!ntbkSelected) {
         return (
             <>
                 <AddNtbk
                     option = {option} 
-                    ntBkSelected = {ntBkSelected}
-                    setNtBkSelected = {setNtBkSelected}
+                    ntbkSelected = {ntbkSelected}
+                    setNtbkSelected = {setNtbkSelected}
+                    ntbkAlteredCount = {ntbkAlteredCount} 
+                    setNtbkAlteredCount = {setNtbkAlteredCount}  
                     chapSelected = {chapSelected}
                     setChapSelected = {setChapSelected}
+                    chapAlteredCount = {chapAlteredCount}
+                    setChapAlteredCount = {setChapAlteredCount}
+                    topicAlteredCount = {topicAlteredCount}
+                    setTopicAlteredCount = {setTopicAlteredCount}
                     displayNav = {displayNav}
                     setDisplayNav = {setDisplayNav}
                     displayCom = {displayCom}
-                    setDisplayCom = {setDisplayCom}
-                    optionBarUrl = {optionBarUrl}
-                    setOptionBarUrl = {setOptionBarUrl}  
+                    setDisplayCom = {setDisplayCom} 
                     dropdown = {dropdown}
-                    setDropdown = { setDropdown }                        
+                    setDropdown = { setDropdown }                     
                     />
             </>
         )
@@ -46,41 +56,49 @@ export default function Add(props){
             <>
                 <AddChapter
                     option = {option} 
-                    ntBkSelected = {ntBkSelected}
-                    setNtBkSelected = {setNtBkSelected}
+                    ntbkSelected = {ntbkSelected}
+                    setNtbkSelected = {setNtbkSelected}
+                    ntbkAlteredCount = {ntbkAlteredCount} 
+                    setNtbkAlteredCount = {setNtbkAlteredCount}  
                     chapSelected = {chapSelected}
                     setChapSelected = {setChapSelected}
+                    chapAlteredCount = {chapAlteredCount}
+                    setChapAlteredCount = {setChapAlteredCount}
+                    topicAlteredCount = {topicAlteredCount}
+                    setTopicAlteredCount = {setTopicAlteredCount}
                     displayNav = {displayNav}
                     setDisplayNav = {setDisplayNav}
                     displayCom = {displayCom}
-                    setDisplayCom = {setDisplayCom}
-                    optionBarUrl = {optionBarUrl}
-                    setOptionBarUrl = {setOptionBarUrl}  
+                    setDisplayCom = {setDisplayCom} 
                     dropdown = {dropdown}
-                    setDropdown = { setDropdown }                        
+                    setDropdown = { setDropdown }                          
                     />           
             </>
         )
     }
-    // return (
-    //     <>
-    //     {/* <div className = "position-absolute"> */}
-    //         <AddTopic 
-    //             option = {option} 
-    //             ntBkSelected = {ntBkSelected}
-    //             setNtBkSelected = {setNtBkSelected}
-    //             chapSelected = {chapSelected}
-    //             setChapSelected = {setChapSelected}
-    //             displayLeftMain = {displayLeftMain}
-    //             setDisplayLeftMain = {setDisplayLeftMain}
-    //             displayRightMain = {displayRightMain}
-    //             setDisplayRightMain = {setDisplayRightMain} 
-    //             optionBarUrl = {optionBarUrl}
-    //             setOptionBarUrl = {setOptionBarUrl}  
-    //             dropdown = {dropdown}
-    //             setDropdown = { setDropdown }                        
-    //             />  
-    //     {/* </div> */}
-    //     </>
-    // )
+    return (
+        <>
+        {/* <div className = "position-absolute"> */}
+            <AddTopic 
+                option = {option} 
+                ntbkSelected = {ntbkSelected}
+                setNtbkSelected = {setNtbkSelected}
+                ntbkAlteredCount = {ntbkAlteredCount} 
+                setNtbkAlteredCount = {setNtbkAlteredCount}  
+                chapSelected = {chapSelected}
+                setChapSelected = {setChapSelected}
+                chapAlteredCount = {chapAlteredCount}
+                setChapAlteredCount = {setChapAlteredCount}
+                topicAlteredCount = {topicAlteredCount}
+                setTopicAlteredCount = {setTopicAlteredCount}
+                displayNav = {displayNav}
+                setDisplayNav = {setDisplayNav}
+                displayCom = {displayCom}
+                setDisplayCom = {setDisplayCom} 
+                dropdown = {dropdown}
+                setDropdown = { setDropdown }                          
+                />  
+        {/* </div> */}
+        </>
+    )
 }

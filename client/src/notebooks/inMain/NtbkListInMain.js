@@ -1,46 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ntbks } from "../../utils/data/notebooks";
+import { ntbks } from "../../utils/localStorage/notebooks";
+import { ntbkSelectedUrl } from "../../utils/localStorage/urls";
+import DnD from "../../utils/dnd/DnD";
+
 
 export default function NtbkList(props) {
     const {
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
-        displayLeftMain, 
-        setDisplayLeftMain, 
-        displayRightMain, 
-        setDisplayRightMain, 
-
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
+        displayNav, 
+        setDisplayNav, 
+        displayCom, 
+        setDisplayCom, 
     } = props
-    const notebooks = ntbks.getNtBkList();
-    console.log(notebooks)
+    //Use useState and useEffect to update the state immediately
+    const [ notebooks, setNotebooks ] = useState(ntbks.getNtbks())
+    useEffect (() => {
+        setNotebooks(() => ntbks.getNtbks() )
+    }, [ntbkAlteredCount])
+
     const ntbkList = notebooks.map((ntbk,idx) => {
-        const url = `/notebooks/${ntbk.title.replaceAll(" ","-")}`
         return (
         <li className = "list-group-item m-0 p-0 w-100">
             <Link className = "link"
-                to = {`${url}`}
+                to = {`${ntbk.title.replaceAll(" ","-")}`}
                 >
                 <button className = "list-group-item w-100 m-0 text-start"
-                    onClick = {(e) => {
-                        // e.preventDefault();. Cant use it overhere b/c Link will not work
-                        setNtBkSelected (() => ntbk);
-                        // To make Link work over here, you have to use Route over here. To store selectedBook after refesh, we need to use localStorage
-                        ntbks.saveNtBkSelected(ntbk);
+                    onClick = {(e) => {                        
+                        setNtbkSelected (() => ntbk);
+                        ntbks.saveNtbkSelected(ntbk);
+                        ntbkSelectedUrl.saveUrl(`notebooks/${ntbk.title.replaceAll(" ","-")}`)
                     }}
-            > 
-                {ntbk.title}
-            </button>
+                > 
+                    {ntbk.title}
+                </button>
             </Link>
         </li>
     )})
     return (
         <>
+        {/* <p style = {{background:"white"}} className = "px-2">
+        Speaking to Fox News, a parent in California who has witnessed the impact of masking school children, said: "Parents have been begging for the same consideration that teacher union and education leaders extended to themselves; for their kids to be able to hear their classmates. Randi is at higher risk of severe covid as a vaccinated senior than my unvaccinated young children."
+
+"Their soft voices have been muffled for nearly two years and we are one of the few countries masking toddlers and grade school children," the parent added. "It’s not lost on me that this severe obligation on kids would not exist if it weren’t for Ms. Weingarten and the other corrupt leaders that run our public education system."        
+        </p> */}
         <ul className = "list-group">
             {ntbkList}
         </ul>
+        {/* <DnD notebooks = {notebooks}/> */}
         </>
     )
 }

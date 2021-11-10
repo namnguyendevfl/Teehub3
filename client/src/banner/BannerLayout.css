@@ -38,11 +38,11 @@
         }
 
 /* setup left and right width*/
-    .leftBar {
+    .leftBanner {
         max-width:502px;
         min-width:502px;
     }
-    .rightBar {
+    .rightBanner {
         max-width:350px;
         /* min-width:400px; */
     }

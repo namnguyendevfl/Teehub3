@@ -1,5 +1,5 @@
 import React from "react";
-import { timer } from "../../utils/data/timer";
+import { timer } from "../../utils/localStorage/timer";
 import NonTiming from "./NonTiming";
 import Timing from "./Timing";
 

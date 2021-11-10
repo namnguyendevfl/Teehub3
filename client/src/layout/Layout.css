@@ -1,5 +1,11 @@
+a {
+    text-decoration: none;
+}
+
+
 .container-fluid {
     height: 100vh;
+    background-color: #e9ecef;
 }  
 
 .banner {
@@ -13,14 +19,20 @@
 .bannerMain {
     height: 80px;
 }
+
+/*Notebook more */
+.ntbkMore {
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    top: 80px;
+    /* z-index: 1; */
+}
 /* using navigation instead of nav to not to mess up with bootstrap nav  */
 .navigation {
     top: 80px;
     bottom:0;
     position:fixed;
-    /* overflow-y:scroll;
-    overflow-x:hidden; */
-    padding-right: 8px;
     overflow-y:scroll;
     overflow-x:hidden;
     z-index: 1;
@@ -45,10 +57,11 @@
 .main {
     position: relative;
     top: 80px;
+    left:-7px;
 }
 
 .complementary {
-    top: 80px;
+    top: 90px;
     right: 0px;
     bottom: 0;
     position:fixed;

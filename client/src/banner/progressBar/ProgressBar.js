@@ -1,6 +1,6 @@
 import React from "react"
 import { Blue, Red, Background } from "../../utils/color/color"
-import { timer } from "../../utils/data/timer"
+import { timer } from "../../utils/localStorage/timer"
 
 // export default function ProgressBar({progress, isTimerRunning}) {
 export default function ProgressBar({session, isTimerRunning}) {

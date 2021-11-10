@@ -19,8 +19,8 @@ export default function BannerLayout(props) {
 
     return (
         <>
-        <div className ="row w-100 p-1 d-flex align-items-center justify-content-start flex-nowrap headerBar" >
-            <div className =" col leftBar ms-3 me-md-3 me-2 d-flex flex-nowrap justify-content-start m-0 p-0">
+        <div className ="row w-100 p-1 d-flex align-items-center justify-content-start flex-nowrap" >
+            <div className ="leftBanner col  ms-3 me-md-3 me-2 d-flex flex-nowrap justify-content-start m-0 p-0">
                 <LeftBanner    
                       isTimerRunning = {isTimerRunning} 
                       setIsTimerRunning = {setIsTimerRunning}
@@ -35,7 +35,7 @@ export default function BannerLayout(props) {
             <div className = " col">
                 <SearchBox />
             </div>
-            <div className =" col d-flex flex-nowrap justify-content-end ms-md-3 p-0 me-3 rightBar">
+            <div className ="rightBanner col d-flex flex-nowrap justify-content-end ms-md-3 p-0 me-3 ">
                 <RightBanner />
             </div>
         </div>

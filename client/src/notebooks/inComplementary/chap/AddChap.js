@@ -1,64 +1,68 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router";
-import { chaps } from "../../../utils/data/notebooks";
+import { chaps } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
 
 export default function AddChapter(props){
     const {
-        option,
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
         displayNav, 
         setDisplayNav, 
         displayCom, 
         setDisplayCom, 
-        optionBarUrl,
-        setOptionBarUrl,
-        dropdown, 
+        option,
+        dropdown,
         setDropdown,
-        displayAddOption,
-        setDisplayAddOption,
     } = props
-    const { userId = " ", id = " "} = ntBkSelected || ""
+    const { userId = " ", id = " "} = ntbkSelected || ""
     const initChap = {
         id: "",
         title: "",
         content:"",
     }
     const [newChap, setNewChap] = useState(initChap);
-
-    const originalChapters = chaps.getChapList();
-    let selectedChapters = originalChapters.filter((chapter, idx) => (ntBkSelected) && chapter.bookId === ntBkSelected.id)
-    selectedChapters = selectedChapters.sort((chapterA, chapterB) => chapterA.id - chapterB.id)
-    //becareful string and number over here
+    const allChapters = chaps.getChaps();
+    const chapters = allChapters.filter((chapter, idx) => (ntbkSelected) && chapter.bookId === ntbkSelected.id)
+    const chapterIds = chapters.map((chapter, idx) => chapter.id)
+    const maxId = Math.max(...chapterIds)
     const handleChange = ({ target: {name, value}}) => {
+        const chapterId = (() => {
+            if (maxId > chapters.length){
+                for (let i = 1 ; i < maxId; i++){
+                    if (!chapterIds.includes(i))
+                    return i
+                }
+            } else return chapters.length + 1
+        })() 
         setNewChap((prevChap) => ({
             ...prevChap,
             [name]: value,
             userId: userId,
             bookId: id,
-            id: selectedChapters.length + 1
+            id: chapterId
         }))
     };
 
-    let notebookUrl = window.localStorage.getItem('notebookUrl');
-    notebookUrl = JSON.parse(notebookUrl);
-
-    const navigate = useNavigate();  
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`${notebookUrl}`);
-        originalChapters.push(newChap);
-        setDropdown(() => !dropdown)
-        chaps.saveChapList(originalChapters)
+        allChapters.push(newChap);
+        setChapAlteredCount(() => chapAlteredCount + 1);
+        setDropdown(() => !dropdown);
+        chaps.saveChaps(allChapters);
     };
-
     return (
         <>
             
-    <div className="row d-flex text-aligns-center m-0 justify-content-center">    
+    <div className="row d-flex text-aligns-center text-dark m-0 justify-content-center">    
         <div className = "col-2"></div>
         <h5 className = "col-8 text-center m-0 py-3">Create chapter</h5>
         <div className = "col-2 m-0  d-flex align-items-center justify-content-end">
@@ -93,8 +97,6 @@ export default function AddChapter(props){
             <button className = "ntbkBtn d-flex justify-content-center align-items-center"
                     onClick = {(e) => {
                         e.preventDefault();
-                        setDisplayAddOption (() => !displayAddOption);
-                        // setOrderDropdown(() => !orderDropdown)
                     }}
             >
                 {complementary.list()}
