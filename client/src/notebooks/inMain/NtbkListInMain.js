@@ -23,9 +23,9 @@ export default function NtbkList(props) {
         setDisplayCom, 
     } = props
     //Use useState and useEffect to update the state immediately
-    const [ notebooks, setNotebooks ] = useState(ntbks.getNtbks())
+    const [ notebooks, setNotebooks ] = useState([])
     useEffect (() => {
-        setNotebooks(() => ntbks.getNtbks() )
+        setNotebooks(() => ntbks.getNtbks() ? ntbks.getNtbks() :[])
     }, [ntbkAlteredCount])
 
     const ntbkList = notebooks.map((ntbk,idx) => {

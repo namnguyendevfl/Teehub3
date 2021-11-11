@@ -7,7 +7,7 @@ import Nav from "../nav/Nav";
 import MainLayout from "../main/Main";
 import ComplementaryLayout from "../complementary/ComplementaryLayout";
 import { hideCom, minNtbkCom } from "../utils/localStorage/complementary";
-import { chaps, ntbks } from "../utils/localStorage/notebooks";
+import { chaps, ntbkComStyle, ntbks } from "../utils/localStorage/notebooks";
 
 export default function Layout() {
      //First part: Running Pomodoro
@@ -30,7 +30,13 @@ export default function Layout() {
     const   [password, setPassword] = useState ("hello")
     useEffect (() => setLock(() => lock),[lock])
 
-    //Notebooks
+    //notebooks
+    const initialHeight = window.innerHeight
+    const [ viewHeight, setViewHeight ] = useState(initialHeight - 80)
+    const handleResize = () => {
+        setViewHeight(() => window.innerHeight - 80)
+    }
+    window.addEventListener('resize', handleResize)
     const [ ntbkAlteredCount, setNtbkAlteredCount ] = useState(0);
     const [ chapAlteredCount, setChapAlteredCount ] = useState(0);
     const [ topicAlteredCount, setTopicAlteredCount ] = useState(0);
@@ -41,13 +47,21 @@ export default function Layout() {
     const [ displayNav, setDisplayNav ] = useState(true);
     const initialDisplayCom = hideCom.getHideCom() !== undefined ? hideCom.getHideCom() : true
     const [ displayCom, setDisplayCom ] = useState(initialDisplayCom);
-    const initialNtBkExpand = minNtbkCom.getMin() !== undefined ? minNtbkCom.getMin() : false 
-    const [ ntbkExpand, setNtbkExpand ] = useState(initialNtBkExpand);
+    const initMaxNtbkOptionBox = minNtbkCom.getMin() !== undefined ? minNtbkCom.getMin() : false
+    const [ maxNtbkOptionBox , setMaxNtbkOptionBox  ] = useState(initMaxNtbkOptionBox)
+    const [ ntbkEdit, setNtbkEdit ] = useState(false)
     const [ navOption, setNavOption ] = useState()
-
+    const style = ntbkComStyle.getStyle() !== undefined ? ntbkComStyle.getStyle() : {color:"black"}
+    const [ ntbkStyle, setNtbkStyle ] = useState(style);
+    const comStyleNtbk = (() => displayCom ? {position:"fixed"} : {position:"unset"})()
     return(
         <>
-        <div className = "">
+        <div className = ""
+                style = {{
+                    height: "100vh",
+                    background : "#e9ecef"
+                }}
+        >
             <div className = "banner">
                 <BannerLayout 
                     isTimerRunning = {isTimerRunning} 
@@ -78,10 +92,17 @@ export default function Layout() {
                         setNavOption = {setNavOption}             
                     />
             </header>
-            <div className ="main row w-100 mx-1 m-0 p-0"
-                >
+            <main className = "row w-100 m-0 p-0"
+                    style = {{
+                        background: "#e9ecef",
+                        position: "fixed",
+                        maxHeight: `${viewHeight}px`,
+                        overflow: "auto",
+                        top:"80px"
+                    }}
+            > 
                 <div className ="col-2"></div>
-                <main className = "col m-0 w-100 px-2"> 
+                <div className ="col m-0 me-2 p-0"> 
                     <MainLayout 
                         ntbkSelected = {ntbkSelected}
                         setNtbkSelected = {setNtbkSelected}
@@ -97,16 +118,16 @@ export default function Layout() {
                         setDisplayNav = {setDisplayNav}
                         displayCom = {displayCom}
                         setDisplayCom = {setDisplayCom}
-                        ntbkExpand = {ntbkExpand}
-                        setNtbkExpand = {setNtbkExpand}              
-                    />             
-                </main>
+                        ntbkEdit = {ntbkEdit}
+                        setNtbkEdit = {setNtbkEdit}               
+                    />        
+                </div>
                 {
-                    displayCom &&
-                    <div className ="col-3"></div>
-                }
-            </div>
-            <div className = "complementary col-3 p-0">
+                displayCom &&
+                <div className ="col-3"></div>
+                }               
+            </main>
+            <div className = "complementary col-3 p-0" style = {comStyleNtbk}>
                 <ComplementaryLayout 
                         ntbkSelected = {ntbkSelected}
                         setNtbkSelected = {setNtbkSelected}
@@ -124,8 +145,12 @@ export default function Layout() {
                         setDisplayCom = {setDisplayCom}
                         navOption = {navOption}
                         setNavOption = {setNavOption} 
-                        ntbkExpand = {ntbkExpand}
-                        setNtbkExpand = {setNtbkExpand}                  
+                        ntbkEdit = {ntbkEdit}
+                        setNtbkEdit = {setNtbkEdit}
+                        ntbkStyle = { ntbkStyle }
+                        setNtbkStyle = { setNtbkStyle } 
+                        maxNtbkOptionBox = {maxNtbkOptionBox}
+                        setMaxNtbkOptionBox = {setMaxNtbkOptionBox}
                 />     
             </div>                  
         </div>

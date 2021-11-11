@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import  useState  from 'react-usestateref'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { topcs } from "../localStorage/notebooks";
 // import { ntbks } from "../data/notebooks";
 
 const Grab = () => <svg xmlns="http://www.w3.org/2000/svg" 
@@ -14,7 +15,11 @@ const DnD = (props) => {
     const {
       notebooks,
       chapters,
-      topics
+      topics,
+      optionsEdited,
+      setOptionsEdited,
+      count, 
+      setCount,    
     } = props
     let data = () => {
       if (notebooks) return notebooks
@@ -23,7 +28,7 @@ const DnD = (props) => {
     }
     const [ list, setList ] = useState(data()); 
     const [ selectedItem, setSelectedItem, selectedItemRef ] = useState()
-    const [ count, setCount ] = useState(0)  
+   
     const change = useRef();
     const handleChange = ({target : {name, value}}) => {
         setSelectedItem((preV) => ({
@@ -42,7 +47,8 @@ const DnD = (props) => {
     const selectedItemId = (selectedItem) ? selectedItem.id : undefined   
     useEffect(() => {       
       setList(() => list);
-      // ntbks.saveNtBkList(list); 
+      //Save it if any changes occur even though there is no dragging
+      setOptionsEdited(() => list);
       change.current = false;
     },[count, change.current])
 
@@ -89,12 +95,13 @@ const DnD = (props) => {
           };
         }
         setCount((prev) => prev + 1)    
-        // ntbks.saveNtBkList(list);
         setList(() => {
           list.forEach((item, idx) => item.id = idx+1)
           return list
         })
+        setOptionsEdited(() => list);
       }
+
   return (  
       <DragDropContext
       onDragEnd={(param) => handleDragEnd(param)}
@@ -125,10 +132,10 @@ const DnD = (props) => {
                       >
                         <div className = "d-flex justify-content-between align-items-center me-2 ">                               
                             <form 
-                                  className = "d-flex"
+                                  className = "d-flex w-100"
                                   >
                                 <input
-                                        className = "list-group-item w-100 createInput px-3 text-start w-100"
+                                        className = "list-group-item w-100 px-3 text-start w-100"
                                         id = "title"
                                         name = "title"
                                         placeholder = "Write a notebook title"                              

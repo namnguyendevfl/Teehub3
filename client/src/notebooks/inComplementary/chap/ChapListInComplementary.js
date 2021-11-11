@@ -67,11 +67,10 @@ export default function ChapterList(props) {
     
     
     //Remove the caret down if there are no topics
-    const topics = topcs.getTopics() 
+    const topics = topcs.getTopics() ?  topcs.getTopics() : []
 
-    // const topicsSelected = []
     const topicsSelected = topics.filter((topic, idx) => {
-        if (ntbkSelected && chapSelected)
+        if (ntbkSelected && chapSelected && topics)
         return topic.bookId === ntbkSelected.id && topic.chapterId === chapSelected.id
         return []
     });

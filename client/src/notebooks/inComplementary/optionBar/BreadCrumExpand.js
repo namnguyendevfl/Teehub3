@@ -27,34 +27,46 @@ export default function BreadCrumExpand(props) {
         dropdown,
         setDropdown,  
         displayBar, 
-        setDisplayBar,
-        ntbkExpand,
-        setNtbkExpand,      
+        setDisplayBar,    
         navOption,
         setNavOption,   
         ntbkStyle,
-        setNtbkStyle       
+        setNtbkStyle,
+        ntbkEdit,
+        setNtbkEdit, 
+        maxOptionBox,   
+        setMaxOptionBox        
     } = props
     const handleClick = ({target}) => {
         setOption(() => target.id);
         setDropdown(() => true);      
     }
-    const [ btnBg, setBtnBg ] = useState({background:"none"})
-    const [ style, setStyle ] = useState({display: 'none'})
-
+    // const [ btnBg, setBtnBg ] = useState({background:"none"})
+    const [ btnStyle, setBtnStyle ] = useState({display: 'none'})
+    const rChevronStyleWhenEditng = {
+        position: "absolute",
+        left: "-40px",
+        top: "4px",
+    }
+    const escapeStyleWhenEditng = {
+        position: "absolute",
+        left: "-76px",
+        top: "4px",
+    }
+    // const btnBgStyleWhenEditng = ntbkEdit && {background:"none"}
     const handleMouseEnter = (e) => {
-        setStyle({display: 'flex'});
-        setBtnBg({background:"#e9ecef"})       
+        setBtnStyle ({display: 'flex'});
+        // setBtnBg({background:"#e9ecef"})       
     } 
 
     const handleMouseLeave = (e) => {
-        setStyle({display: 'none'});                        
-        setBtnBg({background:"none"})         
+        setBtnStyle ({display: 'none'});                        
+        // setBtnBg({background:"none"})         
     }
 
     const handleExpand = (e) => {
         setDisplayCom(() => !displayCom);
-        setNtbkExpand(() => true);
+        setMaxOptionBox(() => !maxOptionBox);
         const ntbkStyle = {
             color:"black", 
             boxShadow:"none", 
@@ -66,6 +78,7 @@ export default function BreadCrumExpand(props) {
         minNtbkCom.saveMin(true)
         ntbkComStyle.saveStyle(ntbkStyle)
         }
+
     return (
         <>
         <div    className = "optionBar d-flex align-items-center justify-content-center" >
@@ -96,15 +109,68 @@ export default function BreadCrumExpand(props) {
             </div>
 
         </div> 
-        <div    className = "ntbkExpandToRight p-0 mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} >                          
-            <div    className = "ntbkBtnExpandToRightBg p-0" style = {btnBg} >                   
-                <button className = "ntbkBtnExpandToRight p-0" style = {style} id = "more"                                                              
-                    onClick = {(e) => handleExpand(e)}
+
+        {
+            ntbkEdit
+            ?<div className = "p-0 mt-1" >                        
+                <div    className = "p-0" >                   
+                    <button className = "ntbkBtnExpandToRight p-0"  id = "more"                                                              
+                        style = {rChevronStyleWhenEditng}
+                        onClick = {(e) => handleExpand(e)}
+                    > 
+                    {main.rightChevron()}
+                    </button>
+                </div>                         
+            </div> 
+            :   <div    className = "ntbkExpandToRight p-0 mt-1" 
+            // style = {btnStyleWhenEditng}
+                    onMouseEnter = {(e) => handleMouseEnter(e)}  
+                    onMouseLeave = {(e) => handleMouseLeave(e)} >                          
+                    <div    className = "ntbkBtnExpandToRightBg p-0" >                   
+                        <button className = "ntbkBtnExpandToRight p-0"  id = "more"                                                              
+                            style = {btnStyle}
+                            onClick = {(e) => handleExpand(e)}
+                        > 
+                        {main.rightChevron()}
+                        </button>
+                    </div>                         
+                </div> 
+        }
+        
+        {chapSelected &&
+        ntbkEdit
+        ? <div className = "p-0 mt-1" 
+                // style = {btnBgStyleWhenEditng}
+                onMouseEnter = {(e) => handleMouseEnter(e)}  
+                onMouseLeave = {(e) => handleMouseLeave(e)} >                          
+            <div    className = "p-0" >                   
+                <button className = "ntbkBtnExpandToRight p-0"  id = "more"                                                              
+                    style = {escapeStyleWhenEditng}
+                    onClick = {(e) => {
+                        setNtbkEdit(() => !ntbkEdit);              
+                    }}
                 > 
-                {main.rightChevron()}
+                {!ntbkEdit ? complementary.edit() : complementary.escape() }
                 </button>
-            </div>                         
-        </div>    
+            </div>   
+                                  
+        </div> 
+        : <div  className = "ntbkEditToRight p-0 mt-1" 
+                onMouseEnter = {(e) => handleMouseEnter(e)}  
+                onMouseLeave = {(e) => handleMouseLeave(e)} >                          
+            <div    className = "ntbkBtnExpandToRightBg p-0" >                   
+                <button className = "ntbkBtnExpandToRight p-0"  id = "more"                                                              
+                    style = {btnStyle}
+                    onClick = {(e) => {
+                        setNtbkEdit(() => !ntbkEdit);              
+                    }}
+                > 
+                {!ntbkEdit ? complementary.edit() : complementary.escape() }
+                </button>
+            </div>                    
+        </div> 
+        }   
+        
         </>
     )
 

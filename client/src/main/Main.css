@@ -1,0 +1,78 @@
+.displayText {
+    white-space: pre-line;
+}
+/* Read topicList */
+.ntbkTitleDivHeight {
+    height: 40px;
+}
+.ntbkHeader {
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: calc(1.3rem + .6vw)  
+}
+
+
+
+/* Edit topiclist */
+.topiclistBox {
+    box-shadow: 0px 0px 2px 0.8px blue;
+    border: 1px solid blue;
+}
+
+
+
+.saveBtn, .expandBtnOffset {
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2 !important;
+    /* position: fixed;
+    top: 83.7px */
+}
+.saveBtn {
+    background: black;
+    color:white 
+}
+
+.expandBtnOffset {
+    background: none ;
+}
+
+.btnPanel {
+    position: fixed;
+    top: 83.7px;   
+}
+
+.topicNtbkTitleInput {
+    border: none;
+    outline: none;
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: calc(1.3rem + .6vw)
+}
+
+.topicChapTitleInput {
+    border: none;
+    outline: none;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem  
+}
+
+.topiclistTopicTitleInput {
+    outline: none;
+    border: none;
+    font-weight: 500 !important   
+}
+.topiclistTopicContentInput {
+    outline: none;
+    border: none;
+    white-space: pre-line!important;
+}                    
+
+

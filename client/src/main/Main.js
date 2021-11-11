@@ -1,3 +1,4 @@
+import "./Main.css"
 import React from "react";
 import { Routes,Route } from "react-router-dom";
 import Home from "../home/Home";
@@ -19,7 +20,9 @@ export default function MainLayout(props) {
         displayNav, 
         setDisplayNav, 
         displayCom, 
-        setDisplayCom, 
+        setDisplayCom,
+        ntbkEdit,
+        setNtbkEdit
     } = props
     const ntbkToDisplay = ntbkSelected ? ntbkSelected : ntbks.getNtbkSelected()
     const chapToDisplay = chapSelected ? chapSelected : chaps.getChapSelected()
@@ -43,7 +46,8 @@ export default function MainLayout(props) {
                         setDisplayNav = {setDisplayNav}
                         displayCom = {displayCom}
                         setDisplayCom = {setDisplayCom}                
-   
+                        ntbkEdit = {ntbkEdit}
+                        setNtbkEdit = {setNtbkEdit}   
                     />}
             />
                 {/* <div className = "bg-white"> */}

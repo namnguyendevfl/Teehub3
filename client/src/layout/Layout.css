@@ -55,30 +55,33 @@ a {
 }  
 
 .main {
-    position: relative;
+    position: absolute;
     top: 80px;
-    left:-7px;
+    /* left: 0px; */
 }
 
 .complementary {
     top: 90px;
-    right: 0px;
+    right: 15px;
     bottom: 0;
     position:fixed;
-    overflow-y:scroll;
-    overflow-x:hidden;
     padding-right: 8px; 
   }
-.complementary::-webkit-scrollbar {
+
+.comContent{
+    max-height: 100vh;
+    overflow-y: auto;
+}
+.comContent::-webkit-scrollbar {
     width: 8px;   
 } 
-.complementary:hover::-webkit-scrollbar-track {
+.comContent:hover::-webkit-scrollbar-track {
     background-color: #e9ecef; 
     transition-delay: 3s; 
     transition-property: background-color;   
 }
 
-.complementary:hover::-webkit-scrollbar-thumb {
+.comContent:hover::-webkit-scrollbar-thumb {
     transition-delay: 3s; 
     transition-property: background-color; 
     background-color: #aaa;    

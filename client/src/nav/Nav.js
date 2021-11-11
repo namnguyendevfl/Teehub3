@@ -16,7 +16,8 @@ export default function Nav(props) {
         navOption,
         setNavOption
     } = props    
-    const options = ['Notebooks', 'Flashcards', 'Practice', 'Practice', 'Practice','Practice','Practice','Practice','Practice','Practice', 'Practice', 'Practice','Practice','Practice', 'Practice', 'Practice']
+    // const options = ['Notebooks', 'Flashcards', 'Practice', 'Practice', 'Practice','Practice','Practice','Practice','Practice','Practice', 'Practice', 'Practice','Practice','Practice', 'Practice', 'Practice']
+    const options = ['Notebooks', 'Flashcards', 'Practice', 'Storage']
     const navigate = useNavigate();
     const menuList = options.map((option, idx) => {
         const handleClick = (e) => {

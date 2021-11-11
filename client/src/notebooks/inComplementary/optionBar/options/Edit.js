@@ -1,26 +1,52 @@
 import React from "react";
+import EditTopic from "../../topic/editTopic";
 
 export default function Edit(props) {
     const {
-        option,
-        ntBkSelected,
-        setNtBkSelected, 
+        ntbkSelected,
+        setNtbkSelected, 
+        ntbkAlteredCount,
+        setNtbkAlteredCount,
         chapSelected, 
         setChapSelected, 
-        displayLeftMain, 
-        setDisplayLeftMain, 
-        displayRightMain, 
-        setDisplayRightMain, 
-        optionBarUrl,
-        setOptionBarUrl, 
-        dropdown, 
-        setDropdown
+        chapAlteredCount,
+        setChapAlteredCount,
+        topicAlteredCount,
+        setTopicAlteredCount,
+        displayNav, 
+        setDisplayNav, 
+        displayCom, 
+        setDisplayCom, 
+        option,
+        dropdown,
+        setDropdown,
     } = props
     return (
-        <>
-        This is edit
-        </>
+        <EditTopic
+        option = {option} 
+        ntbkSelected = {ntbkSelected}
+        setNtbkSelected = {setNtbkSelected}
+        ntbkAlteredCount = {ntbkAlteredCount} 
+        setNtbkAlteredCount = {setNtbkAlteredCount}  
+        chapSelected = {chapSelected}
+        setChapSelected = {setChapSelected}
+        chapAlteredCount = {chapAlteredCount}
+        setChapAlteredCount = {setChapAlteredCount}
+        topicAlteredCount = {topicAlteredCount}
+        setTopicAlteredCount = {setTopicAlteredCount}
+        displayNav = {displayNav}
+        setDisplayNav = {setDisplayNav}
+        displayCom = {displayCom}
+        setDisplayCom = {setDisplayCom} 
+        dropdown = {dropdown}
+        setDropdown = { setDropdown }           
+        />
     )
+    // return (
+    //     <>
+    //     This is edit
+    //     </>
+    // )
     
     // if (!ntBkSelected) {
     //     return (

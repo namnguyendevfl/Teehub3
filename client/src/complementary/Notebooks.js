@@ -18,14 +18,16 @@ export default function Notebooks(props) {
         setDisplayNav, 
         displayCom, 
         setDisplayCom, 
-        ntbkExpand, 
-        setNtbkExpand,
         navOption,
         setNavOption,
         ntbkStyle,
         setNtbkStyle,
         ntbkTextStyle,
-        setNtbkTextStyle  
+        setNtbkTextStyle,
+        ntbkEdit,
+        setNtbkEdit,  
+        maxOptionBox,    
+        setMaxOptionBox
     } = props 
 
     return (
@@ -45,18 +47,20 @@ export default function Notebooks(props) {
             setDisplayNav = {setDisplayNav}
             displayCom = {displayCom}
             setDisplayCom = {setDisplayCom} 
-            ntbkExpand = {ntbkExpand}
-            setNtbkExpand = {setNtbkExpand}
             navOption = {navOption}
             setNavOption = {setNavOption}  
             ntbkStyle = { ntbkStyle }
             setNtbkStyle = { setNtbkStyle }  
             ntbkTextStyle = { ntbkTextStyle}
-            setNtbkTextStyle = {setNtbkTextStyle}                                        
+            setNtbkTextStyle = {setNtbkTextStyle}
+            ntbkEdit = {ntbkEdit}
+            setNtbkEdit = {setNtbkEdit}   
+            maxOptionBox = {maxOptionBox}     
+            setMaxOptionBox = {setMaxOptionBox}                              
         />
         
         {
-            !ntbkExpand &&
+            !maxOptionBox &&
             <>
             <hr className = "p-0 m-0 mt-1"/>
             <NtBkList 

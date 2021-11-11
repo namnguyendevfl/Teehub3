@@ -21,8 +21,10 @@ export default function ChapterList(props) {
         displayCom, 
         setDisplayCom, 
     } = props
-    const [ chapters, setChapters ] = useState(chaps.getChaps())
-    useEffect(() => { setChapters(() => chaps.getChaps()) }, [chapAlteredCount])
+    const [ chapters, setChapters ] = useState([])
+    useEffect(() => { 
+        setChapters(() => chaps.getChaps() ? chaps.getChaps() : []) 
+    }, [chapAlteredCount])
     const chapsSelected = chapters.filter((chapter, idx) => chapter.bookId === ntbkSelected.id);
     const chapterList = chapsSelected.map((chapter,idx) => {
         return(<li className = "list-group-item m-0 p-0 w-100">

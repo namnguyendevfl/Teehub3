@@ -23,14 +23,16 @@ export default function OptionBar(props) {
         setDisplayCom,
         displayBar, 
         setDisplayBar,
-        ntbkExpand, 
-        setNtbkExpand,
         navOption,
         setNavOption,
         ntbkStyle,
         setNtbkStyle,
         ntbkTextStyle,
-        setNtbkTextStyle,   
+        setNtbkTextStyle, 
+        ntbkEdit,
+        setNtbkEdit,
+        maxOptionBox,  
+        setMaxOptionBox
     } = props
     
     const [ dropdown, setDropdown ] = useState(false);
@@ -126,14 +128,16 @@ export default function OptionBar(props) {
                 setDropdown = { setDropdown } 
                 displayBar = {displayBar}
                 setDisplayBar = {setDisplayBar}
-                ntbkExpand = {ntbkExpand}
-                setNtbkExpand = {setNtbkExpand} 
                 navOption = {navOption}
                 setNavOption = {setNavOption}  
                 ntbkStyle = { ntbkStyle }
                 setNtbkStyle = { setNtbkStyle }  
                 ntbkTextStyle = { ntbkTextStyle}
-                setNtbkTextStyle = {setNtbkTextStyle}  
+                setNtbkTextStyle = {setNtbkTextStyle}
+                ntbkEdit = {ntbkEdit}
+                setNtbkEdit = {setNtbkEdit} 
+                maxOptionBox = {maxOptionBox}     
+                setMaxOptionBox = {setMaxOptionBox}    
             />
                 : <BreadCrumNonExpand option = {option} 
                 setOption = {setOption}
@@ -155,14 +159,16 @@ export default function OptionBar(props) {
                 setDropdown = { setDropdown } 
                 displayBar = {displayBar}
                 setDisplayBar = {setDisplayBar}
-                ntbkExpand = {ntbkExpand}
-                setNtbkExpand = {setNtbkExpand} 
                 navOption = {navOption}
                 setNavOption = {setNavOption}
                 ntbkStyle = { ntbkStyle }
                 setNtbkStyle = { setNtbkStyle } 
                 ntbkTextStyle = { ntbkTextStyle}
-                setNtbkTextStyle = {setNtbkTextStyle}     
+                setNtbkTextStyle = {setNtbkTextStyle} 
+                ntbkEdit = {ntbkEdit}
+                setNtbkEdit = {setNtbkEdit}  
+                maxOptionBox = {maxOptionBox}     
+                setMaxOptionBox = {setMaxOptionBox}   
             />
             }
             {

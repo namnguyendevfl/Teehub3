@@ -64,7 +64,7 @@ export default function AddChapter(props){
             
     <div className="row d-flex text-aligns-center text-dark m-0 justify-content-center">    
         <div className = "col-2"></div>
-        <h5 className = "col-8 text-center m-0 py-3">Create chapter</h5>
+        <h5 className = "optionBoxBarText col-8 text-center m-0">Create chapter</h5>
         <div className = "col-2 m-0  d-flex align-items-center justify-content-end">
             <button className = "ntbkBtn d-flex align-items-center p-2 "
                     onClick = {(e) => setDropdown (() => !dropdown)}

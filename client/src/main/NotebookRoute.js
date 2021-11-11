@@ -20,6 +20,8 @@ export default function NotebookRoute(props) {
         setDisplayNav, 
         displayCom, 
         setDisplayCom, 
+        ntbkEdit,
+        setNtbkEdit 
     } = props
 
     return (
@@ -76,7 +78,9 @@ export default function NotebookRoute(props) {
                         displayNav = {displayNav}
                         setDisplayNav = {setDisplayNav}
                         displayCom = {displayCom}
-                        setDisplayCom = {setDisplayCom}                          
+                        setDisplayCom = {setDisplayCom}   
+                        ntbkEdit = {ntbkEdit}
+                        setNtbkEdit = {setNtbkEdit}                          
                         />} />
         </Routes>
     )

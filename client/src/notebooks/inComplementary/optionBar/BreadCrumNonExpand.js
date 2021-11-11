@@ -26,30 +26,32 @@ export default function BreadCrumNonExpand(props) {
         dropdown,
         setDropdown,  
         displayBar, 
-        setDisplayBar,
-        ntbkExpand,
-        setNtbkExpand,      
+        setDisplayBar,     
         navOption,
         setNavOption,      
         ntbkStyle,
-        setNtbkStyle    
+        setNtbkStyle, 
+        ntbkEdit,
+        setNtbkEdit,
+        maxOptionBox,   
+        setMaxOptionBox   
     } = props
     const handleClick = ({target}) => {
         setOption(() => target.id);
         setDropdown(() => true);      
     }
-    const [ style, setStyle ] = useState({display: 'none'})
-
+    const [ btnStyle, setBtnStyle ] = useState({display: 'none'})
+    const btnStyleAfterEdit = ntbkEdit ? {display: 'flex'} : btnStyle
     const handleMouseEnter = (e) => {
-        setStyle({display: 'flex'});  
+        setBtnStyle({display: 'flex'});  
     } 
 
     const handleMouseLeave = (e) => {
-        setStyle({display: 'none'})                             
+        setBtnStyle({display: 'none'})                             
     }
     const handleMaximizeExpand = (e) =>  {
-        setNtbkExpand(() => !ntbkExpand);
-        minNtbkCom.saveMin(!ntbkExpand);
+        minNtbkCom.saveMin(!maxOptionBox);
+        setMaxOptionBox(() => !maxOptionBox);
         const newStyle = {
             background:"white", 
             width:"260px",
@@ -60,8 +62,8 @@ export default function BreadCrumNonExpand(props) {
     }
 
     const handleMinimizeExpand = (e) =>  {
-        setNtbkExpand(() => !ntbkExpand);
-        minNtbkCom.saveMin(!ntbkExpand);
+        minNtbkCom.saveMin(!maxOptionBox);
+        setMaxOptionBox(() => !maxOptionBox);
         const newStyle = {
             background:"none",
             width:"260px"
@@ -71,7 +73,8 @@ export default function BreadCrumNonExpand(props) {
     }
     const handleCloseExpand = () => {
         setDisplayCom(() => !displayCom);
-        setNtbkExpand(() => false);
+        setMaxOptionBox(() => false)
+
         const newStyle = {
             width: "inherit",
             backgroundColor: "#e9ecef", 
@@ -82,10 +85,9 @@ export default function BreadCrumNonExpand(props) {
         ntbkComStyle.saveStyle(newStyle)
     }
     return (
-        <div className = "optionBarExpand d-flex align-items-center justify-content-center">
-            {
-            !ntbkExpand 
+            !maxOptionBox 
             ? <>
+             <div className = "optionBarExpand d-flex align-items-center justify-content-center">
                 <div className = "ms-1 ntbkBtn mt-1" >
                     <button className = "p-0 ntbkBtn"  id = "search" onClick = {handleClick} 
                     // style = {ntbkStyle}
@@ -107,7 +109,7 @@ export default function BreadCrumNonExpand(props) {
 
                 <div className = "ms-1 ntbkBtn mt-1">
                     <button className = "p-0 ntbkBtn " id = "edit" onClick = {handleClick} > 
-                        {complementary.edit()}
+                        {complementary.list()}
                     </button>
                 </div>
     
@@ -128,40 +130,54 @@ export default function BreadCrumNonExpand(props) {
                         {main.leftChevron()}
                     </button>
                 </div>
+                </div>     
             </>                    
             : <>
-                <div className = "ms-1 offsetNtbkBtn"> </div>
-                <div className = "ms-1 offsetNtbkBtn"> </div>
-                <div className = "ms-1 offsetNtbkBtn"> </div>
-                <div className = "ms-1 offsetNtbkBtn"> </div>
-                <div className = "ms-1 offsetNtbkBtn"> </div>
-                <div className = "ms-1 .offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
-                    <div className = "ntbkEscapeFromExpand p-0">  </div>                                                        
-                    <div className = "ntbkBtnExpandToRightBg" >
-                        <button className = "p-0 ntbkBtnExpandToRight" 
-                            style = {style} 
-                            id = "more"
-                            onClick = {(e) => handleMaximizeExpand(e)} >
-                            {complementary.boxArrowDownLeft()}
-                        </button>
+                <div className = "optionBarExpand d-flex align-items-center justify-content-end">
+
+                    <div className = "ms-1 .offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
+                        <div className = "ntbkEscapeFromExpand p-0">  </div>                                                        
+                        <div className = "ntbkBtnExpandToRightBg" >
+                            <button className = "p-0 ntbkBtnExpandToRight" 
+                                id = "more"
+                                style = {btnStyleAfterEdit}
+                                onClick = {(e) => {
+                                    setNtbkEdit(() => !ntbkEdit)
+                                }} >
+                                {!ntbkEdit ? complementary.edit() : complementary.escape()}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className = "mx-1 .offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
+                {
+                    !ntbkEdit &&
+                        <div className = "ms-1 .offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
+                            <div className = "ntbkEscapeFromExpand p-0">  </div>                                                        
+                            <div className = "ntbkBtnExpandToRightBg" >
+                                <button className = "p-0 ntbkBtnExpandToRight" 
+                                    style = {btnStyle} 
+                                    id = "more"
+                                    onClick = {(e) => handleMaximizeExpand(e)} >
+                                    {complementary.boxArrowDownLeft()}
+                                </button>
+                            </div>
+                        </div>
+                }
+ 
+                <div className = "mx-1 me-2 .offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
                     <div className = "ntbkEscapeFromExpand p-0">  </div>                                                        
                     <div className = "ntbkBtnExpandToRightBg" 
                     >
                         <button className = "p-0 ntbkBtnExpandToRight" 
-                        style = {style} 
-                        id = "more"
-                        onClick = {(e) => handleCloseExpand(e)}              
+                            style = {btnStyleAfterEdit} 
+                            id = "more"
+                            onClick = {(e) => handleCloseExpand(e)}              
                         > 
                             {main.leftChevron()}
                         </button>
                     </div>
                 </div>
+                </div>
             </>
-            }                                                           
-        </div>                 
     )
 
 }
