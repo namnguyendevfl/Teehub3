@@ -36,7 +36,7 @@ export const expand = {
     delLeft: () => localStorage.removeItem('lExpand')   
 }
 
-export const ntbkComStyle = {
+export const ntbkCom = {
     getStyle: () => JSON.parse(window.localStorage.getItem('ntbkComStyle')),
     saveStyle: (style) => window.localStorage.setItem('ntbkComStyle', JSON.stringify(style)),
     dltStyle: () => localStorage.removeItem('ntbkComStyle'),    

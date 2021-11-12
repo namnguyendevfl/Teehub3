@@ -34,8 +34,6 @@ export default function TopicList(props) {
         return topic.bookId === ntbkSelected.id && topic.chapterId === chapSelected.id
         else return []
     })
-
-    console.log(topics)
     const [ newNtbk, setNewNtbk, newNtbkRef ] = useState(ntbkSelected)
     const [ newChap, setNewChap, newChapRef ] = useState(chapSelected)
     const topicList = topicsSelected.map((topic, mapIdx) => {
@@ -61,7 +59,7 @@ export default function TopicList(props) {
         !ntbkEdit &&
         <>
             <div className = "bg-white "
-                style = {{border: "1px solid #e9ecef"}}
+                style = {{border: "1px solid #e9ecef", margin:"0px 3px"}}
             >
                 <div    className = "ntbkTitleDivHeight w-100 d-flex justify-content-center align-items-center " >
                     <span className = "ntbkHeader text-center m-0 " >

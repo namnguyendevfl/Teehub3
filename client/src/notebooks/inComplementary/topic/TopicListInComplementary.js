@@ -13,7 +13,9 @@ export default function TopicList(props) {
         return <>
         <li key = {idx} className = "ntbkDropdown bg-transparent  list-group-item m-0 p-0 border-white"> 
             <a className = "ntbkDropdown bg-transparent  list-group-item w-100 d-flex border-white ps-4 text-decoration-none text-secondary"
-            href={`#${topic.title}`}>
+            // href={`#${topic.title.replaceAll(" ","-")}`}
+            href={`#${topic.title}`}
+            >
                 <span style = {{fontSize : "15px"}} className = "text-white"> {header} </span>
             </a>
         </li>

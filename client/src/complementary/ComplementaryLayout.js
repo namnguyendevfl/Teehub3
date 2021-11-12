@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ntbkComStyle } from "../utils/localStorage/notebooks";
 import Notebooks from "./Notebooks";
 import { navOptions } from "../utils/localStorage/navOptions";
-import Edit from "../notebooks/inComplementary/optionBar/options/Edit";
+import Edit from "../notebooks/inComplementary/options/options/Edit";
 
 export default function ComplementaryLayout(props) {
     const {
@@ -22,9 +22,7 @@ export default function ComplementaryLayout(props) {
         displayCom, 
         setDisplayCom, 
         navOption,
-        setNavOption,
-        ntbkExpand,
-        setNtbkExpand,          
+        setNavOption,        
         ntbkEdit,
         setNtbkEdit,
         ntbkStyle,
@@ -36,33 +34,46 @@ export default function ComplementaryLayout(props) {
     // const style = ntbkComStyle.getStyle() !== undefined ? ntbkComStyle.getStyle() : {color:"black"}
     // const [ ntbkStyle, setNtbkStyle ] = useState(style);
     const [ ntbkTextStyle, setNtbkTextStyle ] = useState();
+    // const ntbkRight = chapSelected ? {right:"22px"} : {right:"9px"}
     const style = (() => {
+        if (ntbkEdit) {
+            if (displayCom) {
+                return {
+                    background: "none",
+                    // right:"0px",  
+                }
+            } return {
+                background: "none",
+                    right:"16px",  
+            } 
+        }
         if(displayCom) {
             return {
                 width: "inherit",
-                backgroundColor: "#e9ecef",         
+                backgroundColor: "#e9ecef",   
+                // right:"0px",     
             }
         }
         if (!displayCom) {
-            if (maxNtbkOptionBox) {
+            if (!maxNtbkOptionBox) {
                 return {
                     color:"black", 
                     boxShadow:"none", 
                     background:"none", 
-                    width:"260px"     
+                    width:"260px",               
+                    right:"16px",         
                 }
             } else {
                 return {
                     background:"white", 
                     width:"260px",
-                    boxShadow: "0px 1px 7px 4px lightgrey"         
+                    boxShadow: "0px 1px 7px 4px lightgrey",
+                    borderRadius:"8px",
+                    right:"16px",            
                     }        
             }
         }
-        if (ntbkEdit) return {
-            width:"auto",
-            background: "none"
-        } 
+
     })()
     return (
     <>  
@@ -70,7 +81,7 @@ export default function ComplementaryLayout(props) {
             {
             (navOptionToDisplay === "Notebooks") &&
             <>
-            <div className = "notebooks pe-2" style = {style}>
+            <div className = "notebooks" style = {style}>
                 <Notebooks 
                     ntbkSelected = {ntbkSelected}
                     setNtbkSelected = {setNtbkSelected}

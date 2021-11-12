@@ -112,8 +112,9 @@ export default function TopicListEdit(props) {
             </section>
         </>
     ))
+    const topicEditStyle = ntbkEdit ? {margin: "3px"} : {margin:"3px"}
     return ( ntbkSelected && chapSelected && ntbkEdit &&
-        <form onSubmit = {handleSubmit}>
+        <form onSubmit = {handleSubmit} style = {topicEditStyle}>
             <div className = "bg-white topiclistBox border border-primary">    
                 <div    className = "ntbkTitleDivHeight w-100 py-1 d-flex justify-content-center align-items-center " >
                     <h3 className = "d-flex align-items-center m-0 w-100" >

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import BreadCrumExpand from "./BreadCrumExpand";
-import BreadCrumNonExpand from "./BreadCrumNonExpand";
+import OptionBarWithCom from "./bar/OptionBarWithCom";
+import OptionBarW_outCom from "./bar/OptionBarW_outCom";
 import Add from "./options/Add";
 import Dlt from "./options/Dlt";
 import Edit from "./options/Edit";
+import More from "./options/More";
 
-export default function OptionBar(props) {
+export default function Options(props) {
     const {
         ntbkSelected,
         setNtbkSelected, 
@@ -37,6 +38,16 @@ export default function OptionBar(props) {
     
     const [ dropdown, setDropdown ] = useState(false);
     const [ option, setOption] = useState(false);
+    const optionBoxStyle = (() => {
+        if (displayCom) return {
+            right: "10px"
+        }
+        return {
+            right: "0px",
+            top:"42px"
+        }
+    })()
+
     const displayOption = (option) => {
         switch (option) {
             case "add":
@@ -81,7 +92,7 @@ export default function OptionBar(props) {
                     setDropdown = { setDropdown }    
                     />
             
-            case "edit":
+            case "list":
                 return <Edit 
                     option = {option} 
                     ntbkSelected = {ntbkSelected}
@@ -100,46 +111,65 @@ export default function OptionBar(props) {
                     setDisplayCom = {setDisplayCom} 
                     dropdown = {dropdown}
                     setDropdown = { setDropdown }
-                    />                 
+                    />  
+            case "more":
+                return <More
+                    option = {option} 
+                    ntbkSelected = {ntbkSelected}
+                    setNtbkSelected = {setNtbkSelected}
+                    ntbkAlteredCount = {ntbkAlteredCount} 
+                    setNtbkAlteredCount = {setNtbkAlteredCount}  
+                    chapSelected = {chapSelected}
+                    setChapSelected = {setChapSelected}
+                    chapAlteredCount = {chapAlteredCount}
+                    setChapAlteredCount = {setChapAlteredCount}
+                    topicAlteredCount = {topicAlteredCount}
+                    setTopicAlteredCount = {setTopicAlteredCount}
+                    displayNav = {displayNav}
+                    setDisplayNav = {setDisplayNav}
+                    displayCom = {displayCom}
+                    setDisplayCom = {setDisplayCom} 
+                    dropdown = {dropdown}
+                    setDropdown = { setDropdown }
+                    />                     
         }
     }
     return (
         <> 
         <div className = "position-relative">
-            {
-                displayCom
-                ? <BreadCrumExpand option = {option} 
-                setOption = {setOption}
-                ntbkSelected = {ntbkSelected}
-                setNtbkSelected = {setNtbkSelected}
-                ntbkAlteredCount = {ntbkAlteredCount} 
-                setNtbkAlteredCount = {setNtbkAlteredCount}  
-                chapSelected = {chapSelected}
-                setChapSelected = {setChapSelected}
-                chapAlteredCount = {chapAlteredCount}
-                setChapAlteredCount = {setChapAlteredCount}
-                topicAlteredCount = {topicAlteredCount}
-                setTopicAlteredCount = {setTopicAlteredCount}
-                displayNav = {displayNav}
-                setDisplayNav = {setDisplayNav}
-                displayCom = {displayCom}
-                setDisplayCom = {setDisplayCom} 
-                dropdown = {dropdown}
-                setDropdown = { setDropdown } 
-                displayBar = {displayBar}
-                setDisplayBar = {setDisplayBar}
-                navOption = {navOption}
-                setNavOption = {setNavOption}  
-                ntbkStyle = { ntbkStyle }
-                setNtbkStyle = { setNtbkStyle }  
-                ntbkTextStyle = { ntbkTextStyle}
-                setNtbkTextStyle = {setNtbkTextStyle}
-                ntbkEdit = {ntbkEdit}
-                setNtbkEdit = {setNtbkEdit} 
-                maxOptionBox = {maxOptionBox}     
-                setMaxOptionBox = {setMaxOptionBox}    
+        <OptionBarWithCom 
+            option = {option} 
+            setOption = {setOption}
+            ntbkSelected = {ntbkSelected}
+            setNtbkSelected = {setNtbkSelected}
+            ntbkAlteredCount = {ntbkAlteredCount} 
+            setNtbkAlteredCount = {setNtbkAlteredCount}  
+            chapSelected = {chapSelected}
+            setChapSelected = {setChapSelected}
+            chapAlteredCount = {chapAlteredCount}
+            setChapAlteredCount = {setChapAlteredCount}
+            topicAlteredCount = {topicAlteredCount}
+            setTopicAlteredCount = {setTopicAlteredCount}
+            displayNav = {displayNav}
+            setDisplayNav = {setDisplayNav}
+            displayCom = {displayCom}
+            setDisplayCom = {setDisplayCom} 
+            dropdown = {dropdown}
+            setDropdown = { setDropdown } 
+            displayBar = {displayBar}
+            setDisplayBar = {setDisplayBar}
+            navOption = {navOption}
+            setNavOption = {setNavOption}  
+            ntbkStyle = { ntbkStyle }
+            setNtbkStyle = { setNtbkStyle }  
+            ntbkTextStyle = { ntbkTextStyle}
+            setNtbkTextStyle = {setNtbkTextStyle}
+            ntbkEdit = {ntbkEdit}
+            setNtbkEdit = {setNtbkEdit} 
+            maxOptionBox = {maxOptionBox}     
+            setMaxOptionBox = {setMaxOptionBox}    
             />
-                : <BreadCrumNonExpand option = {option} 
+        <OptionBarW_outCom option = {option} 
                 setOption = {setOption}
                 ntbkSelected = {ntbkSelected}
                 setNtbkSelected = {setNtbkSelected}
@@ -170,11 +200,11 @@ export default function OptionBar(props) {
                 maxOptionBox = {maxOptionBox}     
                 setMaxOptionBox = {setMaxOptionBox}   
             />
-            }
             {
                 option && dropdown &&
-                /* option box has to have bg-white */
-                <div className = "optionBox bg-white container-fluid m-0 p-0">
+                <div className = "optionBox bg-white container-fluid m-0 p-0"
+                    style = {optionBoxStyle }
+                    >
                     {displayOption(option)}
                 </div>
             }

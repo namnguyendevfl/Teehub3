@@ -1,7 +1,7 @@
 import React from "react";
 import NtBkList from "../notebooks/inComplementary/notebook/NtBkListInComplementary";
 import ChapterList from "../notebooks/inComplementary/chap/ChapListInComplementary";
-import OptionBar from "../notebooks/inComplementary/optionBar/optionBar";
+import Options from "../notebooks/inComplementary/options/options";
 export default function Notebooks(props) {
     const {
         ntbkSelected,
@@ -32,7 +32,7 @@ export default function Notebooks(props) {
 
     return (
     <>  
-        <OptionBar 
+        <Options 
             ntbkSelected = {ntbkSelected}
             setNtbkSelected = {setNtbkSelected}
             ntbkAlteredCount = {ntbkAlteredCount} 
@@ -60,7 +60,7 @@ export default function Notebooks(props) {
         />
         
         {
-            !maxOptionBox &&
+            maxOptionBox &&
             <>
             <hr className = "p-0 m-0 mt-1"/>
             <NtBkList 

@@ -1,5 +1,5 @@
 import "./Main.css"
-import React from "react";
+import React, { useState } from "react";
 import { Routes,Route } from "react-router-dom";
 import Home from "../home/Home";
 import { ntbks, chaps } from "../utils/localStorage/notebooks";
@@ -20,18 +20,46 @@ export default function MainLayout(props) {
         displayNav, 
         setDisplayNav, 
         displayCom, 
-        setDisplayCom,
+        setDisplayCom, 
+        navOption,
+        setNavOption,        
         ntbkEdit,
-        setNtbkEdit
+        setNtbkEdit,
+        ntbkStyle,
+        setNtbkStyle,
+        maxNtbkOptionBox,
+        setMaxNtbkOptionBox,
     } = props
     const ntbkToDisplay = ntbkSelected ? ntbkSelected : ntbks.getNtbkSelected()
     const chapToDisplay = chapSelected ? chapSelected : chaps.getChapSelected()
+    const initialHeight = window.innerHeight
+    const [ viewHeight, setViewHeight ] = useState(initialHeight - 80)
+    const handleResize = () => {
+        setViewHeight(() => window.innerHeight - 80)
+    }
+    window.addEventListener('resize', handleResize);
+    const mainStyleNtbk = (() => {
+        if (navOption === "Notebooks") {
+            return {
+                maxHeight: `${viewHeight}px`,
+                overflow: "auto",
+            }
+        }
+        return {
+            overflow :"hidden"
+        }
+    })()
+    
     return (
         <>
         <Routes>
             <Route path = "/" element = {<Home />}/>
             <Route  path = "notebooks/*" 
-                    element = {<NotebookRoute 
+                    element = {
+                    <div className = "ntbkMain"
+                    style = {mainStyleNtbk}
+                    >
+                    <NotebookRoute 
                         ntbkSelected = {ntbkToDisplay}
                         setNtbkSelected = {setNtbkSelected}
                         ntbkAlteredCount = {ntbkAlteredCount} 
@@ -48,7 +76,9 @@ export default function MainLayout(props) {
                         setDisplayCom = {setDisplayCom}                
                         ntbkEdit = {ntbkEdit}
                         setNtbkEdit = {setNtbkEdit}   
-                    />}
+                    />
+                    </div>
+                    }
             />
                 {/* <div className = "bg-white"> */}
                 {/* <NoteBookRoute 

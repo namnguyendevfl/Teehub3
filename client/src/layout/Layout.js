@@ -7,7 +7,8 @@ import Nav from "../nav/Nav";
 import MainLayout from "../main/Main";
 import ComplementaryLayout from "../complementary/ComplementaryLayout";
 import { hideCom, minNtbkCom } from "../utils/localStorage/complementary";
-import { chaps, ntbkComStyle, ntbks } from "../utils/localStorage/notebooks";
+import { chaps, ntbkCom, ntbks } from "../utils/localStorage/notebooks";
+import { navOptions } from "../utils/localStorage/navOptions";
 
 export default function Layout() {
      //First part: Running Pomodoro
@@ -31,12 +32,6 @@ export default function Layout() {
     useEffect (() => setLock(() => lock),[lock])
 
     //notebooks
-    const initialHeight = window.innerHeight
-    const [ viewHeight, setViewHeight ] = useState(initialHeight - 80)
-    const handleResize = () => {
-        setViewHeight(() => window.innerHeight - 80)
-    }
-    window.addEventListener('resize', handleResize)
     const [ ntbkAlteredCount, setNtbkAlteredCount ] = useState(0);
     const [ chapAlteredCount, setChapAlteredCount ] = useState(0);
     const [ topicAlteredCount, setTopicAlteredCount ] = useState(0);
@@ -45,21 +40,48 @@ export default function Layout() {
     const initialChapSelected = chaps.getChapSelected() ? chaps.getChapSelected() : null
     const [ chapSelected, setChapSelected ] = useState(initialChapSelected);
     const [ displayNav, setDisplayNav ] = useState(true);
-    const initialDisplayCom = hideCom.getHideCom() !== undefined ? hideCom.getHideCom() : true
+    const initialDisplayCom = (() => {
+        if (chapSelected) {
+            if (hideCom.getHideCom() !== undefined) return hideCom.getHideCom()
+            return true
+        }
+        return true
+    })()
     const [ displayCom, setDisplayCom ] = useState(initialDisplayCom);
-    const initMaxNtbkOptionBox = minNtbkCom.getMin() !== undefined ? minNtbkCom.getMin() : false
-    const [ maxNtbkOptionBox , setMaxNtbkOptionBox  ] = useState(initMaxNtbkOptionBox)
-    const [ ntbkEdit, setNtbkEdit ] = useState(false)
-    const [ navOption, setNavOption ] = useState()
-    const style = ntbkComStyle.getStyle() !== undefined ? ntbkComStyle.getStyle() : {color:"black"}
-    const [ ntbkStyle, setNtbkStyle ] = useState(style);
+    const initMaxNtbkOptnBox = (() => {
+        if (chapSelected && displayCom === false) return false
+        if (displayCom || chapSelected) return true
+        if (minNtbkCom.getMin()) return minNtbkCom.getMin()
+        return false
+    })()
+    const [ maxNtbkOptnBox, setMaxNtbkOptnBox  ] = useState(initMaxNtbkOptnBox)
+    useEffect(() => {
+        setDisplayCom(() => initialDisplayCom)
+        setMaxNtbkOptnBox(() => initMaxNtbkOptnBox)
+    },[chapSelected, displayCom])
+
+    const [ ntbkEdit, setNtbkEdit ] = useState(false);
+    const initNavOption = navOptions.getNav() ? navOptions.getNav() : null
+    const [ navOption, setNavOption ] = useState(initNavOption);
+    const style = ntbkCom.getStyle() !== undefined ? ntbkCom.getStyle() : {color:"black"}
+    const [ ntbkComStyle, setNtbkComStyle ] = useState(style);
     const comStyleNtbk = (() => displayCom ? {position:"fixed"} : {position:"unset"})()
+    const mainStyle = (() => {
+        if (navOption === "Notebooks") {
+            if (ntbkEdit) return {
+                top:"77px",
+            } 
+        }
+        return {
+            top:"80px",            
+        }
+    })()
     return(
         <>
         <div className = ""
                 style = {{
                     height: "100vh",
-                    background : "#e9ecef"
+                    background : "#e9ecef",
                 }}
         >
             <div className = "banner">
@@ -92,34 +114,35 @@ export default function Layout() {
                         setNavOption = {setNavOption}             
                     />
             </header>
-            <main className = "row w-100 m-0 p-0"
-                    style = {{
-                        background: "#e9ecef",
-                        position: "fixed",
-                        maxHeight: `${viewHeight}px`,
-                        overflow: "auto",
-                        top:"80px"
-                    }}
+            <main className = "main row w-100 m-0 p-0" 
+                style = {mainStyle}
             > 
                 <div className ="col-2"></div>
-                <div className ="col m-0 me-2 p-0"> 
+                <div className ="col ms-1 me-1 p-0"
+                > 
                     <MainLayout 
-                        ntbkSelected = {ntbkSelected}
-                        setNtbkSelected = {setNtbkSelected}
-                        ntbkAlteredCount = {ntbkAlteredCount} 
-                        setNtbkAlteredCount = {setNtbkAlteredCount}    
-                        chapSelected = {chapSelected}
-                        setChapSelected = {setChapSelected}
-                        chapAlteredCount = {chapAlteredCount}
-                        setChapAlteredCount = {setChapAlteredCount}
-                        topicAlteredCount = {topicAlteredCount}
-                        setTopicAlteredCount = {setTopicAlteredCount}
-                        displayNav = {displayNav}
-                        setDisplayNav = {setDisplayNav}
-                        displayCom = {displayCom}
-                        setDisplayCom = {setDisplayCom}
-                        ntbkEdit = {ntbkEdit}
-                        setNtbkEdit = {setNtbkEdit}               
+                         ntbkSelected = {ntbkSelected}
+                         setNtbkSelected = {setNtbkSelected}
+                         ntbkAlteredCount = {ntbkAlteredCount} 
+                         setNtbkAlteredCount = {setNtbkAlteredCount}  
+                         chapSelected = {chapSelected}
+                         setChapSelected = {setChapSelected}
+                         chapAlteredCount = {chapAlteredCount}
+                         setChapAlteredCount = {setChapAlteredCount}
+                         topicAlteredCount = {topicAlteredCount}
+                         setTopicAlteredCount = {setTopicAlteredCount}
+                         displayNav = {displayNav}
+                         setDisplayNav = {setDisplayNav}
+                         displayCom = {displayCom}
+                         setDisplayCom = {setDisplayCom}
+                         navOption = {navOption}
+                         setNavOption = {setNavOption} 
+                         ntbkEdit = {ntbkEdit}
+                         setNtbkEdit = {setNtbkEdit}
+                         ntbkStyle = { ntbkComStyle}
+                         setNtbkStyle = { setNtbkComStyle } 
+                         maxNtbkOptionBox = {maxNtbkOptnBox}
+                         setMaxNtbkOptionBox = {setMaxNtbkOptnBox}        
                     />        
                 </div>
                 {
@@ -147,10 +170,10 @@ export default function Layout() {
                         setNavOption = {setNavOption} 
                         ntbkEdit = {ntbkEdit}
                         setNtbkEdit = {setNtbkEdit}
-                        ntbkStyle = { ntbkStyle }
-                        setNtbkStyle = { setNtbkStyle } 
-                        maxNtbkOptionBox = {maxNtbkOptionBox}
-                        setMaxNtbkOptionBox = {setMaxNtbkOptionBox}
+                        ntbkStyle = { ntbkComStyle}
+                        setNtbkStyle = { setNtbkComStyle } 
+                        maxNtbkOptionBox = {maxNtbkOptnBox}
+                        setMaxNtbkOptionBox = {setMaxNtbkOptnBox}
                 />     
             </div>                  
         </div>

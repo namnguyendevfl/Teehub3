@@ -119,7 +119,7 @@ const DnD = (props) => {
                   >
                     {(provided, snapshot) => (
                       <li 
-                        className = "p-0 m-0 list-group-item"
+                        className = "p-0 m-0"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         style={{
@@ -135,7 +135,7 @@ const DnD = (props) => {
                                   className = "d-flex w-100"
                                   >
                                 <input
-                                        className = "list-group-item w-100 px-3 text-start w-100"
+                                        className = "py-2 w-100 px-3 text-start w-100"
                                         id = "title"
                                         name = "title"
                                         placeholder = "Write a notebook title"                              
