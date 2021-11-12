@@ -119,7 +119,7 @@ const DnD = (props) => {
                   >
                     {(provided, snapshot) => (
                       <li 
-                        className = "p-0 m-0"
+                        className = "p-0 m-0 dndItem"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         style={{
@@ -130,7 +130,7 @@ const DnD = (props) => {
                             color: "#444444",
                         }}
                       >
-                        <div className = "d-flex justify-content-between align-items-center me-2 ">                               
+                        <div className = "d-flex justify-content-between align-items-center me-2 ">                     
                             <form 
                                   className = "d-flex w-100"
                                   >

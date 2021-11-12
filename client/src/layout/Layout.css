@@ -165,6 +165,11 @@ a {
     background: lightgrey;
 }
 
+/* dnd */
+.dndItem {
+    list-style-type: none;
+}
+
   
   
  
