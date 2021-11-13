@@ -9,6 +9,9 @@ import ComplementaryLayout from "../complementary/ComplementaryLayout";
 import { hideCom, minNtbkCom } from "../utils/localStorage/complementary";
 import { chaps, ntbkCom, ntbks } from "../utils/localStorage/notebooks";
 import { navOptions } from "../utils/localStorage/navOptions";
+import Popups from "../popups/popups";
+import Login from "../accounts/Login";
+
 
 export default function Layout() {
      //First part: Running Pomodoro
@@ -51,8 +54,6 @@ export default function Layout() {
     const initMaxNtbkOptnBox = (() => {
         if (chapSelected && displayCom === false) return false
         if (displayCom || chapSelected) return true
-        if (minNtbkCom.getMin()) return minNtbkCom.getMin()
-        return false
     })()
     const [ maxNtbkOptnBox, setMaxNtbkOptnBox  ] = useState(initMaxNtbkOptnBox)
     useEffect(() => {
@@ -60,6 +61,7 @@ export default function Layout() {
         setMaxNtbkOptnBox(() => initMaxNtbkOptnBox)
     },[chapSelected, displayCom])
 
+    console.log(maxNtbkOptnBox)
     const [ ntbkEdit, setNtbkEdit ] = useState(false);
     const initNavOption = navOptions.getNav() ? navOptions.getNav() : null
     const [ navOption, setNavOption ] = useState(initNavOption);
@@ -76,14 +78,19 @@ export default function Layout() {
             top:"80px",            
         }
     })()
+
+    let login = true;
+    // login = false
     return(
         <>
+         {/* This is the non-popup part*/}
         <div className = ""
                 style = {{
                     height: "100vh",
                     background : "#e9ecef",
                 }}
         >
+            {/* This is the banner part*/}
             <div className = "banner">
                 <BannerLayout 
                     isTimerRunning = {isTimerRunning} 
@@ -96,9 +103,7 @@ export default function Layout() {
                     setSession = {setSession}   
                 />
             </div>
-            {/* <div className = "ntbkMore">
-                <NtbkMore />
-            </div> */}
+            {/* This is the header part*/}   
             <header className = "navigation col-2 pe-1"                
                 >
                     <Nav 
@@ -114,6 +119,7 @@ export default function Layout() {
                         setNavOption = {setNavOption}             
                     />
             </header>
+            {/* This is the main part*/}
             <main className = "main row w-100 m-0 p-0" 
                 style = {mainStyle}
             > 
@@ -150,6 +156,8 @@ export default function Layout() {
                 <div className ="col-3"></div>
                 }               
             </main>
+
+            {/* This is the complementary part*/}
             <div className = "complementary col-3 p-0" style = {comStyleNtbk}>
                 <ComplementaryLayout 
                         ntbkSelected = {ntbkSelected}
@@ -177,9 +185,23 @@ export default function Layout() {
                 />     
             </div>                  
         </div>
-         {/* <div className = "popup">
-            practice box
-        </div> */}
+
+        {/* This is the popup part*/}
+        {/* This is the account */}
+        <div>
+           {login
+           ? <Login /> 
+           : <>
+            <div className = "popup-background w-100"></div>
+                <div className = "popup">
+                    <Popups />
+                </div> 
+           </>
+           }
+           
+            
+     
+        </div>
         </>
     )
 }

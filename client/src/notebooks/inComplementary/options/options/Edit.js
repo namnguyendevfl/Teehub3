@@ -21,27 +21,7 @@ export default function Edit(props) {
         dropdown,
         setDropdown,
     } = props
-    return (
-        <EditTopic
-        option = {option} 
-        ntbkSelected = {ntbkSelected}
-        setNtbkSelected = {setNtbkSelected}
-        ntbkAlteredCount = {ntbkAlteredCount} 
-        setNtbkAlteredCount = {setNtbkAlteredCount}  
-        chapSelected = {chapSelected}
-        setChapSelected = {setChapSelected}
-        chapAlteredCount = {chapAlteredCount}
-        setChapAlteredCount = {setChapAlteredCount}
-        topicAlteredCount = {topicAlteredCount}
-        setTopicAlteredCount = {setTopicAlteredCount}
-        displayNav = {displayNav}
-        setDisplayNav = {setDisplayNav}
-        displayCom = {displayCom}
-        setDisplayCom = {setDisplayCom} 
-        dropdown = {dropdown}
-        setDropdown = { setDropdown }           
-        />
-    )
+    
     // return (
     //     <>
     //     This is edit
@@ -93,24 +73,24 @@ export default function Edit(props) {
         )
     }
     return (
-        <>
-            Edit a topic
-            {/* <AddTopic 
-                option = {option} 
-                ntBkSelected = {ntBkSelected}
-                setNtBkSelected = {setNtBkSelected}
-                chapSelected = {chapSelected}
-                setChapSelected = {setChapSelected}
-                displayLeftMain = {displayLeftMain}
-                setDisplayLeftMain = {setDisplayLeftMain}
-                displayRightMain = {displayRightMain}
-                setDisplayRightMain = {setDisplayRightMain} 
-                optionBarUrl = {optionBarUrl}
-                setOptionBarUrl = {setOptionBarUrl}  
-                dropdown = {dropdown}
-                setDropdown = { setDropdown }                        
-                />   */}
-     
-        </>
+        <EditTopic
+        option = {option} 
+        ntbkSelected = {ntbkSelected}
+        setNtbkSelected = {setNtbkSelected}
+        ntbkAlteredCount = {ntbkAlteredCount} 
+        setNtbkAlteredCount = {setNtbkAlteredCount}  
+        chapSelected = {chapSelected}
+        setChapSelected = {setChapSelected}
+        chapAlteredCount = {chapAlteredCount}
+        setChapAlteredCount = {setChapAlteredCount}
+        topicAlteredCount = {topicAlteredCount}
+        setTopicAlteredCount = {setTopicAlteredCount}
+        displayNav = {displayNav}
+        setDisplayNav = {setDisplayNav}
+        displayCom = {displayCom}
+        setDisplayCom = {setDisplayCom} 
+        dropdown = {dropdown}
+        setDropdown = { setDropdown }           
+        />
     )
 }

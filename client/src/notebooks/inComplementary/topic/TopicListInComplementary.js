@@ -23,7 +23,7 @@ export default function TopicList(props) {
     })
     return ( 
         <>  
-            <ul className = "list-group dropdownListBox">
+            <ul className = "list-group dropdownNtbkListBox ">
                 {topicList}
             </ul>
         </>

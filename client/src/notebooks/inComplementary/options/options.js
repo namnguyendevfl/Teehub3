@@ -202,7 +202,7 @@ export default function Options(props) {
             />
             {
                 option && dropdown &&
-                <div className = "optionBox bg-white container-fluid m-0 p-0"
+                <div className = "optionNtbkBox bg-white container-fluid m-0 p-0"
                     style = {optionBoxStyle }
                     >
                     {displayOption(option)}

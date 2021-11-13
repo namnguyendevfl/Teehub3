@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { complementary } from "../../../../utils/icons/complementary/Complementary";
-import { main } from "../../../../utils/icons/main/main";
 import { hideCom, minNtbkCom } from "../../../../utils/localStorage/complementary";
 import { ntbkCom } from "../../../../utils/localStorage/notebooks";
-import AdditnOptnsW_oCom from "./AdditnOptnsW_oCom";
-import BasicOptions from "./BasicOptions";
+import MinOptnBarW_oCom from "./MinOptnBarW_oCom";
+import MaxOptnBarW_oCom from "./MaxOptnBarW_oCom";
 
 export default function OptionBarW_outCom(props) {
     const {
@@ -22,59 +20,25 @@ export default function OptionBarW_outCom(props) {
         setOption         
     } = props
     const [ btnStyle, setBtnStyle ] = useState({display: 'none'})
-    const handleMinimizeOptnBox = (e) =>  {
-        setDropdown(() => false)
-        setBtnStyle({display:"flex"})
-        minNtbkCom.saveMin(!maxOptionBox);
-        setMaxOptionBox(() => !maxOptionBox);
-        const newStyle = {
-            background:"none",
-            width:"260px"
-        }
-        setNtbkStyle(newStyle)
-        ntbkCom.saveStyle(newStyle)
-    }
-    const handleOpenCom = () => {
-        setDisplayCom(() => !displayCom);
-        setMaxOptionBox(() => false)
-        setDropdown(() => false)
-        const newStyle = {
-            width: "inherit",
-            backgroundColor: "#e9ecef", 
-        }
-        setNtbkStyle(() => newStyle);
-        hideCom.saveHideCom(!displayCom);
-        minNtbkCom.saveMin(false);
-        ntbkCom.saveStyle(newStyle)
-    }
-    return ( !displayCom && 
+    return ( !displayCom && chapSelected &&
         <>
-          {
-            maxOptionBox &&
-            <>
-                <div className = "optionBarExpand d-flex align-items-center justify-content-center">
-                    <BasicOptions 
-                        option = {option} 
-                        setOption = {setOption}       
-                        dropdown = {dropdown}
-                        setDropdown = { setDropdown } 
-                    />
-                    <div className = "ms-1 ntbkBtn mt-1">
-                        <button className = "p-0 ntbkBtn" onClick = {(e) => handleMinimizeOptnBox(e)} >
-                            {complementary.boxArrowUpRight()}               
-                        </button>
-                    </div>
-                    <div className = "mx-1 ntbkBtn mt-1" >   
-                        <button className = "p-0 ntbkBtn"                               
-                            onClick = {(e) => handleOpenCom(e)}
-                        > 
-                            {main.leftChevron()}
-                        </button>
-                    </div>
-                </div>     
-            </>
-        }                    
-        <AdditnOptnsW_oCom
+        <MaxOptnBarW_oCom 
+            chapSelected = {chapSelected} 
+            displayCom = {displayCom}
+            setDisplayCom = {setDisplayCom}
+            setNtbkStyle = {setNtbkStyle}
+            ntbkEdit = {ntbkEdit}
+            setNtbkEdit = {setNtbkEdit}
+            maxOptionBox = {maxOptionBox}   
+            setMaxOptionBox = {setMaxOptionBox}
+            btnStyle = {btnStyle}
+            setBtnStyle = {setBtnStyle}
+            dropdown = {dropdown}
+            setDropdown = {setDropdown}
+            option = {option}
+            setOption = {setOption}
+        />         
+        <MinOptnBarW_oCom
             chapSelected = {chapSelected} 
             displayCom = {displayCom}
             setDisplayCom = {setDisplayCom}

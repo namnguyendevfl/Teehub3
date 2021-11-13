@@ -18,6 +18,7 @@ export default function AdditnOptnsW_oCom(props) {
         btnStyle,
         setBtnStyle   
     } = props
+    console.log(btnStyle)
     const btnStyleAfterEdit = ntbkEdit ? {display: 'flex'} : btnStyle
     const handleMouseEnter = (e) => {
         setBtnStyle({display: 'flex'});  
@@ -27,6 +28,7 @@ export default function AdditnOptnsW_oCom(props) {
         setBtnStyle({display: 'none'})                             
     }
     const handleMaximizeOptnBox = (e) =>  {
+        setBtnStyle({display: 'none'}) 
         minNtbkCom.saveMin(!maxOptionBox);
         setMaxOptionBox(() => !maxOptionBox);
         const newStyle = {
@@ -39,6 +41,7 @@ export default function AdditnOptnsW_oCom(props) {
     }
     const handleOpenCom = () => {
         setDisplayCom(() => !displayCom);
+        setBtnStyle({display:"none"})
         setMaxOptionBox(() => false)
         const newStyle = {
             width: "inherit",
@@ -51,7 +54,7 @@ export default function AdditnOptnsW_oCom(props) {
     }
 
     return ( chapSelected && !maxOptionBox &&
-    <div className = "optionBarExpand d-flex align-items-center justify-content-end">
+    <div className = "d-flex align-items-center justify-content-end">
         <div className = "ms-1 offsetNtbkBtn mt-1" onMouseEnter = {(e) => handleMouseEnter(e)}  onMouseLeave = {(e) => handleMouseLeave(e)} > 
             <div className = "ntbkEscapeFromExpand p-0">  </div>                                                        
             <div className = "ntbkBtnExpandToRightBg" >

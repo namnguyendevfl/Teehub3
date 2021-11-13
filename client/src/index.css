@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
 }
 
 code {
@@ -16,4 +16,19 @@ code {
 input {
   outline: none;
   border: none;
+}
+
+.list-group-item {
+  outline: none;
+  border: none;
+}
+.textarea{
+  border:none;
+  outline:none;
+  width: 100%;
+}
+.ntbkTextarea{
+  min-height:150px;
+  max-height: 280px;
+  overflow-x: scroll; 
 }

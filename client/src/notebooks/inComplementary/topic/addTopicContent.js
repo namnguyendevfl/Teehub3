@@ -64,7 +64,7 @@ export default function AddTopicContent(props){
 
     return (
         <>
-     <div className="optionBoxBar row d-flex text-aligns-center m-0 justify-content-center">  
+     <div className="row d-flex text-aligns-center m-0 justify-content-center">  
         <div className = "col-2 m-0 ps-2 d-flex align-items-center">
             <button className = "ntbkBtn d-flex align-items-center p-0 "
                     onClick = {(e) => setDisplayContent(() => !displayContent)}
@@ -72,7 +72,7 @@ export default function AddTopicContent(props){
                 {complementary.leftArrow()}
             </button>
         </div>
-        <h5 className = "col-8 text-center m-0 optionBoxBarText">
+        <h5 className = "ntbkOptnBoxTitle col-8 text-center m-0 ">
             <span className = ""> Create topic content </span>
         </h5>  
         <div className = "col-2 m-0  d-flex align-items-center justify-content-end">
@@ -88,7 +88,7 @@ export default function AddTopicContent(props){
     onSubmit = {handleSubmit}>
         <div>
             <TextareaAutosize
-                className = "w-100 createInput px-3 pt-2 text-start w-100"
+                className = "textarea ntbkTextarea w-100 px-3 pt-2 text-start w-100"
                 type = "textarea"
                 id = "content"
                 name = "content"
@@ -116,7 +116,7 @@ export default function AddTopicContent(props){
 
             </div>
             <button 
-                    className = "save mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
+                    className = "saveNtbk mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
                     type = "submit"
                     >
                     Save

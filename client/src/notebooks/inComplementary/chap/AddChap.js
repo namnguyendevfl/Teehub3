@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router";
+import TextareaAutosize from "react-autosize-textarea"
 import { chaps } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
 
@@ -64,7 +64,7 @@ export default function AddChapter(props){
             
     <div className="row d-flex text-aligns-center text-dark m-0 justify-content-center">    
         <div className = "col-2"></div>
-        <h5 className = "optionBoxBarText col-8 text-center m-0">Create chapter</h5>
+        <h5 className = "ntbkOptnBoxTitle col-8 text-center m-0">Create chapter</h5>
         <div className = "col-2 m-0  d-flex align-items-center justify-content-end">
             <button className = "ntbkBtn d-flex align-items-center p-2 "
                     onClick = {(e) => setDropdown (() => !dropdown)}
@@ -78,16 +78,16 @@ export default function AddChapter(props){
     <form className = ""
     onSubmit = {handleSubmit}>
     <div>
-
-        <input
-            className = "list-group-item createInput px-3 text-start w-100"
-            id = "title"
-            name = "title"
-            placeholder = "Write a chapter title"
-            value = {newChap.title}
-            onChange = {handleChange}
-            >
-        </input>
+        <div>
+            <TextareaAutosize
+                className = "textarea ntbkTextarea w-100 px-3 pt-2 text-start w-100"
+                id = "title"
+                name = "title"
+                placeholder = "Write a chapter title"
+                value = {newChap.title}
+                onChange = {handleChange}
+            />
+        </div>   
     </div>
 
     <div className = "position-absolute bottom-0 text-center w-100 px-3">
@@ -106,7 +106,7 @@ export default function AddChapter(props){
 
         </div>
         <button 
-            className = "save mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
+            className = "saveNtbk mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
             type = "submit"
             >
             Save

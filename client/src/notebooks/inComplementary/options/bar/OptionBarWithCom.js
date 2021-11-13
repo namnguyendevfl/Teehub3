@@ -19,7 +19,7 @@ export default function OptionBarWithCom(props) {
     } = props
     return ( displayCom &&
         <>
-        <div className = "optionBar d-flex align-items-center justify-content-center" >
+        <div className = "d-flex align-items-center justify-content-center" >
             <BasicOptions     
                 option = {option} 
                 setOption = {setOption}           

@@ -1,5 +1,31 @@
+/* general tags and common use css */
 a {
     text-decoration: none;
+}
+
+input,.textarea {
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.list-group-item:hover{
+    background: lightgrey;
+}
+
+.list-group-item {
+    outline: none;
+    border: none;
+}
+
+.dndItem {
+    list-style-type: none;
+}
+
+.ntbkTextarea{
+min-height:150px;
+max-height: 280px;
+overflow-x: scroll; 
 }
 
 
@@ -8,6 +34,24 @@ a {
     background-color: #e9ecef;
 }  
 
+
+.btn {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:50%;
+    padding: 0;
+    box-shadow: none;
+}
+.btn:hover{
+    background: lightgrey;
+}
+.btn:focus{
+    box-shadow: none;
+}
+/* banner */
 .banner {
     height: 60px;
     width: 100%;
@@ -147,28 +191,18 @@ a {
     position: fixed;
     top:80px;
 }
-  
-.popup {
-    position: fixed;
-    width: 500px;
-    height: 200px;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px; /* Negative half of height. */
-    margin-left: -250px;
-    /* width: 300px;
-    height: 200px; */
-    /* transform: translateY(100%) translateY(-7rem); */
-    background-color: blue;
-}
-.list-group-item:hover{
-    background: lightgrey;
+
+/* Popup */
+.popup-background {
+    height: 100vh;   
+    position: absolute;
+    top: 0px;
+    background: black;
+    z-index: 3;
+    opacity:0.3;    
 }
 
-/* dnd */
-.dndItem {
-    list-style-type: none;
-}
+
 
   
   

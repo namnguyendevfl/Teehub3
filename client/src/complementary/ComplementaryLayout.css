@@ -4,19 +4,12 @@
     right: 3px;
     top: 81px;
     background-color: #e9ecef;
-    /* border: 1px solid; */
+
 }
 .offsetNtbk {
     height: 130px;
 }
 /* Option Bar */
-.optionBar {
-    background: none ;
-}
-
-.optionBarExpand {
-    background: none;
-}
 
 .ntbkBtn, .offsetNtbkBtn {
     border: none;
@@ -31,8 +24,6 @@
     justify-content: center;
     
 }
-
-
 .ntbkBtn:hover {
     background: lightgray !important;
     border-radius: 50%;
@@ -42,10 +33,8 @@
     background: #636a70 !important;
     border-radius: 8px;
 }
-.ntbkBar:hover {
-    background: none !important;
-}
-.dropdownListBox {
+
+.dropdownNtbkListBox {
     position: absolute;
     max-height: 50vh;
     border-radius: 8px;
@@ -54,7 +43,7 @@
     left: -12px;
     right: 12px;
 }
-.optionBox {
+.optionNtbkBox {
     width : 450px;
     min-height:300px;
     height: max-content;
@@ -69,28 +58,25 @@
     border-radius: 8px;
 }
 
-.optionBoxBarText {
+.ntbkOptnBoxTitle {
     padding: 12px 0 12px 0;
 }
-.boxList {
+.ntbkOptnBoxList {
     height: 195px;
     overflow-x: hidden ;
     overflow-y: auto; 
 }
-.save {
+.saveNtbk {
     background: #0d6efd;
     color:white !important;  
     border-radius: 8px !important;
     z-index: 12; 
 }
-.save:hover {
+.saveNtbk:hover {
     opacity: 0.9;
     background: #0d6efd !important;
 }
-.list-group-item {
-    outline: none;
-    border: none;
-}
+
 .addList {
     width: 450px;
 }
@@ -104,20 +90,13 @@
 }
 /* .dlt:hover  */
 /* remove input hover from .list-group-item */
-.createInput{
-    border:none;
-    outline:none;
-    width: 100%;
-    min-height:150px;
-    max-height: 280px;
-    overflow-x: scroll;
-}
+
 .createInput:hover, .dlt:hover, .ntbkInRightMenu:hover, .addList:hover {
     background-color: white !important;
 }
 .number {
     width:25px;
-    /* padding-left: 5px; */
+
 }
 .number::placeholder{
     color: #90979c;
@@ -126,27 +105,7 @@
     align-items: center;
     justify-content: center; */
   }
-/* Style the dropdown */
-.dropdown {
-    /* background-color: white !important; */
-    background-color: none !important;
-    color: black !important;
-    outline: none;
-    border:none;
-    box-shadow: none !important
-}
-.dropdown:hover {
-    /* background-color: lightgray !important; */
-    background-color: none !important;
-    color: black;
-}
-.dropdown:focus {
-    outline: none !important;
-    border: none !important;
-    /* background-color: lightgray !important; */
-    background-color: none !important;
-    box-shadow: none;
-}
+
 
 /* notebook expand */
 .ntbkExpandToRight, .ntbkBtnExpandToRight, .ntbkBtnExpandToRightBg, .ntbkEditToRight {

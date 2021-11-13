@@ -36,7 +36,7 @@ export default function DltNtBk(props){
     <>
             <div className="row d-flex text-aligns-center m-0 justify-content-center">
             <div className = "col-2"></div>
-            <h5 className = "col-8 text-center text-dark m-0 optionBoxBarText">Delete notebook</h5>
+            <h5 className = "ntbkOptnBoxTitle col-8 text-center text-dark m-0">Delete notebook</h5>
             <div className = "col-2 m-0 d-flex align-items-center justify-content-end">
                 <button className = "ntbkBtn d-flex align-items-center p-2 "
                         onClick = {(e) => setDropdown (() => !dropdown)}
@@ -46,7 +46,7 @@ export default function DltNtBk(props){
             </div>
         </div>
         <hr className =" m-0 p-0"/>
-        <div className = "boxList">
+        <div className = "ntbkOptnBoxList">
             <ListToDlt 
                         optionsDlt = { ntbksDlted }
                         setOptionsDlt = { setNtbksDlted }
@@ -55,7 +55,7 @@ export default function DltNtBk(props){
         </div>
         <div className = "position-absolute bottom-0 text-center w-100 px-3">
         <button 
-            className = "mb-3 save list-group-item w-100 d-flex align-items-center justify-content-center text-center "
+            className = "mb-3 saveNtbk list-group-item w-100 d-flex align-items-center justify-content-center text-center "
             type = "submit"
             onClick = {
                 (e) => {

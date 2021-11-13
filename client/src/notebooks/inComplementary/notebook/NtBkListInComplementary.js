@@ -58,7 +58,7 @@ export default function NtBkList(props) {
         <>
         <div>
                 <ul className = "list-group"> 
-                <li className = "ntbkBar list-group-item bg-transparent py-1 d-flex align-items-center justify-content-between" 
+                <li className = "list-group-item bg-transparent py-1 d-flex align-items-center justify-content-between" 
             
                     > 
                     <div className = "d-flex align-items-center py-1"> 
@@ -90,7 +90,7 @@ export default function NtBkList(props) {
                 {
                     switchNtbk
                     ?   
-                        <ul className = "list-group dropdownListBox">
+                        <ul className = "list-group dropdownNtbkListBox ">
                             {dropdownNtbkList}
                         </ul>    
                     

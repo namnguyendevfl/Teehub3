@@ -77,7 +77,7 @@ export default function AddTopic(props){
             <>
             <div className="row d-flex text-aligns-center m-0 justify-content-center">    
                 <div className = "col-2"></div>
-                <h5 className = "col-8 text-center m-0 optionBoxBarText">Create topic title</h5>  
+                <h5 className = "ntbkOptnBoxTitle col-8 text-center m-0 ">Create topic title</h5>  
                 <div className = "col-2 m-0  d-flex align-items-center justify-content-end">
                     <button className = "ntbkBtn d-flex align-items-center p-2 "
                             onClick = {(e) => setDropdown (() => !dropdown)}
@@ -90,7 +90,7 @@ export default function AddTopic(props){
             <form className = "" onSubmit = {handleSubmit}>        
                 <div>
                     <TextareaAutosize
-                        className = "w-100 createInput px-3 pt-2 text-start w-100"
+                        className = "textarea ntbkTextarea w-100 px-3 pt-2 text-start w-100"
                         id = "title"
                         name = "title"
                         placeholder = "Write a topic title"
@@ -114,7 +114,7 @@ export default function AddTopic(props){
                         </div>
                     </div>
                     <button 
-                        className = "save mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
+                        className = "saveNtbk mb-3 list-group-item w-100 d-flex align-items-center justify-content-center text-center"
                         onClick = {(e) => {
                             e.preventDefault();
                             setDisplayContent(() => true)}}

@@ -1,0 +1,38 @@
+.loginBg {
+    background: #e9ecef;
+    position: fixed;
+    top: 0px;
+    height: 100vh;
+    z-index: 5;
+    overflow: scroll;
+    max-height:100vh;   
+}
+
+.loginBox {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top:-260px;
+    margin-left:-350px;
+    width:700px;
+    height:520px;
+    background:white;
+    box-shadow: 0px 0px 5px 0.7px #6c757d;
+    border-radius: 8px;    
+}
+
+.loginBoxTop {
+    height:110px
+}
+
+.loginBoxMiddle{
+    margin:auto
+}
+
+.loginBoxBottom{
+    border:1px solid;
+    height:60px;
+    position: absolute;
+    bottom:0px;
+    background:lightgray
+}

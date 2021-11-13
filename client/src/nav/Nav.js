@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { minNtbkCom } from "../utils/localStorage/complementary";
 import { navOptions } from "../utils/localStorage/navOptions";
 import { chaps, ntbks } from "../utils/localStorage/notebooks";
 
@@ -27,6 +28,7 @@ export default function Nav(props) {
             chaps.dltChapSelected();
             setNavOption(() => option);
             navOptions.saveNav(option);
+            // minNtbkCom.saveMin(true);
             // window.localStorage.setItem('notebooks', JSON.stringify([]))
             // when click on the left menu, it's gonna push to the url bellow
             switch (option) {

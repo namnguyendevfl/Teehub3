@@ -78,7 +78,7 @@ export default function ChapterList(props) {
     <>
     <div>
         <ul className = "list-group"> 
-                <li className = "ntbkBar bg-transparent list-group-item py-1 d-flex align-items-center justify-content-between"
+                <li className = "bg-transparent list-group-item py-1 d-flex align-items-center justify-content-between"
                     // style = {ntbkStyle}
                 > 
                     <h6 className = "bg-transparent d-flex align-items-center pb-0 pt-1"> 
@@ -122,7 +122,7 @@ export default function ChapterList(props) {
                 {
                     switchChap
                     ?   
-                    <ul className = "list-group dropdownListBox">
+                    <ul className = "list-group dropdownNtbkListBox ">
                     { dropdownList} 
                     </ul>
                     :   null
