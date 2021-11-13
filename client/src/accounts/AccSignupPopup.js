@@ -2,8 +2,23 @@ import "./AccountSignup.css"
 import React, { useEffect, useState } from "react";
 import { complementary } from "../utils/icons/complementary/Complementary";
 import { accounts } from "../utils/icons/accounts/accounts";
+import { useNavigate } from "react-router-dom";
+import { createAcc } from "../utils/api/accountApi";
+export default function SignupPopup(props){
+    const {
+        users, 
+        setFound, 
+        found, 
+        userLoggingIn,
+        setUserLoggingIn,
+        setCount,
+        userId,
+        displayCreateAcc,
+        setDisplayCreateAcc,
+        displayLoginPopup,
+        setDisplayLoginPopup
+    } = props
 
-export default function SignupPopup({count, setCount}){
     const initialUser = {
         firstName: "",
         surName: "",
@@ -12,11 +27,10 @@ export default function SignupPopup({count, setCount}){
         ageDay: "",
         ageMonth:"",
         ageYear: "",
-        gender: "",
-        acceptTerm: "",
     }
+
     const ids = ['firstName', 'surName', 'userId', 'password', 'month' ,'day', 'year' ]
-    const [clickedId, setClickId] = useState()
+    const [clickedId, setClickId] = useState("")
     const handleClick = (e) => {
         setClickId(() => e.target.id)
         const box = document.querySelector(`#${e.target.id}`)
@@ -28,15 +42,17 @@ export default function SignupPopup({count, setCount}){
         ids.forEach((id, idx) => {
             const box = document.querySelector(`#${id}`)
             if (id !== clickedId) {
-                box.style.border = "1px solid #adb5bd"
-                box.style.boxShadow = "none"
+                if (box) {
+                    box.style.border = "1px solid #adb5bd"
+                    box.style.boxShadow = "none"
+                }
             }
         })
-    }, [clickedId])
-    console.log(clickedId)
+    }, [clickedId, displayCreateAcc])
+
     const [user, setUser] = useState(initialUser);
     const [error, setError] = useState(null);
-
+    console.log(user);
     const handleChange = ({target: {name, value, type, checked}}) => {
         value = type === "checkbox" ? checked : value
         setUser((prevUser) => ({
@@ -45,8 +61,16 @@ export default function SignupPopup({count, setCount}){
         }))
     }
 
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        createAcc(user)
+        .then(() => {
+            // setDisplayCreateAcc(() => !displayCreateAcc)
+            setFound(() => true)
+            navigate("/")
+        })
         // createUser(user)
         // .then(() => {
         //     // history.push("/");
@@ -54,7 +78,6 @@ export default function SignupPopup({count, setCount}){
         // })
         // .catch(setError);
     }
-    // console.log(user);
 
     const handleHome = () => {
         // history.push("/");
@@ -64,9 +87,18 @@ export default function SignupPopup({count, setCount}){
     
     const now = new Date();
     const currentYear = now.getFullYear()
-    const days = []
-    for (let i = 1; i<32; i++) days.push(i)
-    const day = days.map((day,idx) => <option value = {day}>{day}</option>)
+
+    const day = (month) => {
+        const months30 = ["April","June","September","November"]
+        const dayNum = (() => {
+            if (months30.includes(month)) return 30
+            return 31
+        })()
+        const days = []
+        for (let i = 1; i<(dayNum + 1); i++) days.push(i)
+        return days.map((day,idx) => <option value = {day}>{day}</option>)
+    } 
+
     const months = ["January","February","March","April","May","June","July",
     "August","September","October","November","December"];
     const month = months.map((month,idx) => <option value = {month}>{month}</option>)
@@ -75,7 +107,7 @@ export default function SignupPopup({count, setCount}){
     for (let i = 1900; i<currentYear-12; i++) years.push(i)
     const year = years.map((year,idx) => <option value = {year}>{year}</option>)
     
-    return (
+    return ( displayCreateAcc &&
         <div className ="accSignupPopup">
             {/* <Errors error = {error}/> */}
             <div className ="row mt-3 mx-0 d-flex align-items-center justify-content-between">
@@ -83,7 +115,9 @@ export default function SignupPopup({count, setCount}){
                 <h4  className ="col text-center"> Create your account</h4>
                 <div  className = "col-2 d-flex justify-content-end">
                     <div className ="btn">
-                        <button className ="btn">
+                        <button className ="btn"
+                        onClick = {(e) => setDisplayCreateAcc(() => !displayCreateAcc)}
+                        >
                             {complementary.escape()}
                         </button>
                     </div>
@@ -103,7 +137,7 @@ export default function SignupPopup({count, setCount}){
                             value = {user.firstName}
                             onChange = {handleChange}
                             onClick = {handleClick}
-                            required = "true"
+                            // required = "true"
                             >
                         </input>
                     </div>
@@ -117,7 +151,7 @@ export default function SignupPopup({count, setCount}){
                             value = {user.surName}
                             onChange = {handleChange}
                             onClick = {handleClick}
-                            required = "true"
+                            // required = "true"
                             >
                         </input>
                     </div>
@@ -134,7 +168,7 @@ export default function SignupPopup({count, setCount}){
                 value = {user.userId}
                 onChange = {handleChange}
                 onClick = {handleClick}
-                required = "true"
+                // required = "true"
                 >
                 </input>
             </div>
@@ -150,7 +184,7 @@ export default function SignupPopup({count, setCount}){
                 value = {user.password}
                 onChange = {handleChange}
                 onClick = {handleClick}
-                required = "true"
+                // required = "true"
                 >
                 </input>
             </div>
@@ -191,7 +225,7 @@ export default function SignupPopup({count, setCount}){
                             onChange = {handleChange}
                             >
                             <option> Day </option>
-                            {day}
+                            {day(user.ageMonth)}
                         </select>
                         <div className ="birthday-arrowDown">
                             {accounts.downChevron()}
@@ -217,10 +251,15 @@ export default function SignupPopup({count, setCount}){
                     </div>
                 </div>
             </div>
+            {/* testing  */}
                     <div className = "m-3">
                     <button 
                     className = "signupBtn w-100 p-2"
-                    type = "submit">
+                    type = "submit"
+                    onClick = {(e) => {
+        
+                    }}
+                    >
                         <span className = "signupBtnFont"> Sign up </span>
                     </button>
                     </div>

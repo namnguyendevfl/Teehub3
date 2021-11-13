@@ -1,207 +1,83 @@
-import React, { useEffect } from "react";
-import  useState  from 'react-usestateref'
+import React, { useEffect, useState } from "react";
 import "./Layout.css"
-import BannerLayout from "../banner/BannerLayout";
-import { timer } from "../utils/localStorage/timer";
-import Nav from "../nav/Nav";
-import MainLayout from "../main/Main";
-import ComplementaryLayout from "../complementary/ComplementaryLayout";
-import { hideCom, minNtbkCom } from "../utils/localStorage/complementary";
-import { chaps, ntbkCom, ntbks } from "../utils/localStorage/notebooks";
-import { navOptions } from "../utils/localStorage/navOptions";
-import Popups from "../popups/popups";
-import Login from "../accounts/Login";
-
+import SignedIn from "./SignedIn";
+import SigningIn from "./SigningIn";
+import { useNavigate } from "react-router-dom";
+import Errors from "../errors/errors";
+import { accounts } from "../utils/icons/accounts/accounts";
+import { listAccs } from "../utils/api/accountApi";
 
 export default function Layout() {
-     //First part: Running Pomodoro
-    const [isTimerRunning, setIsTimerRunning] = useState(false)
-    const [session, setSession] = useState(null)
-    const [focusInterval, setFocusInterval] = useState("")
-    const [breakInterval, setBreakInterval] = useState("")
+    let userId = null;
+    //Test windoeStorage
+    // let deckId = window.localStorage.getItem('deckId');
+    // deckId = JSON.parse(deckId);
+    // userId = window.localStorage.getItem('userId');
+    // userId = JSON.parse(userId);
+    // let matchUser = window.localStorage.getItem('login');
+    // matchUser = JSON.parse(matchUser);
 
+    const initialUser = {
+        firstName: "",
+        surName: "",
+        userId : "",
+        password : "",
+        ageDay: "",
+        ageMonth:"",
+        ageYear: "",
+        gender: "",
+        acceptTerm: "",
+        rememberPass:"",
+        guestMode:"",
+    }
+    
+    const [found, setFound ] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [count, setCount] = useState(0);
+    // const [userLogedIn, setUserLogedIn] = useState(matchUser?matchUser[0]:initialUser);
+    const [ displayCreateAcc, setDisplayCreateAcc ] = useState(false)
+    const [ displayLoginPopup, setDisplayLoginPopup ] = useState(false)
+    const [userLoggingIn, setUserLoggingIn] = useState(initialUser);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
     useEffect (() => {
-        //First part: pomodoro
-        setBreakInterval(() => timer.getBreak())
-        setFocusInterval (() => timer.getFocus())
-        if (timer.getSetTimer() && session === null) {
-             setSession (() => timer.getSession())      
-        } else {
-             setSession (() => session);
-        }   
-    }, [session])
-    const   [lock, setLock] = useState(true)
-    const   [password, setPassword] = useState ("hello")
-    useEffect (() => setLock(() => lock),[lock])
-
-    //notebooks
-    const [ ntbkAlteredCount, setNtbkAlteredCount ] = useState(0);
-    const [ chapAlteredCount, setChapAlteredCount ] = useState(0);
-    const [ topicAlteredCount, setTopicAlteredCount ] = useState(0);
-    const initialNtbkSelected = ntbks.getNtbkSelected() ? ntbks.getNtbkSelected() : null
-    const [ ntbkSelected, setNtbkSelected ] = useState(initialNtbkSelected);
-    const initialChapSelected = chaps.getChapSelected() ? chaps.getChapSelected() : null
-    const [ chapSelected, setChapSelected ] = useState(initialChapSelected);
-    const [ displayNav, setDisplayNav ] = useState(true);
-    const initialDisplayCom = (() => {
-        if (chapSelected) {
-            if (hideCom.getHideCom() !== undefined) return hideCom.getHideCom()
-            return true
-        }
-        return true
-    })()
-    const [ displayCom, setDisplayCom ] = useState(initialDisplayCom);
-    const initMaxNtbkOptnBox = (() => {
-        if (chapSelected && displayCom === false) return false
-        if (displayCom || chapSelected) return true
-    })()
-    const [ maxNtbkOptnBox, setMaxNtbkOptnBox  ] = useState(initMaxNtbkOptnBox)
-    useEffect(() => {
-        setDisplayCom(() => initialDisplayCom)
-        setMaxNtbkOptnBox(() => initMaxNtbkOptnBox)
-    },[chapSelected, displayCom])
-
-    console.log(maxNtbkOptnBox)
-    const [ ntbkEdit, setNtbkEdit ] = useState(false);
-    const initNavOption = navOptions.getNav() ? navOptions.getNav() : null
-    const [ navOption, setNavOption ] = useState(initNavOption);
-    const style = ntbkCom.getStyle() !== undefined ? ntbkCom.getStyle() : {color:"black"}
-    const [ ntbkComStyle, setNtbkComStyle ] = useState(style);
-    const comStyleNtbk = (() => displayCom ? {position:"fixed"} : {position:"unset"})()
-    const mainStyle = (() => {
-        if (navOption === "Notebooks") {
-            if (ntbkEdit) return {
-                top:"77px",
-            } 
-        }
-        return {
-            top:"80px",            
-        }
-    })()
-
-    let login = true;
-    // login = false
+        const abortController = new AbortController();
+        navigate("/")
+        listAccs(abortController.signal)
+        .then(setUsers)
+        .catch(setError)
+        return () => abortController.abort()
+    }, [count]);
+    useEffect (() => {setUserLoggingIn(() => initialUser)},[displayLoginPopup])
+    console.log(userLoggingIn)
     return(
         <>
-         {/* This is the non-popup part*/}
-        <div className = ""
-                style = {{
-                    height: "100vh",
-                    background : "#e9ecef",
-                }}
-        >
-            {/* This is the banner part*/}
-            <div className = "banner">
-                <BannerLayout 
-                    isTimerRunning = {isTimerRunning} 
-                    setIsTimerRunning = {setIsTimerRunning}
-                    focusInterval = {focusInterval} 
-                    setFocusInterval={setFocusInterval}
-                    breakInterval = {breakInterval} 
-                    setBreakInterval={setBreakInterval}
-                    session = {session} 
-                    setSession = {setSession}   
-                />
-            </div>
-            {/* This is the header part*/}   
-            <header className = "navigation col-2 pe-1"                
-                >
-                    <Nav 
-                        ntbkSelected = {ntbkSelected}
-                        setNtbkSelected = {setNtbkSelected}
-                        chapSelected = {chapSelected}
-                        setChapSelected = {setChapSelected}
-                        displayNav = {displayNav}
-                        setDisplayNav = {setDisplayNav}
-                        displayCom = {displayCom}
-                        setDisplayCom = {setDisplayCom}
-                        navOption = {navOption}
-                        setNavOption = {setNavOption}             
-                    />
-            </header>
-            {/* This is the main part*/}
-            <main className = "main row w-100 m-0 p-0" 
-                style = {mainStyle}
-            > 
-                <div className ="col-2"></div>
-                <div className ="col ms-1 me-1 p-0"
-                > 
-                    <MainLayout 
-                         ntbkSelected = {ntbkSelected}
-                         setNtbkSelected = {setNtbkSelected}
-                         ntbkAlteredCount = {ntbkAlteredCount} 
-                         setNtbkAlteredCount = {setNtbkAlteredCount}  
-                         chapSelected = {chapSelected}
-                         setChapSelected = {setChapSelected}
-                         chapAlteredCount = {chapAlteredCount}
-                         setChapAlteredCount = {setChapAlteredCount}
-                         topicAlteredCount = {topicAlteredCount}
-                         setTopicAlteredCount = {setTopicAlteredCount}
-                         displayNav = {displayNav}
-                         setDisplayNav = {setDisplayNav}
-                         displayCom = {displayCom}
-                         setDisplayCom = {setDisplayCom}
-                         navOption = {navOption}
-                         setNavOption = {setNavOption} 
-                         ntbkEdit = {ntbkEdit}
-                         setNtbkEdit = {setNtbkEdit}
-                         ntbkStyle = { ntbkComStyle}
-                         setNtbkStyle = { setNtbkComStyle } 
-                         maxNtbkOptionBox = {maxNtbkOptnBox}
-                         setMaxNtbkOptionBox = {setMaxNtbkOptnBox}        
-                    />        
-                </div>
-                {
-                displayCom &&
-                <div className ="col-3"></div>
-                }               
-            </main>
-
-            {/* This is the complementary part*/}
-            <div className = "complementary col-3 p-0" style = {comStyleNtbk}>
-                <ComplementaryLayout 
-                        ntbkSelected = {ntbkSelected}
-                        setNtbkSelected = {setNtbkSelected}
-                        ntbkAlteredCount = {ntbkAlteredCount} 
-                        setNtbkAlteredCount = {setNtbkAlteredCount}  
-                        chapSelected = {chapSelected}
-                        setChapSelected = {setChapSelected}
-                        chapAlteredCount = {chapAlteredCount}
-                        setChapAlteredCount = {setChapAlteredCount}
-                        topicAlteredCount = {topicAlteredCount}
-                        setTopicAlteredCount = {setTopicAlteredCount}
-                        displayNav = {displayNav}
-                        setDisplayNav = {setDisplayNav}
-                        displayCom = {displayCom}
-                        setDisplayCom = {setDisplayCom}
-                        navOption = {navOption}
-                        setNavOption = {setNavOption} 
-                        ntbkEdit = {ntbkEdit}
-                        setNtbkEdit = {setNtbkEdit}
-                        ntbkStyle = { ntbkComStyle}
-                        setNtbkStyle = { setNtbkComStyle } 
-                        maxNtbkOptionBox = {maxNtbkOptnBox}
-                        setMaxNtbkOptionBox = {setMaxNtbkOptnBox}
-                />     
-            </div>                  
-        </div>
-
-        {/* This is the popup part*/}
-        {/* This is the account */}
-        <div>
-           {login
-           ? <Login /> 
-           : <>
-            <div className = "popup-background w-100"></div>
-                <div className = "popup">
-                    <Popups />
-                </div> 
-           </>
-           }
-           
-            
-     
-        </div>
+        <Errors error = {error}/>
+        <SignedIn 
+            userId = {userId}
+            found = {found}
+            setFound = {setFound}
+            userLoggingIn = {userLoggingIn}
+            setUserLoggingIn = {setUserLoggingIn}
+            displayCreateAcc = {displayCreateAcc}
+            setDisplayCreateAcc = {setDisplayCreateAcc}
+            displayLoginPopup = {displayLoginPopup}
+            setDisplayLoginPopup = {setDisplayLoginPopup}               
+        />
+        <SigningIn 
+            users = {users} 
+            setFound = {setFound}
+            userId = {userId}
+            found = {found}
+            userLoggingIn = {userLoggingIn}
+            setUserLoggingIn = {setUserLoggingIn}
+            count = {count}
+            setCount = {setCount}
+            displayCreateAcc = {displayCreateAcc}
+            setDisplayCreateAcc = {setDisplayCreateAcc}
+            displayLoginPopup = {displayLoginPopup}
+            setDisplayLoginPopup = {setDisplayLoginPopup}
+        />
         </>
     )
 }

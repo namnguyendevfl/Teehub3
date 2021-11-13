@@ -1,7 +1,11 @@
 import { complementary } from "../icons/complementary/Complementary";
+import { login } from "./accounts";
 
 export const ntbks = {
-    getNtbks: () => JSON.parse(window.localStorage.getItem('notebooks')),
+    getNtbks: () => {
+        const notebooks = JSON.parse(window.localStorage.getItem('notebooks'))
+        return notebooks.filter((ntbk,idx) => ntbk.userId === login.getId());;
+    },
     saveNtbks: (notebooks) => window.localStorage.setItem('notebooks', JSON.stringify(notebooks)),
     dltNtbks: () => localStorage.removeItem('notebooks'),
     getNtbkSelected: () => JSON.parse(window.localStorage.getItem('notebookSelected')),
@@ -10,7 +14,9 @@ export const ntbks = {
 }
 
 export const chaps = {
-    getChaps: () => JSON.parse(window.localStorage.getItem('chapters')),
+    getChaps: () => {
+        const chapters = JSON.parse(window.localStorage.getItem('chapters'))
+        return chapters.filter((chap,idx) => chap.userId === login.getId())},
     saveChaps: (chapters) => window.localStorage.setItem('chapters', JSON.stringify(chapters)),
     dltChaps: () => localStorage.removeItem('chapters'),
     getChapSelected: () => JSON.parse(window.localStorage.getItem('chapterSelected')),
@@ -19,7 +25,10 @@ export const chaps = {
 }
 
 export const topcs = {
-    getTopics: () => JSON.parse(window.localStorage.getItem('topics')),
+    getTopics: () => {
+        const topics = JSON.parse(window.localStorage.getItem('topics'))
+        return topics.filter((topic,idx) => topic.userId === login.getId());  
+    },
     saveTopics: (topics) => window.localStorage.setItem('topics', JSON.stringify(topics)),
     delTopics: () => localStorage.removeItem('topics'),
     getTopicSelected: () => JSON.parse(window.localStorage.getItem('topicSelected')),

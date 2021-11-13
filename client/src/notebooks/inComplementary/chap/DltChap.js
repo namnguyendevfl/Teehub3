@@ -24,7 +24,7 @@ export default function DltChapter(props){
         setDropdown,
     } = props
 
-    const [ chapsDlted, setChapsDlted ] = useState([])  
+    const [ chapsDlted, setChapsDlted ] = useState([]) 
     const chapters = chaps.getChaps().filter((chapter, idx) => (ntbkSelected) && chapter.bookId === ntbkSelected.id)
     const topics = topcs.getTopics().filter((topic, idx) => (ntbkSelected) && topic.bookId === ntbkSelected.id);
     const chapsDltedIds = chapsDlted.map((chapDlt, idx) => chapDlt.id) 

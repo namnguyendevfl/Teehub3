@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import TextareaAutosize from "react-autosize-textarea"
 import { ntbks } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
+import { login } from "../../../utils/localStorage/accounts";
 
 export default function AddNtbk(props){
     const {
@@ -24,9 +25,6 @@ export default function AddNtbk(props){
         setDropdown,
     } = props
 
-    let userIdLogin = window.localStorage.getItem('userId');
-    userIdLogin= JSON.parse(userIdLogin);
-
     const initialNoteBook = {
         userId : "",
         title: "",
@@ -48,13 +46,11 @@ export default function AddNtbk(props){
         })() 
         setNewNtbk((prevNtbk) => ({
             ...prevNtbk,
+            userId: login.getId(),
             [name]: value,
             id: id
         }))
     }
-
-    
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setNtbkAlteredCount(() => ntbkAlteredCount + 1)
@@ -62,7 +58,6 @@ export default function AddNtbk(props){
         setDropdown(() => !dropdown)
         ntbks.saveNtbks(notebooks);
     };
-
     return (
         <>    
     <div className="row d-flex text-aligns-center m-0 justify-content-center">    

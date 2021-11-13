@@ -1,20 +1,26 @@
 import "./AccountSignup.css"
 import React, { useEffect, useState } from "react";
 import { complementary } from "../utils/icons/complementary/Complementary";
-import { accounts } from "../utils/icons/accounts/accounts";
 
-export default function AccLogin({count, setCount}){
-    const initialUser = {
-        firstName: "",
-        surName: "",
-        userId : "",
-        password : "",
-        ageDay: "",
-        ageMonth:"",
-        ageYear: "",
-        gender: "",
-        acceptTerm: "",
-    }
+import { listAccs } from "../utils/api/accountApi";
+import { login } from "../utils/localStorage/accounts";
+import Errors from "../errors/errors";
+
+export default function AccLogin(props){
+    const {
+        users,
+        setFound,
+        found,
+        userLoggingIn,
+        setUserLoggingIn,
+        count,
+        setCount,
+        userId,
+        displayCreateAcc,
+        setDisplayCreateAcc,
+        displayLoginPopup,
+        setDisplayLoginPopup
+    } = props
     const ids = ['userId', 'password']
     const [clickedId, setClickId] = useState()
     const handleClick = (e) => {
@@ -23,7 +29,6 @@ export default function AccLogin({count, setCount}){
         box.style.border = "1px solid blue"
         box.style.boxShadow = "0px 0px 2px 0.1px blue"
     }
-
     useEffect(() => {
         ids.forEach((id, idx) => {
             const box = document.querySelector(`#${id}`)
@@ -33,63 +38,64 @@ export default function AccLogin({count, setCount}){
             }
         })
     }, [clickedId])
-    console.log(clickedId)
-    const [user, setUser] = useState(initialUser);
     const [error, setError] = useState(null);
-
     const handleChange = ({target: {name, value, type, checked}}) => {
         value = type === "checkbox" ? checked : value
-        setUser((prevUser) => ({
+        setUserLoggingIn((prevUser) => ({
             ...prevUser,
             [name]: value
         }))
     }
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        // createUser(user)
-        // .then(() => {
-        //     // history.push("/");
-        //     setCount(() => count++);
-        // })
-        // .catch(setError);
+        const matchUser = users.find((user) => user.userId === userLoggingIn.userId && user.password === userLoggingIn.password)
+        if(matchUser){
+            // setUserLoggingIn(() => matchUser);
+            // logedInUser.push(matchUser);
+            setFound(() => true);
+            login.saveState(true);
+            login.saveId(matchUser.userId)
+        } else {
+            setError(() => ({
+                message: "wrong credentials",
+                }));
+        };
     }
-    // console.log(user);
-
     const handleHome = () => {
         // history.push("/");
     };
-
-
-    
-    const now = new Date();
-    const currentYear = now.getFullYear()
-    const days = []
-    for (let i = 1; i<32; i++) days.push(i)
-    const day = days.map((day,idx) => <option value = {day}>{day}</option>)
-    const months = ["January","February","March","April","May","June","July",
-    "August","September","October","November","December"];
-    const month = months.map((month,idx) => <option value = {month}>{month}</option>)
-
-    const years = []
-    for (let i = 1900; i<currentYear-12; i++) years.push(i)
-    const year = years.map((year,idx) => <option value = {year}>{year}</option>)
-    
+    const loginBoxStyle = (() => {
+        if (displayLoginPopup) return {
+            position: "absolute",
+            width: "500px",
+            height: "380px",
+            zIndex: "7",
+            backgroundColor: "white",
+            borderRadius:"8px",
+            boxShadow: "0px 0px 5px 0.7px #6c757d",  
+            paddingTop:"20px"          
+        }
+    })()
     return (
-        <div className ="">
-            {/* <Errors error = {error}/> */}
-            {/* <div className ="row mt-3 mx-0 d-flex align-items-center justify-content-between">
+        <div className =""
+            style = {loginBoxStyle}
+        >
+            <Errors error = {error}/>
+            <div className ="row mx-0 d-flex align-items-center justify-content-between">
                 <div className = "col-2"></div>
                 <h4  className ="col text-center"> Log in</h4>
                 <div  className = "col-2 d-flex justify-content-end">
-              
+                    <div className ="btn">
+                        {displayLoginPopup &&
+                            <button className ="btn"
+                                onClick = {(e) => setDisplayLoginPopup (() => !displayLoginPopup)}
+                            >
+                                {complementary.escape()}
+                            </button>
+                        }                       
+                    </div>
                 </div>
-            </div> */}
-            <hr style = {{
-                color: "none",
-                background:"none",
-            }} 
-            />
+            </div>
             <div className = "signupBox">
             <form onSubmit = {handleSubmit}> 
                 <div className = "d-flex px-3 pt-3">
@@ -99,10 +105,10 @@ export default function AccLogin({count, setCount}){
                     name = "userId"
                     placeholder = "Phone or email"
                     type = "text"
-                    value = {user.userId}
+                    value = {userLoggingIn.userId}
                     onChange = {handleChange}
                     onClick = {handleClick}
-                    required = "true"
+                    // required = "true"
                     >
                     </input>
                 </div>
@@ -114,15 +120,16 @@ export default function AccLogin({count, setCount}){
                     name = "password"
                     type = "password"
                     placeholder = "Password"
-                    value = {user.password}
+                    value = {userLoggingIn.password}
                     onChange = {handleChange}
                     onClick = {handleClick}
-                    required = "true"
+                    // required = "true"
                     >
                     </input>
                 </div>
                 <div className = "pb-1"> 
                 </div>
+                {displayLoginPopup && <div style = {{ margin: "5px" }}> </div>}
                 <div className="text-start px-2 d-flex justify-content-start align-items-center"
                     style = {{height: "25px"}}
                 >
@@ -134,12 +141,13 @@ export default function AccLogin({count, setCount}){
                         id = "rememberPass"
                         name = "rememberPass"
                         onChange={handleChange}
-                        checked={user.acceptTerm}
+                        checked={userLoggingIn.rememberPass}
                         value="rememberPass"
-                        required = "true"
+                     
                     ></input>
                     <label className = "px-2" htmlFor = "rememberPass">Remeber password</label>
                 </div>
+                {displayLoginPopup && <div style = {{ margin: "5px" }}> </div>}
                 <div className="text-start px-2 d-flex justify-content-start align-items-center"
                     style = {{height: "20px"}}
                 >
@@ -151,15 +159,16 @@ export default function AccLogin({count, setCount}){
                         id = "guestMode"
                         name = "guestMode"
                         onChange={handleChange}
-                        checked={user.acceptTerm}
+                        checked={userLoggingIn.guestMode}
                         value="guestMode"
-                        required = "true"
+               
                     ></input>
-                    <label className = "px-2" htmlFor = "rememberPass">Guest mode</label>
+                    <label className = "px-2" htmlFor = "guestMode">Guest mode</label>
                 </div>
 
                 <div className = "my-3">
                 </div>
+                {displayLoginPopup && <div style = {{ margin: "30px" }}> </div>}
                 <div className = "my-2"> </div>
                 <div className ="d-flex justify-content-center" >
                     <a href = "" >

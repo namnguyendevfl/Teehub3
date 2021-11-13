@@ -48,8 +48,6 @@ export default function ChapterList(props) {
                             setChapSelected(() => chapter);
                             chaps.saveChapSelected(chapter);
                             setSwitchChap(() => !switchChap);
-                            //Dont need this 
-                            // chapSelectedUrl.saveUrl(`${url}`)
                         }}
             > 
                 <span style = {{fontSize : "15px"}} className = "text-white"> {chapter.title} </span>

@@ -193,14 +193,6 @@ overflow-x: scroll;
 }
 
 /* Popup */
-.popup-background {
-    height: 100vh;   
-    position: absolute;
-    top: 0px;
-    background: black;
-    z-index: 3;
-    opacity:0.3;    
-}
 
 
 

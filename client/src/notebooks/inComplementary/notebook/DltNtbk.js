@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ListToDlt, ntbks, chaps, topcs } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../../utils/localStorage/accounts";
 
 export default function DltNtBk(props){
     const {
@@ -24,9 +25,9 @@ export default function DltNtBk(props){
         setDropdown,
     } = props
     const [ ntbksDlted, setNtbksDlted ] = useState ([]);
-    const notebooks = ntbks.getNtbks();
-    const chapters = chaps.getChaps();
-    const topics = topcs.getTopics();
+    const notebooks = ntbks.getNtbks()
+    const chapters = chaps.getChaps()
+    const topics = topcs.getTopics()
     const ntbksDltedIds = ntbksDlted.map((ntbkDlt, idx) => ntbkDlt.id) 
     const newNotebooks = (!ntbksDlted) ? notebooks : notebooks.filter((notebook, idx) => !ntbksDltedIds.includes(notebook.id))
     const newChaps = (!ntbksDlted) ? chapters : chapters.filter((chapter, idx) => !ntbksDltedIds.includes(chapter.bookId))

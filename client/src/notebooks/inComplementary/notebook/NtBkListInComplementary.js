@@ -3,6 +3,8 @@ import { Link, Outlet } from "react-router-dom"
 import { ntbks, chaps } from "../../../utils/localStorage/notebooks";
 import { ntbkSelectedUrl } from "../../../utils/localStorage/urls";
 import { Switch } from "../../../utils/icons/complementary/Complementary";
+import { login } from "../../../utils/localStorage/accounts";
+
 
 export default function NtBkList(props) {
     const {
@@ -20,7 +22,9 @@ export default function NtBkList(props) {
         setNtbkStyle 
     } = props
     const [ switchNtbk, setSwitchNtbk ] = useState(false);
-    const notebooks = ntbks.getNtbks();
+
+    const notebooks = ntbks.getNtbks().filter((ntbk,idx) => ntbk.userId === login.getId());
+    // console.log(notebooks)
     const ntbkToDisplay = ntbkSelected ? ntbkSelected : ntbks.getNtbkSelected()
     const unchosenNtbks = notebooks.filter((ntbk, idx) => ntbkToDisplay ? ntbk.id !== ntbkToDisplay.id : ntbk.id);
     //we can use Link or history.push over here. The difference is with Link, dont put/ in front of url, history.push you need to put "/" in front of url
@@ -30,12 +34,12 @@ export default function NtBkList(props) {
         <li className = "list-group-item bg-transparent p-0 m-0">
         <Link   className = "link" 
                     to = {`notebooks/${ntbk.title.replaceAll(" ","-")}`} 
+                    // to = {`${ntbk.title.replaceAll(" ","-")}`} 
                     >            
             <button     className = "ntbkDropdown bg-transparent list-group-item w-100 text-start"
-                       
                         onClick = {(e) => {
                             setNtbkSelected(() => ntbk);
-                            setChapSelected(() => undefined);
+                            setChapSelected(() => null);
                             setSwitchNtbk(() => !switchNtbk);
                             ntbks.saveNtbkSelected(ntbk);
                             chaps.dltChapSelected();

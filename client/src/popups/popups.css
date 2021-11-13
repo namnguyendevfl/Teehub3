@@ -1,30 +1,22 @@
-.loginBg {
-    background: #e9ecef;
-    z-index: 2;
+.popup-offsetBackground {
+    height: 100vh;   
+    position: fixed;
+    top: 0px;
+    background: black;
+    z-index: 3;
+    opacity:0.3;    
 }
-
-.loginBox {
-    width:700px;
-    height:520px;
-    background:white;
-    box-shadow: 0px 0px 5px 0.7px #6c757d;
-    border-radius: 8px;    
+.popup-background{
+    z-index: 5;
 }
-
-.loginBoxTop {
-    height:110px
-}
-
-.loginBoxMiddle{
-    margin:auto
-}
-
-.loginBoxBottom{
-    border:1px solid;
-    height:60px;
+.accSignupPopup {
     position: absolute;
-    bottom:0px;
-    background:lightgray
+    width: 500px;
+    height: 530px;
+    z-index: 7;
+    background-color: white;
+    border-radius:8px;
+    box-shadow: 0px 0px 4px 0.1px #6c757d;
 }
 
 .accLoginPopup {
@@ -35,7 +27,7 @@
     left: 50%;
     margin-top: -200px; /* Negative half of height. */
     /* margin-left: -250px; */
-    z-index: 4;
+    z-index: 7;
     /* width: 300px;
     height: 200px; */
     /* transform: translateY(100%) translateY(-7rem); */
