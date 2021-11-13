@@ -1,5 +1,6 @@
 import "./AccountSignup.css"
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import  useState  from 'react-usestateref'
 import { complementary } from "../utils/icons/complementary/Complementary";
 
 import { listAccs } from "../utils/api/accountApi";
@@ -22,13 +23,17 @@ export default function AccLogin(props){
         setDisplayLoginPopup
     } = props
     const ids = ['userId', 'password']
-    const [clickedId, setClickId] = useState()
+    const [clickedId, setClickId, clickedIdRef] = useState()
     const handleClick = (e) => {
         setClickId(() => e.target.id)
-        const box = document.querySelector(`#${e.target.id}`)
-        box.style.border = "1px solid blue"
-        box.style.boxShadow = "0px 0px 2px 0.1px blue"
+        if (ids.includes(clickedIdRef.current)) 
+        {
+            const box = document.querySelector(`#${e.target.id}`)
+            box.style.border = "1px solid blue"
+            box.style.boxShadow = "0px 0px 2px 0.1px blue"
+        }
     }
+
     useEffect(() => {
         ids.forEach((id, idx) => {
             const box = document.querySelector(`#${id}`)
@@ -85,15 +90,16 @@ export default function AccLogin(props){
                 <div className = "col-2"></div>
                 <h4  className ="col text-center"> Log in</h4>
                 <div  className = "col-2 d-flex justify-content-end">
+                {displayLoginPopup &&
                     <div className ="btn">
-                        {displayLoginPopup &&
+                        
                             <button className ="btn"
                                 onClick = {(e) => setDisplayLoginPopup (() => !displayLoginPopup)}
                             >
                                 {complementary.escape()}
-                            </button>
-                        }                       
+                            </button>                   
                     </div>
+                     }    
                 </div>
             </div>
             <div className = "signupBox">
@@ -108,6 +114,9 @@ export default function AccLogin(props){
                     value = {userLoggingIn.userId}
                     onChange = {handleChange}
                     onClick = {handleClick}
+                    // onKeyDown = {handleKeyDown}
+                    // tabIndex = "0"
+                    onKeyUp = {handleClick}
                     // required = "true"
                     >
                     </input>
@@ -119,10 +128,12 @@ export default function AccLogin(props){
                     id = "password"
                     name = "password"
                     type = "password"
+                   
                     placeholder = "Password"
                     value = {userLoggingIn.password}
                     onChange = {handleChange}
                     onClick = {handleClick}
+                    onKeyUp = {handleClick}
                     // required = "true"
                     >
                     </input>
@@ -141,6 +152,7 @@ export default function AccLogin(props){
                         id = "rememberPass"
                         name = "rememberPass"
                         onChange={handleChange}
+                        onKeyUp = {handleClick}
                         checked={userLoggingIn.rememberPass}
                         value="rememberPass"
                      
@@ -159,6 +171,7 @@ export default function AccLogin(props){
                         id = "guestMode"
                         name = "guestMode"
                         onChange={handleChange}
+                        onKeyUp = {handleClick}
                         checked={userLoggingIn.guestMode}
                         value="guestMode"
                
@@ -170,15 +183,16 @@ export default function AccLogin(props){
                 </div>
                 {displayLoginPopup && <div style = {{ margin: "30px" }}> </div>}
                 <div className = "my-2"> </div>
-                <div className ="d-flex justify-content-center" >
-                    <a href = "" >
-                        <span className ="text-center"> Forgot password</span>
+                <div className ="d-flex justify-content-center"  >    
+                    <a href = "" tabIndex = "-1">
+                        <span className ="text-center"  > Forgot password</span>
                     </a>
                 </div>
 
                 
                 <div className = "m-3 mt-1 d-flex justify-content-center">
                     <button 
+                    tabIndex = "-1"
                     className = "signupBtn w-100 p-2"
                     type = "submit">
                         <span className = "signupBtnFont"> Log in</span>

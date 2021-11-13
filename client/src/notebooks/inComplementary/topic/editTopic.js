@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ListToDlt, topcs } from "../../../utils/localStorage/notebooks";
+import React, {  useState } from "react";
+import { topcs } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
 import { useNavigate, useLocation } from "react-router-dom";
 import DnD from "../../../utils/dnd/DnD";

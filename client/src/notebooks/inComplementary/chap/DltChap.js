@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ListToDlt, chaps, topcs } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
-import { useNavigate } from "react-router-dom";
 
 export default function DltChapter(props){
     const {

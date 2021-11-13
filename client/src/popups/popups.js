@@ -20,7 +20,7 @@ export default function Popups(props) {
         setDisplayLoginPopup
 
     } = props
-    console.log(displayLoginPopup)
+
     const centralize = (()=> {
         if (displayCreateAcc) return CentralizeElement(530,49,500,50)
         if (displayLoginPopup) return CentralizeElement(380,50,500,50)

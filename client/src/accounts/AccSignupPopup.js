@@ -52,7 +52,6 @@ export default function SignupPopup(props){
 
     const [user, setUser] = useState(initialUser);
     const [error, setError] = useState(null);
-    console.log(user);
     const handleChange = ({target: {name, value, type, checked}}) => {
         value = type === "checkbox" ? checked : value
         setUser((prevUser) => ({
@@ -137,6 +136,7 @@ export default function SignupPopup(props){
                             value = {user.firstName}
                             onChange = {handleChange}
                             onClick = {handleClick}
+                            onKeyUp = {handleClick}
                             // required = "true"
                             >
                         </input>
@@ -151,6 +151,7 @@ export default function SignupPopup(props){
                             value = {user.surName}
                             onChange = {handleChange}
                             onClick = {handleClick}
+                            onKeyUp = {handleClick}
                             // required = "true"
                             >
                         </input>
@@ -168,6 +169,7 @@ export default function SignupPopup(props){
                 value = {user.userId}
                 onChange = {handleChange}
                 onClick = {handleClick}
+                onKeyUp = {handleClick}
                 // required = "true"
                 >
                 </input>
@@ -184,6 +186,7 @@ export default function SignupPopup(props){
                 value = {user.password}
                 onChange = {handleChange}
                 onClick = {handleClick}
+                onKeyUp = {handleClick}
                 // required = "true"
                 >
                 </input>
@@ -207,6 +210,7 @@ export default function SignupPopup(props){
                             value = {user.ageMonth}
                             onClick = {handleClick}
                             onChange = {handleChange}
+                            onKeyUp = {handleClick}
                             >
                             <option> Month </option>
                             {month}
@@ -223,6 +227,7 @@ export default function SignupPopup(props){
                             value = {user.ageDay}
                             onClick = {handleClick}
                             onChange = {handleChange}
+                            onKeyUp = {handleClick}
                             >
                             <option> Day </option>
                             {day(user.ageMonth)}
@@ -239,6 +244,7 @@ export default function SignupPopup(props){
                             value = {user.ageYear}
                             onClick = {handleClick}
                             onChange = {handleChange}
+                            onKeyUp = {handleClick}
                             required = "true"
                             >
                             <option> Year </option>

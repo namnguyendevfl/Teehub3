@@ -3,7 +3,7 @@ import TopicList from "../topic/TopicListInComplementary";
 import { Link } from "react-router-dom"
 import { chaps, topcs } from "../../../utils/localStorage/notebooks";
 import { Switch, CaretDown } from "../../../utils/icons/complementary/Complementary";
-import { chapSelectedUrl, ntbkSelectedUrl } from "../../../utils/localStorage/urls";
+import { ntbkSelectedUrl } from "../../../utils/localStorage/urls";
 
 export default function ChapterList(props) {
     const {

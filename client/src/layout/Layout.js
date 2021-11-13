@@ -49,7 +49,6 @@ export default function Layout() {
         return () => abortController.abort()
     }, [count]);
     useEffect (() => {setUserLoggingIn(() => initialUser)},[displayLoginPopup])
-    console.log(userLoggingIn)
     return(
         <>
         <Errors error = {error}/>

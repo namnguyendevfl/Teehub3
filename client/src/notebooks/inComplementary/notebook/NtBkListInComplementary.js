@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ntbks, chaps } from "../../../utils/localStorage/notebooks";
 import { ntbkSelectedUrl } from "../../../utils/localStorage/urls";
 import { Switch } from "../../../utils/icons/complementary/Complementary";

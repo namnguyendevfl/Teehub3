@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { ListToDlt, ntbks, chaps, topcs } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../../utils/localStorage/accounts";
 
 export default function DltNtBk(props){
     const {
