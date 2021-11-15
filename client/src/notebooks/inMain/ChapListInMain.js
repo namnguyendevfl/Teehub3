@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ntbks, chaps } from "../../utils/localStorage/notebooks";
 import { chapSelectedUrl } from "../../utils/localStorage/urls";
 import DnD from "../../utils/dnd/DnD";
+import { listChaps } from "../../utils/api/chapters";
 
 export default function ChapterList(props) {
     const {
@@ -22,9 +23,16 @@ export default function ChapterList(props) {
         setDisplayCom, 
     } = props
     const [ chapters, setChapters ] = useState([])
+    // console.log(ntbks.getNtbkSelected())
+    const [ error, setError ] = useState(null);
+    const [ test, setTest ] = useState()
     useEffect(() => { 
         setChapters(() => chaps.getChaps() ? chaps.getChaps() : []) 
+        listChaps()
+        .then(setTest)
+        .catch(setError)
     }, [chapAlteredCount])
+    console.log(test)
     const chapsSelected = chapters.filter((chapter, idx) => chapter.bookId === ntbkSelected.id);
     const chapterList = chapsSelected.map((chapter,idx) => {
         return(<li className = "list-group-item m-0 p-0 w-100">

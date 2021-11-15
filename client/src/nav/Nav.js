@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { login } from "../utils/localStorage/accounts";
 import { minNtbkCom } from "../utils/localStorage/complementary";
 import { navOptions } from "../utils/localStorage/navOptions";
 import { chaps, ntbks } from "../utils/localStorage/notebooks";
@@ -15,10 +16,22 @@ export default function Nav(props) {
         displayCom, 
         setDisplayCom,    
         navOption,
-        setNavOption
+        setNavOption,
+        users, 
+        setFound, 
+        found, 
+        userLoggingIn,
+        setUserLoggingIn,
+        count, 
+        setCount,
+        userId,
+        displayLoginPopup,
+        setDisplayLoginPopup,
+        displayCreateAcc,
+        setDisplayCreateAcc,
     } = props    
     // const options = ['Notebooks', 'Flashcards', 'Practice', 'Practice', 'Practice','Practice','Practice','Practice','Practice','Practice', 'Practice', 'Practice','Practice','Practice', 'Practice', 'Practice']
-    const options = ['Notebooks', 'Flashcards', 'Practice', 'Storage']
+    const options = ['Notebooks', 'Flashcards', 'Practice', 'Storage', 'Log out']
     const navigate = useNavigate();
     const menuList = options.map((option, idx) => {
         const handleClick = (e) => {
@@ -38,6 +51,11 @@ export default function Nav(props) {
                     break;
                 case "Practice":  navigate("/practice")
                     break;  
+                case "Log out": {
+                    setFound(() => false);
+                    login.saveState(false)
+                }
+                    break;
                 default: navigate("/home")
                     break;
             }

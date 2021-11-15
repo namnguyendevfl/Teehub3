@@ -9,15 +9,23 @@ import ComplementaryLayout from "../complementary/ComplementaryLayout";
 import { hideCom, minNtbkCom } from "../utils/localStorage/complementary";
 import { chaps, ntbkCom, ntbks } from "../utils/localStorage/notebooks";
 import { navOptions } from "../utils/localStorage/navOptions";
+import { login } from "../utils/localStorage/accounts";
 
 
 export default function SignedIn(props) {
     const {
-        userLogedIn, 
+        users, 
         setFound, 
-        setUserLogedIn,
+        found, 
+        userLoggingIn,
+        setUserLoggingIn,
+        count, 
+        setCount,
         userId,
-        found    
+        displayLoginPopup,
+        setDisplayLoginPopup,
+        displayCreateAcc,
+        setDisplayCreateAcc,
     } = props
 
      //First part: Running Pomodoro
@@ -84,8 +92,7 @@ export default function SignedIn(props) {
         }
     })()
 
-
-    return( userId || found &&
+    return( (login.getState() || found) &&
         <>
          {/* This is the non-popup part*/}
         <div className = ""
@@ -120,7 +127,20 @@ export default function SignedIn(props) {
                         displayCom = {displayCom}
                         setDisplayCom = {setDisplayCom}
                         navOption = {navOption}
-                        setNavOption = {setNavOption}             
+                        setNavOption = {setNavOption}
+                        
+                        users = {users} 
+                        setFound ={setFound} 
+                        found = {found} 
+                        userLoggingIn = {userLoggingIn}
+                        setUserLoggingIn = {setUserLoggingIn}
+                        count = {count}
+                        setCount = {setCount}
+                        userId = {userId}
+                        displayCreateAcc = {displayCreateAcc}
+                        setDisplayCreateAcc = {setDisplayCreateAcc}
+                        displayLoginPopup = {displayLoginPopup}
+                        setDisplayLoginPopup = {setDisplayLoginPopup}
                     />
             </header>
             {/* This is the main part*/}

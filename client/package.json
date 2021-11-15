@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "dexie": "^3.2.0-rc.3",
+    "dexie-react-hooks": "^1.0.7",
     "react": "^17.0.2",
     "react-autosize-textarea": "^7.1.0",
     "react-beautiful-dnd": "^13.1.0",

@@ -22,22 +22,20 @@ export default function SigningIn(props) {
         <>
         {/* <Errors /> */}
         <div>
-         <Login 
-           users = {users} 
-           setFound ={setFound} 
-           found = {found} 
-           userLoggingIn = {userLoggingIn}
-           setUserLoggingIn = {setUserLoggingIn}
-           count = {count}
-           setCount = {setCount}
-           userId = {userId}
-           displayCreateAcc = {displayCreateAcc}
-           setDisplayCreateAcc = {setDisplayCreateAcc}
-           displayLoginPopup = {displayLoginPopup}
-           setDisplayLoginPopup = {setDisplayLoginPopup}
-           /> 
-            {/* <div className = "popup-background w-100"></div>
-                <div className = "popup"> */}
+        <Login 
+            users = {users} 
+            setFound ={setFound} 
+            found = {found} 
+            userLoggingIn = {userLoggingIn}
+            setUserLoggingIn = {setUserLoggingIn}
+            count = {count}
+            setCount = {setCount}
+            userId = {userId}
+            displayCreateAcc = {displayCreateAcc}
+            setDisplayCreateAcc = {setDisplayCreateAcc}
+            displayLoginPopup = {displayLoginPopup}
+            setDisplayLoginPopup = {setDisplayLoginPopup}
+        /> 
         {(displayCreateAcc || displayLoginPopup) && 
             <Popups
                 users = {users} 

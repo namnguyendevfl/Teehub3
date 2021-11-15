@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import  useState  from 'react-usestateref'
 import "./Layout.css"
 import SignedIn from "./SignedIn";
 import SigningIn from "./SigningIn";
 import { useNavigate } from "react-router-dom";
 import Errors from "../errors/errors";
-import { accounts } from "../utils/icons/accounts/accounts";
-import { listAccs } from "../utils/api/accountApi";
+import { listUsers} from "../utils/api/accounts";
 
 export default function Layout() {
     let userId = null;
@@ -18,17 +18,17 @@ export default function Layout() {
     // matchUser = JSON.parse(matchUser);
 
     const initialUser = {
-        firstName: "",
-        surName: "",
-        userId : "",
+        first_name: "",
+        sur_name: "",
+        user_name : "",
         password : "",
-        ageDay: "",
-        ageMonth:"",
-        ageYear: "",
+        age_day: "",
+        age_month:"",
+        age_year: "",
         gender: "",
         acceptTerm: "",
-        rememberPass:"",
-        guestMode:"",
+        remember_pass:"",
+        guest_mode:"",
     }
     
     const [found, setFound ] = useState(false);
@@ -37,17 +37,18 @@ export default function Layout() {
     // const [userLogedIn, setUserLogedIn] = useState(matchUser?matchUser[0]:initialUser);
     const [ displayCreateAcc, setDisplayCreateAcc ] = useState(false)
     const [ displayLoginPopup, setDisplayLoginPopup ] = useState(false)
-    const [userLoggingIn, setUserLoggingIn] = useState(initialUser);
-    const [error, setError] = useState(null);
+    const [ userLoggingIn, setUserLoggingIn] = useState(initialUser);
+    const [ error, setError] = useState(null);
     const navigate = useNavigate();
     useEffect (() => {
         const abortController = new AbortController();
         navigate("/")
-        listAccs(abortController.signal)
+        listUsers(abortController.signal)
         .then(setUsers)
         .catch(setError)
         return () => abortController.abort()
     }, [count]);
+    
     useEffect (() => {setUserLoggingIn(() => initialUser)},[displayLoginPopup])
     return(
         <>

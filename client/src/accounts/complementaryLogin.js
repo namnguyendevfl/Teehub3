@@ -27,18 +27,20 @@ export default function ComplementaryLogin(props) {
 
     return (
         <>
-        <div className ="mt-2">
-            <span className ="d-flex justify-content-center"
-                style = {{
-                    fontWeight:"600",
-                    lineHeight:"40px",
-                }}
-            >Recent Logins</span>
-            <hr className = "d-flex justify-content-center mb-3"
+        <div className ="">
+            <div className = "mb-4 ">
+                <span className ="d-flex justify-content-center"
+                    style = {{
+                        fontWeight:"600",
+                        // lineHeight:"50px",
+                    }}
+                >Recent Logins</span>
+            </div>
+            {/* <hr className = "d-flex mt-2 justify-content-center mb-3"
                 style = {{
                     margin:"auto"
                 }}
-            />
+            /> */}
             <ul className = "list-group accLoginListBox"
                 style = {{
                     // border:"1px solid",           

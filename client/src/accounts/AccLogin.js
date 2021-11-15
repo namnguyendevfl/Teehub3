@@ -2,10 +2,10 @@ import "./AccountSignup.css"
 import React, { useEffect } from "react";
 import  useState  from 'react-usestateref'
 import { complementary } from "../utils/icons/complementary/Complementary";
-
-import { listAccs } from "../utils/api/accountApi";
+import { createUserLoggingIn, readUserLoggingIn } from "../utils/api/accounts";
 import { login } from "../utils/localStorage/accounts";
 import Errors from "../errors/errors";
+import { boxStyle } from "../utils/styles/boxStyle";
 
 export default function AccLogin(props){
     const {
@@ -22,26 +22,20 @@ export default function AccLogin(props){
         displayLoginPopup,
         setDisplayLoginPopup
     } = props
-    const ids = ['userId', 'password']
-    const [clickedId, setClickId, clickedIdRef] = useState()
+  
+    const ids = ['user_name', 'password']
+    const [ clickedId, setClickId, clickedIdRef] = useState()
+    const initalLogin = {
+        user_name:" ",
+        password:"",
+    }
+    // const [ user, setUser, userRef ] = useState(initalLogin)
     const handleClick = (e) => {
         setClickId(() => e.target.id)
-        if (ids.includes(clickedIdRef.current)) 
-        {
-            const box = document.querySelector(`#${e.target.id}`)
-            box.style.border = "1px solid blue"
-            box.style.boxShadow = "0px 0px 2px 0.1px blue"
-        }
+        if (ids.includes(clickedIdRef.current)) boxStyle.focus(e.target.id)
     }
-
     useEffect(() => {
-        ids.forEach((id, idx) => {
-            const box = document.querySelector(`#${id}`)
-            if (id !== clickedId) {
-                box.style.border = "1px solid #adb5bd"
-                box.style.boxShadow = "none"
-            }
-        })
+        ids.forEach((id, idx) => (id !== clickedId) && boxStyle.unFocus(id))
     }, [clickedId])
     const [error, setError] = useState(null);
     const handleChange = ({target: {name, value, type, checked}}) => {
@@ -50,25 +44,38 @@ export default function AccLogin(props){
             ...prevUser,
             [name]: value
         }))
+        // setUser((prevUser) => ({
+        //     ...prevUser,
+        //     [name]: value
+        // }))
     }
+    const [ userTest, setTest] = useState()
     const handleSubmit = (event) => {
         event.preventDefault();
-        const matchUser = users.find((user) => user.userId === userLoggingIn.userId && user.password === userLoggingIn.password)
-        if(matchUser){
-            // setUserLoggingIn(() => matchUser);
-            // logedInUser.push(matchUser);
-            setFound(() => true);
-            login.saveState(true);
-            login.saveId(matchUser.userId)
-        } else {
-            setError(() => ({
-                message: "wrong credentials",
-                }));
-        };
+        login.saveUserName(userLoggingIn)
+        createUserLoggingIn(userLoggingIn)
+        .then()
+        .then(() => 
+            readUserLoggingIn()
+            .then((result) => {
+                setError(() => null)
+                login.saveState(true)
+                setFound(() => !found)
+                setTest(() => result)}))
+        .catch((err) => {
+            setUserLoggingIn(() => ({
+                user_name:"",
+                password:""
+            }))
+            setError(err)
+        })
     }
+
+        // console.log(userRef.current)
     const handleHome = () => {
         // history.push("/");
     };
+
     const loginBoxStyle = (() => {
         if (displayLoginPopup) return {
             position: "absolute",
@@ -107,11 +114,11 @@ export default function AccLogin(props){
                 <div className = "d-flex px-3 pt-3">
                     <input
                     className = "accountSignupInput px-2 w-100"
-                    id = "userId"
-                    name = "userId"
+                    id = "user_name"
+                    name = "user_name"
                     placeholder = "Phone or email"
                     type = "text"
-                    value = {userLoggingIn.userId}
+                    value = {userLoggingIn.user_name}
                     onChange = {handleChange}
                     onClick = {handleClick}
                     // onKeyDown = {handleKeyDown}
@@ -128,7 +135,6 @@ export default function AccLogin(props){
                     id = "password"
                     name = "password"
                     type = "password"
-                   
                     placeholder = "Password"
                     value = {userLoggingIn.password}
                     onChange = {handleChange}
@@ -149,11 +155,11 @@ export default function AccLogin(props){
                             width:"32px"
                         }}
                         type = "checkbox"
-                        id = "rememberPass"
-                        name = "rememberPass"
+                        id = "remember_pass"
+                        name = "remember_pass"
                         onChange={handleChange}
                         onKeyUp = {handleClick}
-                        checked={userLoggingIn.rememberPass}
+                        checked={userLoggingIn.remember_pass}
                         value="rememberPass"
                      
                     ></input>
@@ -168,11 +174,11 @@ export default function AccLogin(props){
                             width:"32px"
                         }}
                         type = "checkbox"
-                        id = "guestMode"
-                        name = "guestMode"
+                        id = "guest_mode"
+                        name = "guest_mode"
                         onChange={handleChange}
                         onKeyUp = {handleClick}
-                        checked={userLoggingIn.guestMode}
+                        checked={userLoggingIn.guest_mode}
                         value="guestMode"
                
                     ></input>

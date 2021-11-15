@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import TextareaAutosize from "react-autosize-textarea"
 import { chaps } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
+import { createChap } from "../../../utils/api/chapters";
+import Errors from "../../../errors/errors";
 
 export default function AddChapter(props){
     const {
@@ -29,7 +31,8 @@ export default function AddChapter(props){
         title: "",
         content:"",
     }
-    const [newChap, setNewChap] = useState(initChap);
+    const [ newChap, setNewChap] = useState(initChap);
+    const [ error, setError ] = useState(null)
     const allChapters = chaps.getChaps();
     const chapters = allChapters.filter((chapter, idx) => (ntbkSelected) && chapter.bookId === ntbkSelected.id)
     const chapterIds = chapters.map((chapter, idx) => chapter.id)
@@ -54,14 +57,22 @@ export default function AddChapter(props){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        allChapters.push(newChap);
-        setChapAlteredCount(() => chapAlteredCount + 1);
-        setDropdown(() => !dropdown);
-        chaps.saveChaps(allChapters);
+        // allChapters.push(newChap);
+        // setChapAlteredCount(() => chapAlteredCount + 1);
+        // setDropdown(() => !dropdown);
+        // chaps.saveChaps(allChapters);
+        createChap(newChap)
+        .then((result) => {
+            allChapters.push(result);
+            setChapAlteredCount(() => chapAlteredCount + 1);
+            setDropdown(() => !dropdown);
+            // chaps.saveChaps(allChapters);
+        })
+        .catch(setError)
     };
     return (
         <>
-            
+    <Errors error = {error} />
     <div className="row d-flex text-aligns-center text-dark m-0 justify-content-center">    
         <div className = "col-2"></div>
         <h5 className = "ntbkOptnBoxTitle col-8 text-center m-0">Create chapter</h5>

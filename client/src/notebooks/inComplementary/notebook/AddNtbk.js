@@ -3,6 +3,8 @@ import TextareaAutosize from "react-autosize-textarea"
 import { ntbks } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
 import { login } from "../../../utils/localStorage/accounts";
+import { createNtbk } from "../../../utils/api/notebooks";
+import Errors from "../../../errors/errors";
 
 export default function AddNtbk(props){
     const {
@@ -30,7 +32,7 @@ export default function AddNtbk(props){
         title: "",
         id : "",
     }
-    
+    const [ error, setError ] = useState(null)
     const [ newNtbk, setNewNtbk ] = useState(initialNoteBook);
     const notebooks = ntbks.getNtbks();
     const notebookIds = notebooks.map((notebook, idx) => notebook.id)
@@ -51,15 +53,25 @@ export default function AddNtbk(props){
             id: id
         }))
     }
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        setNtbkAlteredCount(() => ntbkAlteredCount + 1)
-        notebooks.push(newNtbk);
-        setDropdown(() => !dropdown)
-        ntbks.saveNtbks(notebooks);
+        createNtbk(newNtbk)
+        .then(() => {
+            setDropdown(() => !dropdown)
+            setNtbkAlteredCount(() => ntbkAlteredCount + 1)
+            // notebooks.push(newNtbk);
+            // ntbks.saveNtbks(notebooks);
+        })
+        .catch(setError)
+        // setNtbkAlteredCount(() => ntbkAlteredCount + 1)
+        // notebooks.push(newNtbk);
+        // setDropdown(() => !dropdown)
+        // ntbks.saveNtbks(notebooks);
     };
     return (
         <>    
+    <Errors error = {error} />
     <div className="row d-flex text-aligns-center m-0 justify-content-center">    
         <div className = "col-2"></div>
         <h5 className = "ntbkOptnBoxTitle col-8 text-center text-dark m-0">Create notebook</h5>

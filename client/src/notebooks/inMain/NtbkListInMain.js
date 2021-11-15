@@ -4,6 +4,9 @@ import { ntbks } from "../../utils/localStorage/notebooks";
 import { ntbkSelectedUrl } from "../../utils/localStorage/urls";
 import DnD from "../../utils/dnd/DnD";
 import { login } from "../../utils/localStorage/accounts";
+import { listNtbks } from "../../utils/api/notebooks";
+import Errors from "../../errors/errors";
+import { listChaps } from "../../utils/api/chapters";
 
 
 export default function NtbkList(props) {
@@ -25,10 +28,24 @@ export default function NtbkList(props) {
     } = props
     //Use useState and useEffect to update the state immediately
     const [ notebooks, setNotebooks ] = useState([])
-    useEffect (() => {
-        setNotebooks(() => ntbks.getNtbks() ? ntbks.getNtbks() :[])
-    }, [ntbkAlteredCount])
+    // useEffect (() => {
+    //     setNotebooks(() => ntbks.getNtbks() ? ntbks.getNtbks() :[])
+    // }, [ntbkAlteredCount])
+    const [ test, setTest ] = useState()
+    const [ error, setError ] = useState(null)
+    useEffect(() => {
+        listNtbks()
+        .then(setNotebooks)
+        .catch(setError)
+        // listNtbks()
+        // .then(setTest)
+        // .catch(setError)
 
+
+    },[])
+
+    // console.log(ntbks.getNtbkSelected())
+    // console.log(test)
     const ntbkList = notebooks.map((ntbk,idx) => {
         return (
         <li className = "list-group-item m-0 p-0 w-100">
@@ -54,6 +71,7 @@ export default function NtbkList(props) {
 
 "Their soft voices have been muffled for nearly two years and we are one of the few countries masking toddlers and grade school children," the parent added. "It’s not lost on me that this severe obligation on kids would not exist if it weren’t for Ms. Weingarten and the other corrupt leaders that run our public education system."        
         </p> */}
+        <Errors error = {error} />
         <ul className = "list-group">
             {ntbkList}
         </ul>

@@ -4,7 +4,7 @@ import { login } from "./accounts";
 export const ntbks = {
     getNtbks: () => {
         const notebooks = JSON.parse(window.localStorage.getItem('notebooks'))
-        return notebooks.filter((ntbk,idx) => ntbk.userId === login.getId());;
+        return notebooks.filter((ntbk,idx) => ntbk.userId === login.getUserName());;
     },
     saveNtbks: (notebooks) => window.localStorage.setItem('notebooks', JSON.stringify(notebooks)),
     dltNtbks: () => localStorage.removeItem('notebooks'),
@@ -16,7 +16,7 @@ export const ntbks = {
 export const chaps = {
     getChaps: () => {
         const chapters = JSON.parse(window.localStorage.getItem('chapters'))
-        return chapters.filter((chap,idx) => chap.userId === login.getId())},
+        return chapters.filter((chap,idx) => chap.userId === login.getUserName())},
     saveChaps: (chapters) => window.localStorage.setItem('chapters', JSON.stringify(chapters)),
     dltChaps: () => localStorage.removeItem('chapters'),
     getChapSelected: () => JSON.parse(window.localStorage.getItem('chapterSelected')),
@@ -27,7 +27,7 @@ export const chaps = {
 export const topcs = {
     getTopics: () => {
         const topics = JSON.parse(window.localStorage.getItem('topics'))
-        return topics.filter((topic,idx) => topic.userId === login.getId());  
+        return topics.filter((topic,idx) => topic.userId === login.getUserName());  
     },
     saveTopics: (topics) => window.localStorage.setItem('topics', JSON.stringify(topics)),
     delTopics: () => localStorage.removeItem('topics'),

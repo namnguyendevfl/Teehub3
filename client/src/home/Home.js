@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { listAccs } from "../utils/api/accountApi";
+import { listUsers } from "../utils/api/accounts";
 
 export default function Home () {
-    const [accs, setAccs] = useState()
+    const [users, setUsers] = useState()
     useEffect(() => {
-        listAccs()
+        listUsers()
         .then((res) =>
-        setAccs(() => res))
+        setUsers(() => res))
     },[])
-    console.log(accs);
+    
     return (
         <div>
             This is home

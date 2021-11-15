@@ -1,9 +1,12 @@
 import "./AccountSignup.css"
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import  useState  from 'react-usestateref'
 import { complementary } from "../utils/icons/complementary/Complementary";
 import { accounts } from "../utils/icons/accounts/accounts";
 import { useNavigate } from "react-router-dom";
-import { createAcc } from "../utils/api/accountApi";
+import { createUser } from "../utils/api/accounts";
+import Errors from "../errors/errors";
+import { boxStyle } from "../utils/styles/boxStyle";
 export default function SignupPopup(props){
     const {
         users, 
@@ -20,56 +23,83 @@ export default function SignupPopup(props){
     } = props
 
     const initialUser = {
-        firstName: "",
-        surName: "",
-        userId : "",
+        first_name: "",
+        sur_name: "",
+        user_name : "",
         password : "",
-        ageDay: "",
-        ageMonth:"",
-        ageYear: "",
+        age_day: null,
+        age_month: null,
+        age_year: null, 
     }
 
-    const ids = ['firstName', 'surName', 'userId', 'password', 'month' ,'day', 'year' ]
-    const [clickedId, setClickId] = useState("")
+    const ids = ['first_name', 'sur_name', 'user_name', 'password', 'month' ,'day', 'year' ]
+    const [clickedId, setClickId, clickedIdRef] = useState("")
     const handleClick = (e) => {
         setClickId(() => e.target.id)
-        const box = document.querySelector(`#${e.target.id}`)
-        box.style.border = "1px solid blue"
-        box.style.boxShadow = "0px 0px 2px 0.1px blue"
+        if (ids.includes(clickedIdRef.current)) boxStyle.focus(e.target.id)
     }
-
     useEffect(() => {
-        ids.forEach((id, idx) => {
-            const box = document.querySelector(`#${id}`)
-            if (id !== clickedId) {
-                if (box) {
-                    box.style.border = "1px solid #adb5bd"
-                    box.style.boxShadow = "none"
-                }
-            }
-        })
+        ids.forEach((id, idx) => (id !== clickedId) && boxStyle.unFocus(id) )
     }, [clickedId, displayCreateAcc])
 
-    const [user, setUser] = useState(initialUser);
-    const [error, setError] = useState(null);
+    const [month, setMonth, monthRef] = useState()
+    const [day, setDay, dayRef] = useState()
+    const [year, setYear, yearRef] = useState()
+    const [ birthday, setBirthday, birthdayRef ] = useState()
+    const [ user, setUser, userRef ] = useState(initialUser);
+    const [ error, setError] = useState(null);
     const handleChange = ({target: {name, value, type, checked}}) => {
         value = type === "checkbox" ? checked : value
+        if (name === "age_month") setMonth(() => value)
+        if (name === "age_day") setDay(() => value)
+        if (name === "age_year") setYear(() => value)
+        const date = new Date(`${monthRef.current}/${dayRef.current}/${yearRef.current}`)
+        if (Object.prototype.toString.call(date) === "[object Date]"){
+            if (isNaN(date.getTime())) {
+                console.log("this is not valud")
+            } else {
+                console.log("this is valid")
+                setBirthday(() => date.toLocaleDateString())
+                
+            }
+        } else {
+            console.log("this is not a date")
+        }
         setUser((prevUser) => ({
             ...prevUser,
-            [name]: value
+            [name]: value,
+            birthday: birthdayRef.current, 
         }))
     }
+    console.log(user.birthday)
+    // const newUserTest = {
+    //     first_name: user.first_name,
+    //     sur_name: user.sur_name,
+    //     user_name : user.user_name,
+    //     password : user.password,
+    //     birthday : user.birthday,
+    // }
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        createAcc(user)
-        .then(() => {
+        const newUser = {
+            first_name: user.first_name,
+            sur_name: user.sur_name,
+            user_name : user.user_name,
+            password : user.password,
+            birthday : user.birthday,
+        }
+        console.log(newUser)
+        createUser(newUser)
+        .then((result) => {
             // setDisplayCreateAcc(() => !displayCreateAcc)
-            setFound(() => true)
-            navigate("/")
+            setFound(() => true);
+            setUser(() => result);
+            navigate("/");
+            console.log(newUser)
         })
+        .catch(setError)
         // createUser(user)
         // .then(() => {
         //     // history.push("/");
@@ -77,7 +107,6 @@ export default function SignupPopup(props){
         // })
         // .catch(setError);
     }
-
     const handleHome = () => {
         // history.push("/");
     };
@@ -87,7 +116,7 @@ export default function SignupPopup(props){
     const now = new Date();
     const currentYear = now.getFullYear()
 
-    const day = (month) => {
+    const dayList = (month) => {
         const months30 = ["April","June","September","November"]
         const dayNum = (() => {
             if (months30.includes(month)) return 30
@@ -100,15 +129,16 @@ export default function SignupPopup(props){
 
     const months = ["January","February","March","April","May","June","July",
     "August","September","October","November","December"];
-    const month = months.map((month,idx) => <option value = {month}>{month}</option>)
+    const monthList = months.map((month,idx) => <option value = {month}>{month}</option>)
 
     const years = []
     for (let i = 1900; i<currentYear-12; i++) years.push(i)
-    const year = years.map((year,idx) => <option value = {year}>{year}</option>)
+    const yearList = years.map((year,idx) => <option value = {year}>{year}</option>)
     
     return ( displayCreateAcc &&
+        <>
         <div className ="accSignupPopup">
-            {/* <Errors error = {error}/> */}
+            <Errors error = {error}/>
             <div className ="row mt-3 mx-0 d-flex align-items-center justify-content-between">
                 <div className = "col-2"></div>
                 <h4  className ="col text-center"> Create your account</h4>
@@ -129,11 +159,11 @@ export default function SignupPopup(props){
                     <div className = "pe-1 ">
                         <input
                             className = "accountSignupInput nameInput px-2 "
-                            id = "firstName"
-                            name = "firstName"
+                            id = "first_name"
+                            name = "first_name"
                             type = "text"
                             placeholder = "First name"
-                            value = {user.firstName}
+                            value = {user.first_name}
                             onChange = {handleChange}
                             onClick = {handleClick}
                             onKeyUp = {handleClick}
@@ -144,11 +174,11 @@ export default function SignupPopup(props){
                     <div className = "ps-1">
                         <input
                             className = " accountSignupInput nameInput px-2 "
-                            id = "surName"
-                            name = "surName"
+                            id = "sur_name"
+                            name = "sur_name"
                             type = "text"
                             placeholder = "Last name"
-                            value = {user.surName}
+                            value = {user.sur_name}
                             onChange = {handleChange}
                             onClick = {handleClick}
                             onKeyUp = {handleClick}
@@ -162,11 +192,11 @@ export default function SignupPopup(props){
             <div className = "d-flex px-3 pt-3">
                 <input
                 className = "accountSignupInput px-2 w-100"
-                id = "userId"
-                name = "userId"
+                id = "user_name"
+                name = "user_name"
                 placeholder = "Phone or email"
                 type = "text"
-                value = {user.userId}
+                value = {user.user_name}
                 onChange = {handleChange}
                 onClick = {handleClick}
                 onKeyUp = {handleClick}
@@ -206,14 +236,15 @@ export default function SignupPopup(props){
                         <select
                             className = "accountSignupInput birthday-select text-start ps-2"
                             id = "month"
-                            name = "ageMonth"
-                            value = {user.ageMonth}
+                            name = "age_month"
+                            type ="date"
+                            value = {user.age_month}
                             onClick = {handleClick}
                             onChange = {handleChange}
                             onKeyUp = {handleClick}
                             >
                             <option> Month </option>
-                            {month}
+                            {monthList}
                         </select>
                         <div className ="birthday-arrowDown">
                             {accounts.downChevron()}
@@ -223,14 +254,15 @@ export default function SignupPopup(props){
                         <select
                             className = "accountSignupInput birthday-select text-start ps-2"
                             id = "day"
-                            name = "ageDay"
-                            value = {user.ageDay}
+                            name = "age_day"
+                            type ="date"
+                            value = {user.age_day}
                             onClick = {handleClick}
                             onChange = {handleChange}
                             onKeyUp = {handleClick}
                             >
                             <option> Day </option>
-                            {day(user.ageMonth)}
+                            {dayList(user.age_month)}
                         </select>
                         <div className ="birthday-arrowDown">
                             {accounts.downChevron()}
@@ -240,15 +272,16 @@ export default function SignupPopup(props){
                         <select
                             className = "accountSignupInput birthday-select text-start ps-2"
                             id = "year"
-                            name = "ageYear"
-                            value = {user.ageYear}
+                            name = "age_year"
+                            type ="date"
+                            value = {user.age_year}
                             onClick = {handleClick}
                             onChange = {handleChange}
                             onKeyUp = {handleClick}
-                            required = "true"
+                            // required = "true"
                             >
                             <option> Year </option>
-                            {year}                          
+                            {yearList}                          
                         </select>
                         <div className = "my-2"> </div>
                         <div className ="birthday-arrowDown">
@@ -257,21 +290,34 @@ export default function SignupPopup(props){
                     </div>
                 </div>
             </div>
+            <div className="text-start px-2 d-flex justify-content-start align-items-center"
+                    style = {{height: "0px"}}
+                >
+                    <input
+                        style = {{
+                            width:"0px",
+                            color:"white",
+                        }}
+                        onKeyUp = {handleClick}
+                        id = "none"
+                    ></input>
+                </div>
             {/* testing  */}
-                    <div className = "m-3">
-                    <button 
+            <div className = "m-3">
+                <button 
                     className = "signupBtn w-100 p-2"
                     type = "submit"
-                    onClick = {(e) => {
-        
-                    }}
-                    >
-                        <span className = "signupBtnFont"> Sign up </span>
-                    </button>
-                    </div>
+                    id = "submit"
+                    onClick = {handleClick}
+                    tabIndex = "-1"
+                >
+                    <span className = "signupBtnFont"> Sign up </span>
+                </button>
+            </div>
  
             </form>
             </div>
         </div>
+        </>
     )
 }

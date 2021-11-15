@@ -1,8 +1,8 @@
 import "./Login.css"
-import React, { useState } from "react";
+import React from "react";
 import AccLogin from "./AccLogin";
-import ComplementaryLogin from "./complementaryLogin";
-import { GetHeight, GetWidth, CentralizeElement } from "../utils/styles/dimensions";
+import ComplementaryLogin from "./ComplementaryLogin";
+import { Centralize } from "../utils/styles/centralize";
 
 export default function Login(props) {
     const {
@@ -19,20 +19,14 @@ export default function Login(props) {
         displayLoginPopup,
         setDisplayLoginPopup
     } = props
-    const centralize = CentralizeElement(530,49,700 ,50)
-
+    const { bgStyle, elementStyle,offsetElementStyle} = Centralize(530,49,700 ,50)
     return ( (!displayLoginPopup && !displayCreateAcc) &&
-        <div className = "loginBg w-100" 
-            style = {centralize.bgStyle}
-        >
-            <div className = "loginBox" 
-                style = {centralize.elementStyle}
-            >
+        <div className = "loginBg w-100" style = {bgStyle} >
+            <div className = "loginBox" style = {elementStyle}>
                 <div className = "loginBoxTop d-flex justify-content-center align-items-center" >
                     <h2 className = "text-center"> Teehub </h2>
                 </div>
                 <div className = "loginBoxMiddle row mx-2">
-        
                     <div className = "col-6 m-0 p-0 position-relative">
                         <ComplementaryLogin 
                             users = {users} 
@@ -69,7 +63,7 @@ export default function Login(props) {
                 <div className ="loginBoxBottom w-100">
                 </div>
             </div>
-            <div style ={{height:`${centralize.offsetElementHeight}px`, width: `${centralize.offsetElementWidth}px`}}></div>
+            <div style ={offsetElementStyle}></div>
         </div>
     )
 }
