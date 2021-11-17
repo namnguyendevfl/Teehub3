@@ -23,17 +23,17 @@ export default function NtBkList(props) {
     } = props
     const [ switchNtbk, setSwitchNtbk ] = useState(false);
 
-    const notebooks = ntbks.getNtbks().filter((ntbk,idx) => ntbk.userId === login.getId());
+    const notebooks = ntbks.getNtbks().filter((ntbk,idx) => ntbk.user_id === login.getLoggedIn().user_id);
     // console.log(notebooks)
     const ntbkToDisplay = ntbkSelected ? ntbkSelected : ntbks.getNtbkSelected()
-    const unchosenNtbks = notebooks.filter((ntbk, idx) => ntbkToDisplay ? ntbk.id !== ntbkToDisplay.id : ntbk.id);
+    const unchosenNtbks = notebooks.filter((ntbk, idx) => ntbkToDisplay ? ntbk.ntbk_id !== ntbkToDisplay.ntbk_id : ntbk.ntbk_id);
     //we can use Link or history.push over here. The difference is with Link, dont put/ in front of url, history.push you need to put "/" in front of url
     // const dropdownNtBkList = notebooks.map((ntbk,idx) => (
     // console.log()
     const dropdownNtbkList = unchosenNtbks.map((ntbk,idx) => (
         <li className = "list-group-item bg-transparent p-0 m-0">
         <Link   className = "link" 
-                    to = {`notebooks/${ntbk.title.replaceAll(" ","-")}`} 
+                    to = {`notebooks/${ntbk.ntbk_title.replaceAll(" ","-")}`} 
                     // to = {`${ntbk.title.replaceAll(" ","-")}`} 
                     >            
             <button     className = "ntbkDropdown bg-transparent list-group-item w-100 text-start"
@@ -43,10 +43,10 @@ export default function NtBkList(props) {
                             setSwitchNtbk(() => !switchNtbk);
                             ntbks.saveNtbkSelected(ntbk);
                             chaps.dltChapSelected();
-                            ntbkSelectedUrl.saveUrl(`notebooks/${ntbk.title.replaceAll(" ","-")}`)
+                            ntbkSelectedUrl.saveUrl(`notebooks/${ntbk.ntbk_title.replaceAll(" ","-")}`)
                         }}
             > 
-                <span style = {{fontSize : "15px"}} className = "text-white"> {ntbk.title} </span>
+                <span style = {{fontSize : "15px"}} className = "text-white"> {ntbk.ntbk_title} </span>
             </button>
             </Link>
         </li>
@@ -68,7 +68,7 @@ export default function NtBkList(props) {
                     <div className = "d-flex align-items-center py-1"> 
                     <h5 className = "d-flex align-items-center m-0"> {
                     ntbkToDisplay
-                    ? <span className = "fs-6"> { ntbkToDisplay.title }</span>
+                    ? <span className = "fs-6"> { ntbkToDisplay.ntbk_title }</span>
                     : <span className= "fs-6 "> Notebooks </span>
                     } 
                     </h5>
@@ -76,8 +76,7 @@ export default function NtBkList(props) {
                     </div >
                     {
                         unchosenNtbks.length !== 0 &&
-                        <button className = "ntbkBtn"  
-                            
+                        <button className = "ntbkBtn"                             
                         id = "switchNtbk"
                         onClick = {(e) => setSwitchNtbk(() => !switchNtbk)}
                 >  

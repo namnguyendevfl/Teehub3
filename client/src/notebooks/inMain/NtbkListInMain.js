@@ -35,31 +35,38 @@ export default function NtbkList(props) {
     const [ error, setError ] = useState(null)
     useEffect(() => {
         listNtbks()
-        .then(setNotebooks)
+        .then(results => {
+            ntbks.saveNtbks(results)
+            setNotebooks(() => results)
+            })
         .catch(setError)
         // listNtbks()
         // .then(setTest)
         // .catch(setError)
 
 
-    },[])
+    },[ntbkAlteredCount])
 
+console.log(notebooks)
     // console.log(ntbks.getNtbkSelected())
     // console.log(test)
+ 
     const ntbkList = notebooks.map((ntbk,idx) => {
+        const title = ntbk.ntbk_title;
+        const id = ntbk.ntbk_id;
         return (
         <li className = "list-group-item m-0 p-0 w-100">
             <Link className = "link"
-                to = {`${ntbk.title.replaceAll(" ","-")}`}
+                to = {`${title.replaceAll(" ","-")}`}
                 >
                 <button className = "list-group-item w-100 m-0 text-start"
                     onClick = {(e) => {                        
                         setNtbkSelected (() => ntbk);
                         ntbks.saveNtbkSelected(ntbk);
-                        ntbkSelectedUrl.saveUrl(`notebooks/${ntbk.title.replaceAll(" ","-")}`)
+                        ntbkSelectedUrl.saveUrl(`notebooks/${title.replaceAll(" ","-")}`)
                     }}
                 > 
-                    {ntbk.title}
+                    {title}
                 </button>
             </Link>
         </li>

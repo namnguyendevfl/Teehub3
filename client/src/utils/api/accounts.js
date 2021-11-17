@@ -18,21 +18,21 @@ export const createUser = async(newUser, signal) => {
     return await fetchJson(url,create);
 }
 
-export const listUsers = async(signal) => {
-    const url = `${API_BASE_URL}/users`;
-    const get = {
-        headers,
-        signal,
-    };
-    return await fetchJson(url,get);
-}
+// export const listUsers = async(signal) => {
+//     const url = `${API_BASE_URL}/users`;
+//     const get = {
+//         headers,
+//         signal,
+//     };
+//     return await fetchJson(url,get);
+// }
 
 
 
 //Login API
 const LOGIN_URL = `${API_BASE_URL}/users/login/${login.getUserName()}`;
 export const createUserLoggingIn = async (userLoggingIn,signal) => {
-    console.log(userLoggingIn)
+    // console.log(userLoggingIn)
     const create = {
         method: "POST",
         headers,
@@ -46,5 +46,5 @@ export const readUserLoggingIn = async(signal) => {
         headers,
         signal,
     };
-    return await fetchJson(LOGIN_URL ,get);    
+    return await fetchJson(LOGIN_URL, get);    
 }

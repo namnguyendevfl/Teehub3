@@ -28,6 +28,8 @@ export default function SignedIn(props) {
         setDisplayCreateAcc,
     } = props
 
+    console.log(login.getLoggedIns())
+
      //First part: Running Pomodoro
     const [isTimerRunning, setIsTimerRunning] = useState(false)
     const [session, setSession] = useState(null)
@@ -128,7 +130,6 @@ export default function SignedIn(props) {
                         setDisplayCom = {setDisplayCom}
                         navOption = {navOption}
                         setNavOption = {setNavOption}
-                        
                         users = {users} 
                         setFound ={setFound} 
                         found = {found} 

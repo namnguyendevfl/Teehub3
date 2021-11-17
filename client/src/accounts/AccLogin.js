@@ -60,8 +60,15 @@ export default function AccLogin(props){
             .then((result) => {
                 setError(() => null)
                 login.saveState(true)
+                const loggedIns = login.saveLoggedIns() ? login.saveLoggedIns() : []
+                loggedIns.push(result)
+                login.saveLoggedIn(result)
+                login.saveLoggedIns(loggedIns)
                 setFound(() => !found)
-                setTest(() => result)}))
+                
+                // console.log(result)
+                // setUserLoggingIn(() => result)
+                }))
         .catch((err) => {
             setUserLoggingIn(() => ({
                 user_name:"",
@@ -71,10 +78,10 @@ export default function AccLogin(props){
         })
     }
 
-        // console.log(userRef.current)
-    const handleHome = () => {
-        // history.push("/");
-    };
+
+    // const handleHome = () => {
+    //     // history.push("/");
+    // };
 
     const loginBoxStyle = (() => {
         if (displayLoginPopup) return {

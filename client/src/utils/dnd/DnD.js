@@ -37,7 +37,7 @@ const DnD = (props) => {
         }))
         let index;
         list.forEach((item, idx) => {
-          if (item.id === selectedItem.id){
+          if (item.ntbk_id === selectedItem.ntbk_id){
             index = idx
           }
         })

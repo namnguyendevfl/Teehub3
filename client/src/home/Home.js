@@ -3,11 +3,11 @@ import { listUsers } from "../utils/api/accounts";
 
 export default function Home () {
     const [users, setUsers] = useState()
-    useEffect(() => {
-        listUsers()
-        .then((res) =>
-        setUsers(() => res))
-    },[])
+    // useEffect(() => {
+    //     listUsers()
+    //     .then((res) =>
+    //     setUsers(() => res))
+    // },[])
     
     return (
         <div>

@@ -4,13 +4,16 @@ import { login } from "./accounts";
 export const ntbks = {
     getNtbks: () => {
         const notebooks = JSON.parse(window.localStorage.getItem('notebooks'))
-        return notebooks.filter((ntbk,idx) => ntbk.userId === login.getUserName());;
+        return notebooks.filter((ntbk,idx) => ntbk.user_id === login.getLoggedIn().user_id);;
     },
     saveNtbks: (notebooks) => window.localStorage.setItem('notebooks', JSON.stringify(notebooks)),
     dltNtbks: () => localStorage.removeItem('notebooks'),
     getNtbkSelected: () => JSON.parse(window.localStorage.getItem('notebookSelected')),
     saveNtbkSelected: (notebook) => window.localStorage.setItem('notebookSelected', JSON.stringify(notebook)),
     dltNtbkSelected: () => localStorage.removeItem('notebookSelected'),
+    getNtbkDlted: () => JSON.parse(window.localStorage.getItem('notebookDlted')),
+    saveNtbkDlted: (notebook) => window.localStorage.setItem('notebookDlted', JSON.stringify(notebook)),
+    dltNtbkDlted: () => localStorage.removeItem('notebookDlted'),
 }
 
 export const chaps = {
@@ -27,7 +30,7 @@ export const chaps = {
 export const topcs = {
     getTopics: () => {
         const topics = JSON.parse(window.localStorage.getItem('topics'))
-        return topics.filter((topic,idx) => topic.userId === login.getUserName());  
+        return topics.filter((topic,idx) => topic.user_id === login.getLoggedIn().user_id);  
     },
     saveTopics: (topics) => window.localStorage.setItem('topics', JSON.stringify(topics)),
     delTopics: () => localStorage.removeItem('topics'),
@@ -53,6 +56,8 @@ export const ntbkCom = {
 
 export const ListToDlt = (props) => {
     const {
+        optionDlted,
+        setOptionDlted,
         optionsDlt,
         setOptionsDlt,
         indicator,      
@@ -64,15 +69,30 @@ export const ListToDlt = (props) => {
             case "topic": return topcs.getTopics();
         }
     })()
-    const optionsDltIds = (optionsDlt) ? optionsDlt.map((optionDlt, idx) => optionDlt.id) : null
-    const newOptions = (!optionsDltIds) ? list : list.filter((option, idx) => !optionsDltIds.includes(option.id))
-    return newOptions.map((option,idx) => 
+    
+    const option = (option, indicator) => {
+        switch (indicator) {
+            case "notebook" : return {
+                id: option.ntbk_id, 
+                title: option.ntbk_title};
+            case "chapter": return {id: option.id, title: option.title};
+            case "topic": return {id: option.id, title: option.title};
+        }       
+    }
+
+    const optionsDltIds = (optionsDlt) ? optionsDlt.map((optionDlt, idx) => option(optionDlt,indicator).id
+    ) : null
+
+
+    const newOptions = (!optionsDltIds) ? list : list.filter((item, idx) => !optionsDltIds.includes(option(item,indicator).id))
+    return newOptions.map((item,idx) => 
         <li className = "dlt me-0 py-1 pe-2 list-group-item d-flex align-items-center justify-content-between">
-        <span>{option.title} </span>
+        <span>{option(item,indicator).title} </span>
         <button 
                 className = "ntbkBtn d-flex align-items-center justify-content-center"
                 onClick = {(e) => {
-                    setOptionsDlt((prevOption) => [...prevOption,option])
+                    setOptionsDlt((prevOption) => [...prevOption,item])
+                    // setOptionDlted(() => item)
                 }}
                 > 
             {complementary.trash()}

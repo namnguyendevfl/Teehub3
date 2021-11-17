@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ListToDlt, ntbks, chaps, topcs } from "../../../utils/localStorage/notebooks";
 import { complementary } from "../../../utils/icons/complementary/Complementary";
+import { dltNtbk } from "../../../utils/api/notebooks";
 
 export default function DltNtBk(props){
     const {
@@ -22,14 +23,32 @@ export default function DltNtBk(props){
         dropdown,
         setDropdown,
     } = props
+
+
+
     const [ ntbksDlted, setNtbksDlted ] = useState ([]);
+    const [ ntbkDlted, setNtbkDlted ] = useState()
+    const [error, setEror] = useState()
     const notebooks = ntbks.getNtbks()
     const chapters = chaps.getChaps()
     const topics = topcs.getTopics()
-    const ntbksDltedIds = ntbksDlted.map((ntbkDlt, idx) => ntbkDlt.id) 
-    const newNotebooks = (!ntbksDlted) ? notebooks : notebooks.filter((notebook, idx) => !ntbksDltedIds.includes(notebook.id))
-    const newChaps = (!ntbksDlted) ? chapters : chapters.filter((chapter, idx) => !ntbksDltedIds.includes(chapter.bookId))
-    const newTops = (!ntbksDlted) ? topics : topics.filter((topic, idx) => !ntbksDltedIds.includes(topic.bookId))
+    const ntbksDltedIds = ntbksDlted.map((ntbkDlt, idx) => ntbkDlt.ntbk_id) 
+    const newNotebooks = (!ntbksDlted) ? notebooks : notebooks.filter((notebook, idx) => !ntbksDltedIds.includes(notebook.ntbk_id))
+    // const newChaps = (!ntbksDlted) ? chapters : chapters.filter((chapter, idx) => !ntbksDltedIds.includes(chapter.bookId))
+    // const newTops = (!ntbksDlted) ? topics : topics.filter((topic, idx) => !ntbksDltedIds.includes(topic.bookId))
+
+    // const handleDlt = (e) => {
+    //     e.preventDefault();
+    //     setDropdown(() => !dropdown);
+    //     setNtbkAlteredCount(() => ntbkAlteredCount + 1);
+    //     ntbks.saveNtbks(newNotebooks);
+    //     const a = ntbkDlted
+    //     ntbks.saveNtbkDlted(ntbkDlted);
+    //     dltNtbk(ntbkDlted)
+    //     .then()
+    //     .catch()
+    // }
+
 
     return (
     <>
@@ -47,6 +66,8 @@ export default function DltNtBk(props){
         <hr className =" m-0 p-0"/>
         <div className = "ntbkOptnBoxList">
             <ListToDlt 
+                        optionDlted = {ntbkDlted}
+                        setOptionDlted = {setNtbkDlted}
                         optionsDlt = { ntbksDlted }
                         setOptionsDlt = { setNtbksDlted }
                         indicator = {"notebook"}
@@ -56,16 +77,20 @@ export default function DltNtBk(props){
         <button 
             className = "mb-3 saveNtbk list-group-item w-100 d-flex align-items-center justify-content-center text-center "
             type = "submit"
-            onClick = {
-                (e) => {
-                    e.preventDefault();
-                    setDropdown(() => !dropdown);
-                    setNtbkAlteredCount(() => ntbkAlteredCount + 1);
-                    ntbks.saveNtbks(newNotebooks);
-                    chaps.saveChaps(newChaps);
-                    topcs.saveTopics(newTops);
-                }
-            }
+            // onClick = {handleDlt}
+                // (e) => {
+                //     e.preventDefault();
+                //     setDropdown(() => !dropdown);
+                //     setNtbkAlteredCount(() => ntbkAlteredCount + 1);
+                //     ntbks.saveNtbks(newNotebooks);
+                //     ntbks.saveNtbkDlted(ntbkDlted);
+                //     dltedNtbk(ntbkDlted)
+                //     .then()
+                //     .catch(setError)
+                //     // chaps.saveChaps(newChaps);
+                //     // topcs.saveTopics(newTops);
+                // }
+            // }
             >
             Save
         </button>

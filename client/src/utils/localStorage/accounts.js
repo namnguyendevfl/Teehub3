@@ -5,9 +5,12 @@ export const login = {
     getUserName: () => JSON.parse(window.localStorage.getItem('loginId')),
     saveUserName: (loginId) => window.localStorage.setItem('loginId', JSON.stringify(loginId)),
     dltUserName: () => localStorage.removeItem('loginId'),
-    getLoggedIns: () => JSON.parse(window.localStorage.getItem('loggedIns')),
-    saveLoggedIns: (loginState) => window.localStorage.setItem('loggedIns', JSON.stringify(loginState)),
-    dltLoggedIns: () => localStorage.removeItem('loginState'),
+    getLoggedIn: () => JSON.parse(window.localStorage.getItem('loginedIN')),
+    saveLoggedIn: (loginState) => window.localStorage.setItem('loginedIN', JSON.stringify(loginState)),
+    dltLoggedIn: () => localStorage.removeItem('loginedIN'),
+    getLoggedIns: () => JSON.parse(window.localStorage.getItem('loginedINs')),
+    saveLoggedIns: (loginState) => window.localStorage.setItem('loginedINs', JSON.stringify(loginState)),
+    dltLoggedIns: () => localStorage.removeItem('loginedINs'),
 }
 
 

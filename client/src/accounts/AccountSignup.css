@@ -40,26 +40,33 @@ select {
 
 .signupBtn{
     background: #0d6efd;
+    /* background: lightgray!important; */
 }
 .createAccBtn{
     /* background: #6a994e; */
+    /* background: lightgray!important; */
     color: black !important;
-    background: none !important;
+    background: #e9ecef
 }
 .signAllOutBtn {
     /* background: #ae2012; */
+    /* background: lightgray!important; */
     color:black !important;
-    background: none
+    background: #e9ecef
 }
 .signupBtnFont {
     font-weight: 700;
 }
 .signupBtn:hover {
     opacity: 0.9;   
+ 
 }
 .createAccBtn:hover, .signAllOutBtn:hover {
     /* opacity: 0.9; */
     background: lightgray!important;
+    /* box-shadow: 0px 0px 5px 0.7px #6c757d;     */
+    transition: 0.75s ease-in-out 0s;
+
 }
 
 

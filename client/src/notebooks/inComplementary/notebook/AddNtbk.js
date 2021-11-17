@@ -5,6 +5,7 @@ import { complementary } from "../../../utils/icons/complementary/Complementary"
 import { login } from "../../../utils/localStorage/accounts";
 import { createNtbk } from "../../../utils/api/notebooks";
 import Errors from "../../../errors/errors";
+import { useNavigate } from "react-router-dom"
 
 export default function AddNtbk(props){
     const {
@@ -28,14 +29,14 @@ export default function AddNtbk(props){
     } = props
 
     const initialNoteBook = {
-        userId : "",
-        title: "",
-        id : "",
+        // user_id:"",
+        ntbk_title: "",
+        ntbk_id : "",
     }
     const [ error, setError ] = useState(null)
     const [ newNtbk, setNewNtbk ] = useState(initialNoteBook);
     const notebooks = ntbks.getNtbks();
-    const notebookIds = notebooks.map((notebook, idx) => notebook.id)
+    const notebookIds = notebooks.map((notebook, idx) => notebook.ntbk_id)
     const maxId = Math.max(...notebookIds)
     const handleChange = ({target: { name, value }}) => {
         const id = (() => {
@@ -48,18 +49,20 @@ export default function AddNtbk(props){
         })() 
         setNewNtbk((prevNtbk) => ({
             ...prevNtbk,
-            userId: login.getId(),
             [name]: value,
-            id: id
+            user_id: login.getLoggedIn().user_id,
+            ntbk_id: id
         }))
     }
     
+    const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
         createNtbk(newNtbk)
         .then(() => {
             setDropdown(() => !dropdown)
             setNtbkAlteredCount(() => ntbkAlteredCount + 1)
+            navigate("/notebooks")
             // notebooks.push(newNtbk);
             // ntbks.saveNtbks(notebooks);
         })
@@ -91,10 +94,10 @@ export default function AddNtbk(props){
             <div>
                 <TextareaAutosize
                     className = "textarea ntbkTextarea w-100 px-3 pt-2 text-start w-100"
-                    id = "title"
-                    name = "title"
+                    id = "ntbk_title"
+                    name = "ntbk_title"
                     placeholder = "Write a notebook title"
-                    value = {newNtbk.title}
+                    value = {newNtbk.ntbk_title}
                     onChange = {handleChange}
                 />
             </div>   

@@ -7,6 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api/accounts";
 import Errors from "../errors/errors";
 import { boxStyle } from "../utils/styles/boxStyle";
+import { Users, usersIndexedDB } from '../utils/IndexedDB/db';
+
+
+
+
+
 export default function SignupPopup(props){
     const {
         users, 
@@ -31,6 +37,26 @@ export default function SignupPopup(props){
         age_month: null,
         age_year: null, 
     }
+    const [ user, setUser, userRef ] = useState(initialUser);
+//Working on indexedDb
+
+
+
+// const [ test, setTest ] = useState()
+// const [ count1, setCount1 ] = useState()
+// const addUser = e => {
+//     e.preventDefault();
+//     usersIndexedDB().dlt(3);
+//     setCount(() => count1 + 1)
+// }
+
+// useEffect(() => {usersIndexedDB().get
+//     .then(setTest)
+    
+//     console.log(test)},[count1])
+
+//
+
 
     const ids = ['first_name', 'sur_name', 'user_name', 'password', 'month' ,'day', 'year' ]
     const [clickedId, setClickId, clickedIdRef] = useState("")
@@ -46,7 +72,7 @@ export default function SignupPopup(props){
     const [day, setDay, dayRef] = useState()
     const [year, setYear, yearRef] = useState()
     const [ birthday, setBirthday, birthdayRef ] = useState()
-    const [ user, setUser, userRef ] = useState(initialUser);
+  
     const [ error, setError] = useState(null);
     const handleChange = ({target: {name, value, type, checked}}) => {
         value = type === "checkbox" ? checked : value
@@ -56,14 +82,14 @@ export default function SignupPopup(props){
         const date = new Date(`${monthRef.current}/${dayRef.current}/${yearRef.current}`)
         if (Object.prototype.toString.call(date) === "[object Date]"){
             if (isNaN(date.getTime())) {
-                console.log("this is not valud")
+                // console.log("this is not valud")
             } else {
-                console.log("this is valid")
+                // console.log("this is valid")
                 setBirthday(() => date.toLocaleDateString())
                 
             }
         } else {
-            console.log("this is not a date")
+            // console.log("this is not a date")
         }
         setUser((prevUser) => ({
             ...prevUser,
@@ -71,15 +97,6 @@ export default function SignupPopup(props){
             birthday: birthdayRef.current, 
         }))
     }
-    console.log(user.birthday)
-    // const newUserTest = {
-    //     first_name: user.first_name,
-    //     sur_name: user.sur_name,
-    //     user_name : user.user_name,
-    //     password : user.password,
-    //     birthday : user.birthday,
-    // }
-
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -90,28 +107,15 @@ export default function SignupPopup(props){
             password : user.password,
             birthday : user.birthday,
         }
-        console.log(newUser)
         createUser(newUser)
         .then((result) => {
-            // setDisplayCreateAcc(() => !displayCreateAcc)
+            setDisplayCreateAcc(() => !displayCreateAcc)
             setFound(() => true);
             setUser(() => result);
-            navigate("/");
-            console.log(newUser)
+            navigate("/");     
         })
         .catch(setError)
-        // createUser(user)
-        // .then(() => {
-        //     // history.push("/");
-        //     setCount(() => count++);
-        // })
-        // .catch(setError);
     }
-    const handleHome = () => {
-        // history.push("/");
-    };
-
-
     
     const now = new Date();
     const currentYear = now.getFullYear()

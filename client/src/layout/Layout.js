@@ -5,7 +5,8 @@ import SignedIn from "./SignedIn";
 import SigningIn from "./SigningIn";
 import { useNavigate } from "react-router-dom";
 import Errors from "../errors/errors";
-import { listUsers} from "../utils/api/accounts";
+import { readUserLoggingIn } from "../utils/api/accounts";
+import { login } from "../utils/localStorage/accounts";
 
 export default function Layout() {
     let userId = null;
@@ -16,6 +17,7 @@ export default function Layout() {
     // userId = JSON.parse(userId);
     // let matchUser = window.localStorage.getItem('login');
     // matchUser = JSON.parse(matchUser);
+
 
     const initialUser = {
         first_name: "",
@@ -29,30 +31,34 @@ export default function Layout() {
         acceptTerm: "",
         remember_pass:"",
         guest_mode:"",
+        birthday:"",
+        is_active:"",
     }
     
-    const [found, setFound ] = useState(false);
-    const [users, setUsers] = useState([]);
-    const [count, setCount] = useState(0);
-    // const [userLogedIn, setUserLogedIn] = useState(matchUser?matchUser[0]:initialUser);
+    const [ found, setFound ] = useState(false);
+    const [ users, setUsers] = useState([]);
+    const [ count, setCount] = useState(0);
     const [ displayCreateAcc, setDisplayCreateAcc ] = useState(false)
     const [ displayLoginPopup, setDisplayLoginPopup ] = useState(false)
     const [ userLoggingIn, setUserLoggingIn] = useState(initialUser);
     const [ error, setError] = useState(null);
     const navigate = useNavigate();
+    const [ test, setTest ] = useState()
     useEffect (() => {
         const abortController = new AbortController();
         navigate("/")
-        listUsers(abortController.signal)
-        .then(setUsers)
-        .catch(setError)
+        // readUserLoggingIn(abortController.signal)
+        // .then(setTest)
+        // .catch(setError)
         return () => abortController.abort()
     }, [count]);
+    console.log(test)
     
+
     useEffect (() => {setUserLoggingIn(() => initialUser)},[displayLoginPopup])
     return(
         <>
-        <Errors error = {error}/>
+        {/* <Errors error = {error}/> */}
         <SignedIn 
             userId = {userId}
             found = {found}
